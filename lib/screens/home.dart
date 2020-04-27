@@ -2,7 +2,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/second_screen.dart';
-import 'package:homesweethome/my_drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   @override

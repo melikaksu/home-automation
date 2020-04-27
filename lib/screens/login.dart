@@ -1,11 +1,9 @@
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/sign_in_wit_email.dart';
 import 'package:homesweethome/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Giris extends StatefulWidget {
   @override

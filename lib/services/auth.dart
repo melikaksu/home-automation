@@ -154,13 +154,13 @@ Future<FirebaseUser> signInGoogleNew() async{
 
   providerData.add(providerInfo);
 
-  UserDetails details = new UserDetails(
-    userDetails.providerId,
-    userDetails.displayName,
-    userDetails.photoUrl,
-    userDetails.email,
-    providerData,
-  );
+  // UserDetails details = new UserDetails(
+  //   userDetails.providerId,
+  //   userDetails.displayName,
+  //   userDetails.photoUrl,
+  //   userDetails.email,
+  //   providerData,
+  // );
 
 
   return userDetails;

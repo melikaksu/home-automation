@@ -12,8 +12,10 @@ class Wrapper extends StatelessWidget {
        return StreamBuilder(
        stream: FirebaseAuth.instance.onAuthStateChanged,
        builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
-         var at= snapshot.data;
-         if(snapshot.connectionState==ConnectionState.waiting){
+
+        //  var at= snapshot.data;
+         
+        if(snapshot.connectionState==ConnectionState.waiting){
            return SpinKitWave(
              color: Colors.deepOrange,
              size: 40,
