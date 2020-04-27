@@ -22,25 +22,14 @@ User _userFromFirebaseUser(FirebaseUser at)=>at!=null
 ///////////////////////////////////////////
 
 Stream<User> get user {
+
   return _auth.onAuthStateChanged
 //      .map((FirebaseUser user)=> _userFromFirebaseUser(user));
          .map(_userFromFirebaseUser);
 }
 
 ///////////////////////////////////////////
-Future signAnon () async {
-  try{
-     AuthResult result=await _auth.signInAnonymously();
-     FirebaseUser user=result.user;
-     return _userFromFirebaseUser(user);
-  }
-  catch(e){
-    print(e.toString());
-    return null;
-  }
-}
 
-///////////////////////////////////////////
 
 Future registerWithEmail(String email,String password) async{
 
@@ -73,24 +62,13 @@ await _auth.sendPasswordResetEmail(email: email);
 
 ///////////////////////////////////////////
 
-Future signOut() async {
-  try{
-    return await _auth.signOut();
 
-
-  }
-  catch(e){
-    print(e.toString());
-    return null;
-  }
-}
-///////////////////////////////////////////
 
 Future signInWithEmail (String email,String password) async{
   try {
     AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user=result.user;
-    return _userFromFirebaseUser(user);
+    return _userFromFirebaseUser(user) !=null;
   }
   catch (e){
     print(e.toString());
@@ -130,9 +108,13 @@ return 'signInWithGoogle succeeded: ${user.uid}';
 ///////////////////////////////////////////
 
 Future signOutGoogle() async{
+  try{
   await googleSignIn.signOut();
   await _auth.signOut();
-  print("User Sign Out");
+  print("User Sign Out");}catch(e){
+    print(e.toString());
+    return null;}
+  
 }
 
 ///////////////////////////////////////////

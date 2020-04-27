@@ -2,11 +2,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homesweethome/models/task.dart';
+import 'package:homesweethome/services/auth.dart';
+
 
 
 
   
 final FirebaseAuth _auth=FirebaseAuth.instance;
+var at= AuthService();
 final  currentUser =  _auth.currentUser().then((a)=>a.email);
 
 

@@ -32,8 +32,6 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     // setState(() {
     //   if (widget.registerMail!=null && widget.registerMail!=''){
     //     _emailCont.text=widget.registerMail;
@@ -220,16 +218,20 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                                     ),
                                     onPressed: () async {
                                       if (_formKey.currentState.validate()) {
-                                        await _auth
-                                            .signInWithEmail(_email, _password)
-                                            .whenComplete(() {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          MyHomePage()));
-                                        });
+                                       
+                                          await _auth
+                                              .signInWithEmail(
+                                                  _email, _password)
+                                              .whenComplete(() { 
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        MyHomePage()));
+                                          }).catchError((e)=>print(e.toString()));
+                                       
+                                        
 
                                         // dynamic res = await _auth
                                         //     .signInWithEmail(_email, _password);

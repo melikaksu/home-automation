@@ -238,15 +238,27 @@ class _RegisterState extends State<Register> {
                               onPressed: () async {
                                 
                                 if (_formKey.currentState.validate()) {
-                                  try{
-                                  await _auth.registerWithEmail(
+                                
+                                    var res=   await _auth.registerWithEmail(
                                         _email, _password);
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) =>SignInWithEmail()));
+                                        if(res==bool){
+                                          if(res){ Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) =>SignInWithEmail()));}
+                                          else{
+                                              setState(() {
+                                                error="Sign Up Failed";
+                                              });                                          
+                                       Future.delayed(Duration.zero, () => _showDialog());
 
-                                  }
-                                    catch(e){
-                                    return e;
-                                           }
+                                          }
+
+                            }
+                            else{
+                              error=res.toString();
+                              Future.delayed(Duration.zero, () => _showDialog()); 
+                            }
+                                 
+
+                                 
                                 }
 
                               },
