@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/task.dart';
-import 'package:homesweethome/my_drawer.dart';
 import 'package:homesweethome/services/firestore.dart';
+import 'package:homesweethome/shared/my_drawer.dart';
 
 class TaskScreen extends StatefulWidget {
   final Task task;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:homesweethome/my_drawer.dart';
+import 'package:homesweethome/shared/my_drawer.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatelessWidget{

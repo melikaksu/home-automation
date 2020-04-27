@@ -6,12 +6,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/task.dart';
 import 'package:homesweethome/services/firestore.dart';
 
-class ListViewer extends StatefulWidget {
+class DaylyOutgoing extends StatefulWidget {
   @override
-  _ListViewerState createState() => _ListViewerState();
+  _DaylyOutgoingState createState() => _DaylyOutgoingState();
 }
 
-class _ListViewerState extends State<ListViewer> {
+class _DaylyOutgoingState extends State<DaylyOutgoing> {
 List<Task> items;
   FirestoreService fireServ = new FirestoreService();
   StreamSubscription<QuerySnapshot> todoTasks;

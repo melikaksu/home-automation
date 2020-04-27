@@ -91,6 +91,9 @@ flutter:
       fonts:
         - asset: fonts/Lobster-Regular.ttf
           weight: 400
+    - family: ShadowsIntoLight
+      fonts:
+        - asset: fonts/ShadowsIntoLight-Regular.ttf  
 
 
 
