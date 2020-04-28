@@ -122,7 +122,7 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
         colorval = Color(0xfffb537f);
         break;
       case 'Eğitim':
-        iconval = FontAwesomeIcons.dumbbell;
+        iconval = FontAwesomeIcons.graduationCap;
         colorval = Color(0xff4caf50);
         break;
       case 'Diğer':
