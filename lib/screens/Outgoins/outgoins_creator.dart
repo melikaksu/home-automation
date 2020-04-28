@@ -15,21 +15,40 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  FirestoreService fireServ = new FirestoreService();
-  
+
+//   createData(){
+// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
+// Map<String,dynamic> tasks={
+//   "taskname":taskName,
+//   "taskdate":taskDate,
+//   "tasktime":taskTime,
+//   "taskdetails":taskDetails,
+//   "tasktype":taskVal
+
+// };
+// ds.setData(tasks).whenComplete((){
+//   print("Task Created");
+// });
+
+//   }
+// getname(taskname)=>this.taskName=taskname;
+// getdate(taskdate)=>this.taskDate=taskdate;
+// gettime(tasktime)=>this.taskTime=tasktime;
+// getdetails(taskdetails)=>this.taskDetails=taskdetails;
+
+
+  FirestoreService fireServ = FirestoreService();
+  TextEditingController _nameController;
+  TextEditingController _quantityController;
+
      var _userUid;
      _getUserName() async =>
       await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => this._userUid = user.uid);
       });
 
-// getname(taskname)=>this.taskName=taskname;
-// getdate(taskdate)=>this.taskDate=taskdate;
-// gettime(tasktime)=>this.taskTime=tasktime;
-// getdetails(taskdetails)=>this.taskDetails=taskdetails;
 
-  TextEditingController _nameController;
-  TextEditingController _quantityController;
+
 
 
   
@@ -58,21 +77,7 @@ class _TaskScreenState extends State<TaskScreen> {
       }
     });
   }
-//   createData(){
-// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
-// Map<String,dynamic> tasks={
-//   "taskname":taskName,
-//   "taskdate":taskDate,
-//   "tasktime":taskTime,
-//   "taskdetails":taskDetails,
-//   "tasktype":taskVal
 
-// };
-// ds.setData(tasks).whenComplete((){
-//   print("Task Created");
-// });
-
-//   }
 
    @override
   void initState() {
@@ -81,15 +86,7 @@ class _TaskScreenState extends State<TaskScreen> {
      _nameController = new TextEditingController(text: widget.task.name);
      _quantityController = new TextEditingController(text: widget.task.quantity.toString());
 
-  }
-     @override
-     void dispose() {
-    // TODO: implement dispose
-    _getUserName();
-    super.dispose();
-  }
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
