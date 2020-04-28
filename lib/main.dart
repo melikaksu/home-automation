@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Giderler',
         theme: ThemeData(
             cursorColor: Colors.black,
             //brightness: Brightness.dark,
