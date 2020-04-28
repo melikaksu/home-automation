@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
 
-        title: 'Giderler',
+        title: 'Giderler gafg',
         theme: ThemeData(
             cursorColor: Colors.black,
             //brightness: Brightness.dark,
