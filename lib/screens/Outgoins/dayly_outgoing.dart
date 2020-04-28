@@ -11,6 +11,7 @@ class DaylyOutgoing extends StatefulWidget {
 }
 
 class _DaylyOutgoingState extends State<DaylyOutgoing> {
+
   List<Outgoing> items;
 
   FirestoreService fireServ = new FirestoreService();
@@ -119,30 +120,6 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
 }
 
 
-Widget todoType(String icontype) {
-  IconData iconval;
-  Color colorval;
-  switch (icontype) {
-    case 'Seyahat':
-      iconval = FontAwesomeIcons.mapMarkerAlt;
-      colorval = Color(0xff4158ba);
-      break;
-    case 'Spor':
-      iconval = FontAwesomeIcons.dumbbell;
-      colorval = Color(0xfffb537f);
-      break;
-    case 'Alışveriş':
-      iconval = FontAwesomeIcons.shoppingBasket;
-      colorval = Color(0xff4caf50);
-      break;
-    case 'Eğitim':
-      iconval = FontAwesomeIcons.graduationCap;
-      colorval = Color(0xff9962d0);
-      break;
-    default:
-      iconval = FontAwesomeIcons.otter;
-      colorval = Color(0xff0dc8f5);
-
  Widget todoType(String icontype) {
     IconData iconval;
     Color colorval;
@@ -172,10 +149,5 @@ Widget todoType(String icontype) {
       backgroundColor: colorval,
       child: Icon(iconval, color: Colors.white, size: 20.0),
     );
->>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
-  }
-  return CircleAvatar(
-    backgroundColor: colorval,
-    child: Icon(iconval, color: Colors.white, size: 20.0),
-  );
+  
 }
