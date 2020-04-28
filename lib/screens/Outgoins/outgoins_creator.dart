@@ -2,43 +2,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/models/task.dart';
+import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 
-class TaskScreen extends StatefulWidget {
-  final Task task;
-  TaskScreen(this.task);
+class OutgoingScreen extends StatefulWidget {
+  final Outgoing outgoings;
+
+  OutgoingScreen(this.outgoings);
 
   @override
-  _TaskScreenState createState() => _TaskScreenState();
+  _OutgoingScreenState createState() => _OutgoingScreenState();
 }
 
-class _TaskScreenState extends State<TaskScreen> {
-  //   createData(){
-// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
-// Map<String,dynamic> tasks={
-//   "taskname":taskName,
-//   "taskdate":taskDate,
-//   "tasktime":taskTime,
-//   "taskdetails":taskDetails,
-//   "tasktype":taskVal
-
-// };
-// ds.setData(tasks).whenComplete((){
-//   print("Task Created");
-// });
-
-//   }
-// getname(taskname)=>this.taskName=taskname;
-// getdate(taskdate)=>this.taskDate=taskdate;
-// gettime(tasktime)=>this.taskTime=tasktime;
-// getdetails(taskdetails)=>this.taskDetails=taskdetails;
-
+class _OutgoingScreenState extends State<OutgoingScreen> {
   FirestoreService fireServ = new FirestoreService();
 
   var _userUid;
-  _getUserName() async =>
+  _getUserUid() async =>
       await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => this._userUid = user.uid);
       });
@@ -46,38 +27,41 @@ class _TaskScreenState extends State<TaskScreen> {
   TextEditingController _nameController;
   TextEditingController _quantityController;
 
-  int _myTaskType = 0;
-  String taskVal;
-  void _handleTaskType(int value) {
+  int _myOutgoingType = 0;
+  String outgoingVal;
+  void _handleOutgoingType(int value) {
     setState(() {
-      _myTaskType = value;
-      switch (_myTaskType) {
+      _myOutgoingType = value;
+      switch (_myOutgoingType) {
         case 1:
-          taskVal = 'Seyahat';
+          outgoingVal = 'Seyahat';
           break;
         case 2:
-          taskVal = 'Spor';
+          outgoingVal = 'Spor';
           break;
         case 3:
-          taskVal = 'Alışveriş';
+          outgoingVal = 'Alışveriş';
           break;
         case 4:
-          taskVal = 'Eğitim';
+          outgoingVal = 'Eğitim';
           break;
         case 5:
-          taskVal = 'Diğer';
+          outgoingVal = 'Diğer';
           break;
       }
     });
   }
 
+ 
+
+
+
   @override
   void initState() {
-    _getUserName();
+    _getUserUid();
     super.initState();
-    _nameController = new TextEditingController(text: widget.task.name);
-    _quantityController =
-        new TextEditingController(text: widget.task.quantity.toString());
+    _nameController =    TextEditingController(text: widget.outgoings.name);
+    _quantityController =TextEditingController(text: widget.outgoings.quantity.toString());
   }
 
   @override
@@ -170,8 +154,8 @@ class _TaskScreenState extends State<TaskScreen> {
                       children: <Widget>[
                         Radio(
                           value: 1,
-                          groupValue: _myTaskType,
-                          onChanged: _handleTaskType,
+                          groupValue: _myOutgoingType,
+                          onChanged: _handleOutgoingType,
                           activeColor: Color(0xff4158ba),
                         ),
                         Text(
@@ -195,8 +179,8 @@ class _TaskScreenState extends State<TaskScreen> {
                       children: <Widget>[
                         Radio(
                           value: 2,
-                          groupValue: _myTaskType,
-                          onChanged: _handleTaskType,
+                          groupValue: _myOutgoingType,
+                          onChanged: _handleOutgoingType,
                           activeColor: Color(0xfffb537f),
                         ),
                         Text(
@@ -214,8 +198,8 @@ class _TaskScreenState extends State<TaskScreen> {
                       children: <Widget>[
                         Radio(
                           value: 3,
-                          groupValue: _myTaskType,
-                          onChanged: _handleTaskType,
+                          groupValue: _myOutgoingType,
+                          onChanged: _handleOutgoingType,
                           activeColor: Color(0xff4caf50),
                         ),
                         Text(
@@ -231,8 +215,8 @@ class _TaskScreenState extends State<TaskScreen> {
                       children: <Widget>[
                         Radio(
                           value: 4,
-                          groupValue: _myTaskType,
-                          onChanged: _handleTaskType,
+                          groupValue: _myOutgoingType,
+                          onChanged: _handleOutgoingType,
                           activeColor: Color(0xff9962d0),
                         ),
                         Text(
@@ -248,8 +232,8 @@ class _TaskScreenState extends State<TaskScreen> {
                       children: <Widget>[
                         Radio(
                           value: 5,
-                          groupValue: _myTaskType,
-                          onChanged: _handleTaskType,
+                          groupValue: _myOutgoingType,
+                          onChanged: _handleOutgoingType,
                           activeColor: Color(0xff0dc8f5),
                         ),
                         Text(
@@ -289,14 +273,15 @@ class _TaskScreenState extends State<TaskScreen> {
                       color: Color(0xffff0863),
                       onPressed: () {
                         fireServ
-                            .createTaskList(
+                            .createOutgoingList(
                                 name: _nameController.text,
                                 quantity: int.parse(_quantityController.text),
-                                type: taskVal)
+                                type: outgoingVal)
                             .then((_) => Navigator.of(context).pop());
-                        setState(() {
-                          fireServ.name = _userUid;
-                        });
+                            setState(() {
+      fireServ.name = _userUid; 
+    });
+                      
                       },
                       child: const Text(
                         "ONAYLA",

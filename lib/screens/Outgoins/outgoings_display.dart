@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/models/task.dart';
+import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/screens/Outgoins/outgoins_creator.dart';
-import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_appbar.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'dayly_outgoing.dart';
@@ -15,27 +13,27 @@ class OutgoingPage extends StatefulWidget {
 }
 
 class _OutgoingPageState extends State<OutgoingPage> {
-  List<Task> items;
-  FirestoreService fireServ = new FirestoreService();
-  StreamSubscription<QuerySnapshot> todoTasks;
+  // List<Outgoing> items;
+  // FirestoreService fireServ = new FirestoreService();
+  // StreamSubscription<QuerySnapshot> todoTasks;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    items = new List();
+  //   items = new List();
 
-    todoTasks?.cancel();
-    todoTasks = fireServ.getTaskList().listen((QuerySnapshot snapshot) {
-      final List<Task> tasks = snapshot.documents
-          .map((documentSnapshot) => Task.fromMap(documentSnapshot.data))
-          .toList();
+  //   todoTasks?.cancel();
+  //   todoTasks = fireServ.getOutgoingList().listen((QuerySnapshot snapshot) {
+  //     final List<Outgoing> outgoings = snapshot.documents
+  //         .map((documentSnapshot) => Outgoing.fromMap(documentSnapshot.data))
+  //         .toList();
 
-      setState(() {
-        this.items = tasks;
-      });
-    });
-  }
+  //     setState(() {
+  //       this.items = outgoings;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +50,7 @@ class _OutgoingPageState extends State<OutgoingPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        TaskScreen(Task('', '',0,))));
+                        OutgoingScreen(Outgoing('', '',0,))));
           },
           elevation: 5,
           highlightElevation: 3,
@@ -72,36 +70,36 @@ class _OutgoingPageState extends State<OutgoingPage> {
     );
   }
 
-  Widget todoType(String icontype) {
-    IconData iconval;
-    Color colorval;
-    switch (icontype) {
-      case 'travel':
-        iconval = FontAwesomeIcons.mapMarkerAlt;
-        colorval = Color(0xff4158ba);
-        break;
-      case 'shopping':
-        iconval = FontAwesomeIcons.shoppingCart;
-        colorval = Color(0xfffb537f);
-        break;
-      case 'gym':
-        iconval = FontAwesomeIcons.dumbbell;
-        colorval = Color(0xff4caf50);
-        break;
-      case 'party':
-        iconval = FontAwesomeIcons.glassCheers;
-        colorval = Color(0xff9962d0);
-        break;
-      default:
-        iconval = FontAwesomeIcons.tasks;
-        colorval = Color(0xff0dc8f5);
-      //
-    }
-    return CircleAvatar(
-      backgroundColor: colorval,
-      child: Icon(iconval, color: Colors.white, size: 20.0),
-    );
-  }
+  // Widget todoType(String icontype) {
+  //   IconData iconval;
+  //   Color colorval;
+  //   switch (icontype) {
+  //     case 'travel':
+  //       iconval = FontAwesomeIcons.mapMarkerAlt;
+  //       colorval = Color(0xff4158ba);
+  //       break;
+  //     case 'shopping':
+  //       iconval = FontAwesomeIcons.shoppingCart;
+  //       colorval = Color(0xfffb537f);
+  //       break;
+  //     case 'gym':
+  //       iconval = FontAwesomeIcons.dumbbell;
+  //       colorval = Color(0xff4caf50);
+  //       break;
+  //     case 'party':
+  //       iconval = FontAwesomeIcons.glassCheers;
+  //       colorval = Color(0xff9962d0);
+  //       break;
+  //     default:
+  //       iconval = FontAwesomeIcons.tasks;
+  //       colorval = Color(0xff0dc8f5);
+  //     //
+  //   }
+  //   return CircleAvatar(
+  //     backgroundColor: colorval,
+  //     child: Icon(iconval, color: Colors.white, size: 20.0),
+  //   );
+  // }
 
   // Widget _myAppBar(context) {
   //   return Container(

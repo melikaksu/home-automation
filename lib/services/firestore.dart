@@ -1,6 +1,6 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:homesweethome/models/task.dart';
+import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'dart:async';
 
@@ -23,8 +23,9 @@ import 'dart:async';
 // final CollectionReference myCollection=Firestore.instance.collection('list');
 
  class FirestoreService {
+
     String value;
-    static String col="init";
+    static String col=" ";
     String get collectionName {
     return value;
      }
@@ -41,7 +42,7 @@ import 'dart:async';
 
 //////////////////////////////////////////////////////////////////////////////
 
-  Future<Task> createTaskList({
+  Future<Outgoing> createOutgoingList({
     String name,
     String type,
     int quantity
@@ -49,15 +50,16 @@ import 'dart:async';
 
       final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(myCollection.document());
-      final Task tasks = Task(name,type,quantity);
-      final Map<String, dynamic> data = tasks.toMap();
+     
+      final Outgoing outgoings = Outgoing(name,type,quantity);
+      final Map<String, dynamic> data = outgoings.toMap();
       await tx.set(ds.reference, data);
       return data;
     };
 
 
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
-      return Task.fromMap(mapData);
+      return Outgoing.fromMap(mapData);
     }).catchError((onError) {
       print("Error:$onError");
       return null;
@@ -65,7 +67,7 @@ import 'dart:async';
   }
 //////////////////////////////////////////////////////////////////////////////
 
-  Stream<QuerySnapshot> getTaskList({int offset, int limit,}) {
+  Stream<QuerySnapshot> getOutgoingList({int offset, int limit,}) {
     Stream<QuerySnapshot> snapshots = myCollection.snapshots();
 
     if (offset != null) {
