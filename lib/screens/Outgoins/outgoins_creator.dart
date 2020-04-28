@@ -6,6 +6,7 @@ import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 
+<<<<<<< HEAD
 class OutgoingScreen extends StatefulWidget {
   final Outgoing outgoings;
 
@@ -30,6 +31,49 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   int _myOutgoingType = 0;
   String outgoingVal;
   void _handleOutgoingType(int value) {
+=======
+class OutgoingsCreatorPage extends StatefulWidget {
+  final Task task;
+  OutgoingsCreatorPage(this.task);
+
+  @override
+  _OutgoingsCreatorPageState createState() => _OutgoingsCreatorPageState();
+}
+
+class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
+//   createData(){
+// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
+// Map<String,dynamic> tasks={
+//   "taskname":taskName,
+//   "taskdate":taskDate,
+//   "tasktime":taskTime,
+//   "taskdetails":taskDetails,
+//   "tasktype":taskVal
+
+// };
+// ds.setData(tasks).whenComplete((){
+//   print("Task Created");
+// });
+
+//   }// getname(taskname)=>this.taskName=taskname;
+// getdate(taskdate)=>this.taskDate=taskdate;
+// gettime(tasktime)=>this.taskTime=tasktime;
+// getdetails(taskdetails)=>this.taskDetails=taskdetails;
+
+  FirestoreService fireServ = new FirestoreService();
+  TextEditingController _nameController;
+  TextEditingController _quantityController;
+  
+     var _userUid;
+     _getUserName() async =>
+      await FirebaseAuth.instance.currentUser().then((user) {
+        setState(() => this._userUid = user.uid);
+      });
+
+  int _myTaskType = 0;
+  String taskVal;
+  void _handleTaskType(int value) {
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
     setState(() {
       _myOutgoingType = value;
       switch (_myOutgoingType) {
@@ -51,11 +95,15 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
       }
     });
   }
+<<<<<<< HEAD
 
  
+=======
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
 
 
 
+<<<<<<< HEAD
   @override
   void initState() {
     _getUserUid();
@@ -63,6 +111,10 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
     _nameController =    TextEditingController(text: widget.outgoings.name);
     _quantityController =TextEditingController(text: widget.outgoings.quantity.toString());
   }
+=======
+  }
+  
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
 
   @override
   Widget build(BuildContext context) {
@@ -292,5 +344,9 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
             ],
           ),
         ));
+<<<<<<< HEAD
   }
 }
+=======
+  }}
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81

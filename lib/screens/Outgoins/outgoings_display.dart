@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
@@ -13,7 +12,11 @@ class OutgoingPage extends StatefulWidget {
 }
 
 class _OutgoingPageState extends State<OutgoingPage> {
+<<<<<<< HEAD
   // List<Outgoing> items;
+=======
+  // List<Task> items;
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
   // FirestoreService fireServ = new FirestoreService();
   // StreamSubscription<QuerySnapshot> todoTasks;
 
@@ -24,6 +27,7 @@ class _OutgoingPageState extends State<OutgoingPage> {
   //   items = new List();
 
   //   todoTasks?.cancel();
+<<<<<<< HEAD
   //   todoTasks = fireServ.getOutgoingList().listen((QuerySnapshot snapshot) {
   //     final List<Outgoing> outgoings = snapshot.documents
   //         .map((documentSnapshot) => Outgoing.fromMap(documentSnapshot.data))
@@ -31,6 +35,15 @@ class _OutgoingPageState extends State<OutgoingPage> {
 
   //     setState(() {
   //       this.items = outgoings;
+=======
+  //   todoTasks = fireServ.getTaskList().listen((QuerySnapshot snapshot) {
+  //     final List<Task> tasks = snapshot.documents
+  //         .map((documentSnapshot) => Task.fromMap(documentSnapshot.data))
+  //         .toList();
+
+  //     setState(() {
+  //       this.items = tasks;
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
   //     });
   //   });
   // }
@@ -50,7 +63,11 @@ class _OutgoingPageState extends State<OutgoingPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
+<<<<<<< HEAD
                         OutgoingScreen(Outgoing('', '',0,))));
+=======
+                        OutgoingsCreatorPage(Task('', '',0,))));
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
           },
           elevation: 5,
           highlightElevation: 3,
@@ -70,6 +87,7 @@ class _OutgoingPageState extends State<OutgoingPage> {
     );
   }
 
+<<<<<<< HEAD
   // Widget todoType(String icontype) {
   //   IconData iconval;
   //   Color colorval;
@@ -100,6 +118,9 @@ class _OutgoingPageState extends State<OutgoingPage> {
   //     child: Icon(iconval, color: Colors.white, size: 20.0),
   //   );
   // }
+=======
+ 
+>>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
 
   // Widget _myAppBar(context) {
   //   return Container(
