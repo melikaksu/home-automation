@@ -6,7 +6,7 @@ import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 
-<<<<<<< HEAD
+
 class OutgoingScreen extends StatefulWidget {
   final Outgoing outgoings;
 
@@ -31,7 +31,7 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   int _myOutgoingType = 0;
   String outgoingVal;
   void _handleOutgoingType(int value) {
-=======
+
 class OutgoingsCreatorPage extends StatefulWidget {
   final Task task;
   OutgoingsCreatorPage(this.task);
@@ -73,7 +73,7 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
   int _myTaskType = 0;
   String taskVal;
   void _handleTaskType(int value) {
->>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
+
     setState(() {
       _myOutgoingType = value;
       switch (_myOutgoingType) {
@@ -95,15 +95,8 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
       }
     });
   }
-<<<<<<< HEAD
-
- 
-=======
->>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
 
 
-
-<<<<<<< HEAD
   @override
   void initState() {
     _getUserUid();
@@ -111,10 +104,10 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
     _nameController =    TextEditingController(text: widget.outgoings.name);
     _quantityController =TextEditingController(text: widget.outgoings.quantity.toString());
   }
-=======
+
   }
   
->>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
+
 
   @override
   Widget build(BuildContext context) {
@@ -344,9 +337,9 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
             ],
           ),
         ));
-<<<<<<< HEAD
+
   }
 }
-=======
+
   }}
->>>>>>> 5fb2400eafcc5814c7f1d8d6fecfdfbafcf8bc81
+
