@@ -117,7 +117,7 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
           );
   }
 }
-<<<<<<< HEAD
+
 
 Widget todoType(String icontype) {
   IconData iconval;
@@ -142,8 +142,7 @@ Widget todoType(String icontype) {
     default:
       iconval = FontAwesomeIcons.otter;
       colorval = Color(0xff0dc8f5);
-    //
-=======
+
  Widget todoType(String icontype) {
     IconData iconval;
     Color colorval;
