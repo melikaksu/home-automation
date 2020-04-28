@@ -1,35 +1,43 @@
 import 'dart:core';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homesweethome/models/task.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'dart:async';
 
+   var at = AuthService();
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-var at = AuthService();
+//   String name;
 
-var  currentUser;
- String name;
-  Future userinfo() async {
+//   static userinfo() async {
 
-  var currentUser = await _auth.currentUser();
 
-  String fuser= await Future.delayed(Duration.zero, () => currentUser.toString());
-  return fuser;
-}
+//   var currentUser = await _auth.currentUser();
+
+//   String fuser= await Future.delayed(Duration.zero, () => currentUser.toString());
+//   return fuser;
+// }
+  
 
 
 
 // final CollectionReference myCollection=Firestore.instance.collection('list');
-class FirestoreService {
- 
 
-
+ class FirestoreService {
+    String value;
+    static String col="init";
+    String get collectionName {
+    return value;
+     }
+     set name(String a){
+      col=a;
+    } 
+   
+    
 
   final CollectionReference myCollection =
-      Firestore.instance.collection("post");
+      Firestore.instance.collection(col);
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -68,4 +76,5 @@ class FirestoreService {
     }
     return snapshots;
   }
+
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/screens/email/sign_in_wit_email.dart';
+import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/services/auth.dart';
 
 class Register extends StatefulWidget {
@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
             IconButton(
                 icon: Icon(FontAwesomeIcons.user),
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Giris()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
                 })
           ],
           backgroundColor: Colors.cyan,
@@ -294,7 +294,7 @@ class _RegisterState extends State<Register> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Giris()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
                           },
                         ),
                       )),

@@ -73,7 +73,7 @@ class _MyDrawerState extends State<MyDrawer> {
               _auth.signOutGoogle();
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (BuildContext context)=>
-          Giris(),
+          Login(),
           fullscreenDialog: true,
              ));
             },

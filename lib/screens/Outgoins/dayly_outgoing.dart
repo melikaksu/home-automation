@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,14 +11,14 @@ class DaylyOutgoing extends StatefulWidget {
 }
 
 class _DaylyOutgoingState extends State<DaylyOutgoing> {
-List<Task> items;
+
+ List<Task> items;
   FirestoreService fireServ = new FirestoreService();
   StreamSubscription<QuerySnapshot> todoTasks;
 
   @override
   void initState() {
-    super.initState();
-
+    super.initState(); 
     items=new List();
 
     todoTasks?.cancel();
@@ -114,19 +113,19 @@ List<Task> items;
     IconData iconval;
     Color colorval;
     switch (icontype) {
-      case 'travel':
+      case 'Seyahat':
         iconval = FontAwesomeIcons.mapMarkerAlt;
         colorval = Color(0xff4158ba);
         break;
-      case 'shopping':
+      case 'Alışveriş':
         iconval = FontAwesomeIcons.shoppingCart;
         colorval = Color(0xfffb537f);
         break;
-      case 'gym':
+      case 'Eğitim':
         iconval = FontAwesomeIcons.dumbbell;
         colorval = Color(0xff4caf50);
         break;
-      case 'party':
+      case 'Diğer':
         iconval = FontAwesomeIcons.glassCheers;
         colorval = Color(0xff9962d0);
         break;
@@ -140,3 +139,4 @@ List<Task> items;
       child: Icon(iconval, color: Colors.white, size: 20.0),
     );
   }
+  

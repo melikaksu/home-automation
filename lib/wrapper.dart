@@ -22,9 +22,9 @@ class Wrapper extends StatelessWidget {
            );
          }
          if(!snapshot.hasData || snapshot.data==null){
-           return Giris();
+           return Login();
          }
-         return MyHomePage();
+         return   MyHomePage();
 
      },);
 

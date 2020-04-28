@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,16 +17,11 @@ class TaskScreen extends StatefulWidget {
 class _TaskScreenState extends State<TaskScreen> {
   FirestoreService fireServ = new FirestoreService();
   
-  // var _userUid;
-
-  // //  _getUserName() async =>
-  // //     await FirebaseAuth.instance.currentUser().then((user) {
-  // //       setState(() => this._userUid = user.uid);
-  // //     });
-
-
-  
-
+     var _userUid;
+     _getUserName() async =>
+      await FirebaseAuth.instance.currentUser().then((user) {
+        setState(() => this._userUid = user.uid);
+      });
 
 // getname(taskname)=>this.taskName=taskname;
 // getdate(taskdate)=>this.taskDate=taskdate;
@@ -80,12 +76,19 @@ class _TaskScreenState extends State<TaskScreen> {
 
    @override
   void initState() {
-    // _getUserName();
-    super.initState();
+     _getUserName();
+     super.initState();
      _nameController = new TextEditingController(text: widget.task.name);
      _quantityController = new TextEditingController(text: widget.task.quantity.toString());
 
   }
+     @override
+     void dispose() {
+    // TODO: implement dispose
+    _getUserName();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +141,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: TextField(
                   controller: _nameController,
-                  decoration: InputDecoration(labelText: "İsim: "),
+                  decoration: InputDecoration(labelText: "Açıklama: "),
                 
                 ),
               ),
@@ -297,11 +300,13 @@ class _TaskScreenState extends State<TaskScreen> {
                       onPressed: ()  {
                          fireServ
                             .createTaskList(
-                        
                                 name: _nameController.text,
                                 quantity:   int.parse(_quantityController.text),
                                 type: taskVal)
                             .then((_) => Navigator.of(context).pop());
+                            setState(() {
+                              fireServ.name=_userUid;
+                            });
                       },
                       child: const Text(
                         "ONAYLA",

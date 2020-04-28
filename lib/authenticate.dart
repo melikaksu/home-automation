@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:homesweethome/screens/register.dart';
-import 'package:homesweethome/screens/sign_in_wit_email.dart';
+import 'package:homesweethome/screens/email/register.dart';
+import 'package:homesweethome/screens/email/sign_in_wit_email.dart';
 
 
 class Authenticate extends StatefulWidget{

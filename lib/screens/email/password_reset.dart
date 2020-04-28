@@ -50,7 +50,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => Giris()));
+                              builder: (BuildContext context) => Login()));
                     })
               ],
               backgroundColor: Colors.cyan,
@@ -174,7 +174,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               onPressed: () {
                                 Navigator.pushReplacement(context, MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                  return Giris();
+                                  return Login();
                                 }));
                               },
                             ),

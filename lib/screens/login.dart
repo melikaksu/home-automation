@@ -5,12 +5,12 @@ import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/email/sign_in_wit_email.dart';
 import 'package:homesweethome/services/auth.dart';
 
-class Giris extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _GirisState createState() => _GirisState();
+  _LoginState createState() => _LoginState();
 }
 
- class _GirisState extends State<Giris> {
+ class _LoginState extends State<Login> {
   final AuthService _auth = AuthService();
 
   @override
