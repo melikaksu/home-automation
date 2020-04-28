@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
 
-        title: 'Giderler ve Alışveriş Listessi ',
+        title: 'Giderler',
         theme: ThemeData(
             cursorColor: Colors.black,
             //brightness: Brightness.dark,
