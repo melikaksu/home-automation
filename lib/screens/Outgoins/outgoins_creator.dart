@@ -6,7 +6,6 @@ import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 
-
 class OutgoingScreen extends StatefulWidget {
   final Outgoing outgoings;
 
@@ -20,8 +19,7 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   FirestoreService fireServ = new FirestoreService();
 
   var _userUid;
-  _getUserUid() async =>
-      await FirebaseAuth.instance.currentUser().then((user) {
+  _getUserUid() async => await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => this._userUid = user.uid);
       });
 
@@ -31,49 +29,6 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   int _myOutgoingType = 0;
   String outgoingVal;
   void _handleOutgoingType(int value) {
-
-class OutgoingsCreatorPage extends StatefulWidget {
-  final Task task;
-  OutgoingsCreatorPage(this.task);
-
-  @override
-  _OutgoingsCreatorPageState createState() => _OutgoingsCreatorPageState();
-}
-
-class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
-//   createData(){
-// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
-// Map<String,dynamic> tasks={
-//   "taskname":taskName,
-//   "taskdate":taskDate,
-//   "tasktime":taskTime,
-//   "taskdetails":taskDetails,
-//   "tasktype":taskVal
-
-// };
-// ds.setData(tasks).whenComplete((){
-//   print("Task Created");
-// });
-
-//   }// getname(taskname)=>this.taskName=taskname;
-// getdate(taskdate)=>this.taskDate=taskdate;
-// gettime(tasktime)=>this.taskTime=tasktime;
-// getdetails(taskdetails)=>this.taskDetails=taskdetails;
-
-  FirestoreService fireServ = new FirestoreService();
-  TextEditingController _nameController;
-  TextEditingController _quantityController;
-  
-     var _userUid;
-     _getUserName() async =>
-      await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => this._userUid = user.uid);
-      });
-
-  int _myTaskType = 0;
-  String taskVal;
-  void _handleTaskType(int value) {
-
     setState(() {
       _myOutgoingType = value;
       switch (_myOutgoingType) {
@@ -96,21 +51,18 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
     });
   }
 
-
   @override
   void initState() {
     _getUserUid();
     super.initState();
-    _nameController =    TextEditingController(text: widget.outgoings.name);
-    _quantityController =TextEditingController(text: widget.outgoings.quantity.toString());
+    _nameController = TextEditingController(text: widget.outgoings.name);
+    _quantityController =
+        TextEditingController(text: widget.outgoings.quantity.toString());
   }
-
-  }
-  
-
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -308,7 +260,7 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  // This button results in adding the contact to the database
+                  
 /////////////////////////////////////////////////////////////////////////
 
                   RaisedButton(
@@ -323,10 +275,9 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
                                 quantity: int.parse(_quantityController.text),
                                 type: outgoingVal)
                             .then((_) => Navigator.of(context).pop());
-                            setState(() {
-      fireServ.name = _userUid; 
-    });
-                      
+                        setState(() {
+                          fireServ.name = _userUid;
+                        });
                       },
                       child: const Text(
                         "ONAYLA",
@@ -337,9 +288,5 @@ class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
             ],
           ),
         ));
-
   }
 }
-
-  }}
-
