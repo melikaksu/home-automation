@@ -49,7 +49,7 @@ class _OutgoingPageState extends State<OutgoingPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        TaskScreen(Task('', '',0,))));
+                        OutgoingsCreatorPage(Task('', '',0,))));
           },
           elevation: 5,
           highlightElevation: 3,

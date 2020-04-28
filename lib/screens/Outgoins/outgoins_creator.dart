@@ -6,16 +6,15 @@ import 'package:homesweethome/models/task.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 
-class TaskScreen extends StatefulWidget {
+class OutgoingsCreatorPage extends StatefulWidget {
   final Task task;
-  TaskScreen(this.task);
+  OutgoingsCreatorPage(this.task);
 
   @override
-  _TaskScreenState createState() => _TaskScreenState();
+  _OutgoingsCreatorPageState createState() => _OutgoingsCreatorPageState();
 }
 
-class _TaskScreenState extends State<TaskScreen> {
-
+class _OutgoingsCreatorPageState extends State<OutgoingsCreatorPage> {
 //   createData(){
 // DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
 // Map<String,dynamic> tasks={
@@ -30,28 +29,20 @@ class _TaskScreenState extends State<TaskScreen> {
 //   print("Task Created");
 // });
 
-//   }
-// getname(taskname)=>this.taskName=taskname;
+//   }// getname(taskname)=>this.taskName=taskname;
 // getdate(taskdate)=>this.taskDate=taskdate;
 // gettime(tasktime)=>this.taskTime=tasktime;
 // getdetails(taskdetails)=>this.taskDetails=taskdetails;
 
-
-  FirestoreService fireServ = FirestoreService();
+  FirestoreService fireServ = new FirestoreService();
   TextEditingController _nameController;
   TextEditingController _quantityController;
-
+  
      var _userUid;
      _getUserName() async =>
       await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => this._userUid = user.uid);
       });
-
-
-
-
-
-  
 
   int _myTaskType = 0;
   String taskVal;
@@ -86,7 +77,9 @@ class _TaskScreenState extends State<TaskScreen> {
      _nameController = new TextEditingController(text: widget.task.name);
      _quantityController = new TextEditingController(text: widget.task.quantity.toString());
 
+  }
   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -314,59 +307,4 @@ class _TaskScreenState extends State<TaskScreen> {
             ],
           ),
         ));
-  }
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-  // Widget _myAppBar() {
-  //   return Container(
-  //     height: 80.0,
-  //     width: MediaQuery.of(context).size.width,
-  //     decoration: BoxDecoration(
-  //       gradient: LinearGradient(
-  //           colors: [
-  //             const Color(0xFFFA7397),
-  //             const Color(0xFFFDDE42),
-  //           ],
-  //           begin: const FractionalOffset(0.0, 0.0),
-  //           end: const FractionalOffset(1.0, 0.0),
-  //           stops: [0.0, 1.0],
-  //           tileMode: TileMode.clamp),
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(top: 16.0),
-  //       child: Center(
-  //           child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: <Widget>[
-  //           Expanded(
-  //             flex: 1,
-  //             child: Container(
-  //               child: IconButton(
-  //                   icon: Icon(
-  //                     FontAwesomeIcons.arrowLeft,
-  //                     color: Colors.white,
-  //                   ),
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                   }),
-  //             ),
-  //           ),
-  //           Expanded(
-  //             flex: 5,
-  //             child: Container(
-  //               child: Text(
-  //                 'New Tasks',
-  //                 style: TextStyle(
-  //                     color: Colors.white,
-  //                     fontWeight: FontWeight.bold,
-  //                     fontSize: 20.0),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       )),
-  //     ),
-  //   );
-  // }
-}
+  }}
