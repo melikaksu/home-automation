@@ -15,24 +15,36 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  FirestoreService fireServ = new FirestoreService();
-  
-     var _userUid;
-     _getUserName() async =>
-      await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => this._userUid = user.uid);
-      });
+  //   createData(){
+// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
+// Map<String,dynamic> tasks={
+//   "taskname":taskName,
+//   "taskdate":taskDate,
+//   "tasktime":taskTime,
+//   "taskdetails":taskDetails,
+//   "tasktype":taskVal
 
+// };
+// ds.setData(tasks).whenComplete((){
+//   print("Task Created");
+// });
+
+//   }
 // getname(taskname)=>this.taskName=taskname;
 // getdate(taskdate)=>this.taskDate=taskdate;
 // gettime(tasktime)=>this.taskTime=tasktime;
 // getdetails(taskdetails)=>this.taskDetails=taskdetails;
 
+  FirestoreService fireServ = new FirestoreService();
+
+  var _userUid;
+  _getUserName() async =>
+      await FirebaseAuth.instance.currentUser().then((user) {
+        setState(() => this._userUid = user.uid);
+      });
+
   TextEditingController _nameController;
   TextEditingController _quantityController;
-
-
-  
 
   int _myTaskType = 0;
   String taskVal;
@@ -58,37 +70,15 @@ class _TaskScreenState extends State<TaskScreen> {
       }
     });
   }
-//   createData(){
-// DocumentReference ds=Firestore.instance.collection('liste').document(taskName);
-// Map<String,dynamic> tasks={
-//   "taskname":taskName,
-//   "taskdate":taskDate,
-//   "tasktime":taskTime,
-//   "taskdetails":taskDetails,
-//   "tasktype":taskVal
 
-// };
-// ds.setData(tasks).whenComplete((){
-//   print("Task Created");
-// });
-
-//   }
-
-   @override
+  @override
   void initState() {
-     _getUserName();
-     super.initState();
-     _nameController = new TextEditingController(text: widget.task.name);
-     _quantityController = new TextEditingController(text: widget.task.quantity.toString());
-
-  }
-     @override
-     void dispose() {
-    // TODO: implement dispose
     _getUserName();
-    super.dispose();
+    super.initState();
+    _nameController = new TextEditingController(text: widget.task.name);
+    _quantityController =
+        new TextEditingController(text: widget.task.quantity.toString());
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +94,15 @@ class _TaskScreenState extends State<TaskScreen> {
                 onPressed: () => Scaffold.of(context).openDrawer());
           }),
           title: Center(
-              child: Text(
-            'AppBar',
-            style: TextStyle(
-                fontFamily: "Lobster",
-                fontWeight: FontWeight.w400,
-                fontSize: 30,
-                color: Color(0xff2d386b)),
-          )),
+            child: Text(
+              'AppBar',
+              style: TextStyle(
+                  fontFamily: "Lobster",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 30,
+                  color: Color(0xff2d386b)),
+            ),
+          ),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
@@ -133,16 +124,16 @@ class _TaskScreenState extends State<TaskScreen> {
         body: Container(
           // width: MediaQuery.of(context).size.width,
           // height: MediaQuery.of(context).size.height - 80,
-          child: ListView(
-            children: <Widget>[
+
 /////////////////////////////////////////////////////////////////////////
 
+          child: ListView(
+            children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: TextField(
                   controller: _nameController,
                   decoration: InputDecoration(labelText: "Açıklama: "),
-                
                 ),
               ),
 /////////////////////////////////////////////////////////////////////////
@@ -153,10 +144,9 @@ class _TaskScreenState extends State<TaskScreen> {
                   keyboardType: TextInputType.number,
                   controller: _quantityController,
                   decoration: InputDecoration(labelText: "Tutar: "),
-                
                 ),
               ),
-////////////////////////////////////////////////////////////////////////          
+////////////////////////////////////////////////////////////////////////
               SizedBox(
                 height: 10.0,
               ),
@@ -171,15 +161,14 @@ class _TaskScreenState extends State<TaskScreen> {
 /////////////////////////////////////////////////////////////////////////
 
               Padding(
-                padding: const EdgeInsets.only(left:40.0,right: 60),
+                padding: const EdgeInsets.only(left: 40.0, right: 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Radio( 
-
+                        Radio(
                           value: 1,
                           groupValue: _myTaskType,
                           onChanged: _handleTaskType,
@@ -189,14 +178,14 @@ class _TaskScreenState extends State<TaskScreen> {
                           'Seyahat',
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        Expanded(child:  ListTile(
+                        Expanded(
+                          child: ListTile(
                             trailing: Switch(
-                            activeColor: Color(0xffff0863) ,
-                            value: false, onChanged: (a){}),                               
-                        )
-)
-                       
-                        
+                                activeColor: Color(0xffff0863),
+                                value: false,
+                                onChanged: (a) {}),
+                          ),
+                        ),
                       ],
                     ),
 /////////////////////////////////////////////////////////////////////////
@@ -278,17 +267,18 @@ class _TaskScreenState extends State<TaskScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: Color(0xffff0863))),
-                      color: Color(0xffff0863),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text(
-                        "İPTAL",
-                        style: TextStyle(color: Colors.white),
-                      )),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0),
+                        side: BorderSide(color: Color(0xffff0863))),
+                    color: Color(0xffff0863),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      "İPTAL",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                   // This button results in adding the contact to the database
 /////////////////////////////////////////////////////////////////////////
 
@@ -297,16 +287,16 @@ class _TaskScreenState extends State<TaskScreen> {
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Color(0xffff0863))),
                       color: Color(0xffff0863),
-                      onPressed: ()  {
-                         fireServ
+                      onPressed: () {
+                        fireServ
                             .createTaskList(
                                 name: _nameController.text,
-                                quantity:   int.parse(_quantityController.text),
+                                quantity: int.parse(_quantityController.text),
                                 type: taskVal)
                             .then((_) => Navigator.of(context).pop());
-                            setState(() {
-                              fireServ.name=_userUid;
-                            });
+                        setState(() {
+                          fireServ.name = _userUid;
+                        });
                       },
                       child: const Text(
                         "ONAYLA",
@@ -318,58 +308,4 @@ class _TaskScreenState extends State<TaskScreen> {
           ),
         ));
   }
-/////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-  // Widget _myAppBar() {
-  //   return Container(
-  //     height: 80.0,
-  //     width: MediaQuery.of(context).size.width,
-  //     decoration: BoxDecoration(
-  //       gradient: LinearGradient(
-  //           colors: [
-  //             const Color(0xFFFA7397),
-  //             const Color(0xFFFDDE42),
-  //           ],
-  //           begin: const FractionalOffset(0.0, 0.0),
-  //           end: const FractionalOffset(1.0, 0.0),
-  //           stops: [0.0, 1.0],
-  //           tileMode: TileMode.clamp),
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(top: 16.0),
-  //       child: Center(
-  //           child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: <Widget>[
-  //           Expanded(
-  //             flex: 1,
-  //             child: Container(
-  //               child: IconButton(
-  //                   icon: Icon(
-  //                     FontAwesomeIcons.arrowLeft,
-  //                     color: Colors.white,
-  //                   ),
-  //                   onPressed: () {
-  //                     Navigator.pop(context);
-  //                   }),
-  //             ),
-  //           ),
-  //           Expanded(
-  //             flex: 5,
-  //             child: Container(
-  //               child: Text(
-  //                 'New Tasks',
-  //                 style: TextStyle(
-  //                     color: Colors.white,
-  //                     fontWeight: FontWeight.bold,
-  //                     fontSize: 20.0),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       )),
-  //     ),
-  //   );
-  // }
 }
