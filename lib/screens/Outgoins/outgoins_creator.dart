@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/task.dart';
 import 'package:homesweethome/services/firestore.dart';
@@ -31,10 +32,8 @@ class _TaskScreenState extends State<TaskScreen> {
 // gettime(tasktime)=>this.taskTime=tasktime;
 // getdetails(taskdetails)=>this.taskDetails=taskdetails;
 
-  TextEditingController _taskNameController;
-  TextEditingController _taskDetailsController;
-  TextEditingController _taskDateController;
-  TextEditingController _taskTimeController;
+  TextEditingController _nameController;
+  TextEditingController _quantityController;
 
 
   
@@ -46,19 +45,19 @@ class _TaskScreenState extends State<TaskScreen> {
       _myTaskType = value;
       switch (_myTaskType) {
         case 1:
-          taskVal = 'TV';
+          taskVal = 'Seyahat';
           break;
         case 2:
-          taskVal = 'FIRIN';
+          taskVal = 'Spor';
           break;
         case 3:
-          taskVal = 'OCAK';
+          taskVal = 'Alışveriş';
           break;
         case 4:
-          taskVal = 'LAMBA';
+          taskVal = 'Eğitim';
           break;
         case 5:
-          taskVal = 'PC';
+          taskVal = 'Diğer';
           break;
       }
     });
@@ -83,11 +82,9 @@ class _TaskScreenState extends State<TaskScreen> {
   void initState() {
     // _getUserName();
     super.initState();
+     _nameController = new TextEditingController(text: widget.task.name);
+     _quantityController = new TextEditingController(text: widget.task.quantity.toString());
 
-    _taskNameController = new TextEditingController(text: widget.task.taskname);
-     _taskDetailsController = new TextEditingController(text: widget.task.taskdetails);
-     _taskDateController = new TextEditingController(text: widget.task.taskdate);
-     _taskTimeController = new TextEditingController(text: widget.task.tasktime);
   }
 
   @override
@@ -140,7 +137,7 @@ class _TaskScreenState extends State<TaskScreen> {
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: TextField(
-                  controller: _taskNameController,
+                  controller: _nameController,
                   decoration: InputDecoration(labelText: "İsim: "),
                 
                 ),
@@ -150,31 +147,13 @@ class _TaskScreenState extends State<TaskScreen> {
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: TextField(
-                  controller: _taskDetailsController,
-                  decoration: InputDecoration(labelText: "Açıklama: "),
+                  keyboardType: TextInputType.number,
+                  controller: _quantityController,
+                  decoration: InputDecoration(labelText: "Tutar: "),
                 
                 ),
               ),
-/////////////////////////////////////////////////////////////////////////
-
-              Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: TextField(
-                  controller: _taskDateController,
-                  decoration: InputDecoration(labelText: "Tarih: "),
-                 
-                ),
-              ),
-/////////////////////////////////////////////////////////////////////////
-
-              Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: TextField(
-                  controller: _taskTimeController,
-                  decoration: InputDecoration(labelText: "Saat: "),
-               
-                ),
-              ),
+////////////////////////////////////////////////////////////////////////          
               SizedBox(
                 height: 10.0,
               ),
@@ -182,7 +161,7 @@ class _TaskScreenState extends State<TaskScreen> {
 
               Center(
                 child: Text(
-                  'Cihazlardan birini seçiniz:',
+                  'Kategori seçiniz:',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -204,7 +183,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           activeColor: Color(0xff4158ba),
                         ),
                         Text(
-                          'TV',
+                          'Seyahat',
                           style: TextStyle(fontSize: 16.0),
                         ),
                         Expanded(child:  ListTile(
@@ -229,7 +208,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           activeColor: Color(0xfffb537f),
                         ),
                         Text(
-                          'FIRIN',
+                          'Spor',
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -248,7 +227,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           activeColor: Color(0xff4caf50),
                         ),
                         Text(
-                          'OCAK',
+                          'Alışveriş',
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ],
@@ -265,7 +244,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           activeColor: Color(0xff9962d0),
                         ),
                         Text(
-                          'LAMBA',
+                          'Eğitim',
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ],
@@ -282,7 +261,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           activeColor: Color(0xff0dc8f5),
                         ),
                         Text(
-                          'PC',
+                          'Diğer',
                           style: TextStyle(fontSize: 16.0),
                         ),
                       ],
@@ -319,11 +298,9 @@ class _TaskScreenState extends State<TaskScreen> {
                          fireServ
                             .createTaskList(
                         
-                                name: _taskNameController.text,
-                                date: _taskDateController.text,
-                                time: _taskTimeController.text,
-                                details: _taskDetailsController.text,
-                                tasktype: taskVal)
+                                name: _nameController.text,
+                                quantity:   int.parse(_quantityController.text),
+                                type: taskVal)
                             .then((_) => Navigator.of(context).pop());
                       },
                       child: const Text(

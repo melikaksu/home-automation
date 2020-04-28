@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/task.dart';
-import 'package:homesweethome/screens/task_list_creatar.dart';
+import 'package:homesweethome/screens/Outgoins/outgoins_creator.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_appbar.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
@@ -52,7 +52,7 @@ class _OutgoingPageState extends State<OutgoingPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        TaskScreen(Task('', '', '', '', ''))));
+                        TaskScreen(Task('', '',0,))));
           },
           elevation: 5,
           highlightElevation: 3,

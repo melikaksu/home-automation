@@ -16,7 +16,7 @@ class _MyDrawerState extends State<MyDrawer> {
   String _image;
   String _userMail = "";
 
-  _getImage() async {
+  getImage() async {
     try {
       await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => _image = user.photoUrl);
@@ -39,7 +39,7 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   void initState() {
     _getUserMail();
-    _getImage();
+     getImage();
     _getUserName();
     super.initState();
   }

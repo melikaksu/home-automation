@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/home.dart';
-import 'package:homesweethome/screens/password_reset.dart';
-import 'package:homesweethome/screens/register.dart';
+import 'package:homesweethome/screens/email/password_reset.dart';
+import 'package:homesweethome/screens/email/register.dart';
 import 'package:homesweethome/services/auth.dart';
 
 class SignInWithEmail extends StatefulWidget {

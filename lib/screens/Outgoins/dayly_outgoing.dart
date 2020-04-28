@@ -71,9 +71,9 @@ List<Task> items;
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          todoType('${items[index].tasktype}'),
+                                          todoType('${items[index].type}'),
                                           Text(
-                                            '${items[index].taskname}',
+                                            '${items[index].name}',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20.0),
@@ -83,18 +83,13 @@ List<Task> items;
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
-                                                '${items[index].taskdate}',
+                                                '${items[index].quantity}',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18.0,
                                                     fontWeight: FontWeight.bold),
                                               ),
-                                              Text(
-                                                '${items[index].tasktime}',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16.0),
-                                              ),
+                                          
                                             ],
                                           )
                                         ],

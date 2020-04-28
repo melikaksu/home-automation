@@ -20,7 +20,7 @@ class _FirstPageState extends State<FirstPage> {
    var user=FirebaseAuth.instance.currentUser();
    var _userUid;
 
-   _getUserName() async =>
+   _getUserUid() async =>
       await FirebaseAuth.instance.currentUser().then((user) {
         setState(() => this._userUid = user.uid);
       });
@@ -31,13 +31,13 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   void initState() {
-    _getUserName();
+    _getUserUid();
     super.initState();
 
     items=new List();
 
     todoTasks?.cancel();
-    todoTasks=fireServ.getTaskList(uid: _userUid).listen((QuerySnapshot snapshot){
+    todoTasks=fireServ.getTaskList().listen((QuerySnapshot snapshot){
         final List<Task> tasks=snapshot.documents
         .map((documentSnapshot) => Task. fromMap(documentSnapshot.data))
         .toList();
@@ -80,34 +80,34 @@ class _FirstPageState extends State<FirstPage> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      todoType('${items[index].tasktype}'),
-                                      Text(
-                                        '${items[index].taskname}',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20.0),
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            '${items[index].taskdate}',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                           Text(
-                                            '${items[index].tasktime}',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16.0),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+                                    // children: <Widget>[
+                                    //   todoType('${items[index].tasktype}'),
+                                    //   Text(
+                                    //     '${items[index].taskname}',
+                                    //     style: TextStyle(
+                                    //         color: Colors.black,
+                                    //         fontSize: 20.0),
+                                    //   ),
+                                    //   Column(
+                                    //     mainAxisAlignment:
+                                    //         MainAxisAlignment.center,
+                                    //     children: <Widget>[
+                                    //       Text(
+                                    //         '${items[index].taskdate}',
+                                    //         style: TextStyle(
+                                    //             color: Colors.black,
+                                    //             fontSize: 18.0,
+                                    //             fontWeight: FontWeight.bold),
+                                    //       ),
+                                    //        Text(
+                                    //         '${items[index].tasktime}',
+                                    //         style: TextStyle(
+                                    //             color: Colors.black,
+                                    //             fontSize: 16.0),
+                                    //       ),
+                                    //     ],
+                                    //   )
+                                    // ],
                                   ),
                                 ),
                               ),
