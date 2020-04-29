@@ -2,10 +2,8 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:homesweethome/models/outgoing.dart';
-import 'package:homesweethome/services/auth.dart';
 import 'dart:async';
 
-   var at = AuthService();
 
 //   String name;
 
@@ -24,40 +22,29 @@ import 'dart:async';
 // final CollectionReference myCollection=Firestore.instance.collection('list');
 
  class FirestoreService {
+
    final String uid;
-   FirestoreService([this.uid]):assert(uid!=null);
+   FirestoreService([this.uid]);
    
 //  FirestoreService({ @required this.uid}) : assert(uid != null);
-  
 
-
-    String value;
-    static String col=" ";
-    String get collectionName {
-    return value;
-     }
-     set name(String a){
-      col=a;
-    } 
-   
-    
 
   final CollectionReference myCollection =
-      Firestore.instance.collection(col);
+      Firestore.instance.collection("Yeni Bir Başlangıç");
 
 
 
 //////////////////////////////////////////////////////////////////////////////
 
   Future<Outgoing> createOutgoingList({
+    String uid,
     String name,
     String type,
     int quantity
-  }) async {
-
+  }) 
+  async {
       final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(myCollection.document());
-     
+      final DocumentSnapshot ds = await tx.get(myCollection.document(uid));
       final Outgoing outgoings = Outgoing(name,type,quantity);
       final Map<String, dynamic> data = outgoings.toMap();
       await tx.set(ds.reference, data);

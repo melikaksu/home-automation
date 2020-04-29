@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
+import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
+import 'package:provider/provider.dart';
 
 class OutgoingScreen extends StatefulWidget {
   final Outgoing outgoings;
@@ -16,12 +17,7 @@ class OutgoingScreen extends StatefulWidget {
 }
 
 class _OutgoingScreenState extends State<OutgoingScreen> {
-  FirestoreService fireServ = new FirestoreService();
 
-  var _userUid;
-  _getUserUid() async => await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => this._userUid = user.uid);
-      });
 
   TextEditingController _nameController;
   TextEditingController _quantityController;
@@ -53,7 +49,6 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
 
   @override
   void initState() {
-    _getUserUid();
     super.initState();
     _nameController = TextEditingController(text: widget.outgoings.name);
     _quantityController =
@@ -62,7 +57,9 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+      final user=Provider.of<User>(context,listen: false);
+      final fireServ=Provider.of<FirestoreService>(context,listen: false);
+
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -271,13 +268,12 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
                       onPressed: () {
                         fireServ
                             .createOutgoingList(
+                                uid: user.userUid,
                                 name: _nameController.text,
                                 quantity: int.parse(_quantityController.text),
                                 type: outgoingVal)
                             .then((_) => Navigator.of(context).pop());
-                        setState(() {
-                          fireServ.name = _userUid;
-                        });
+                
                       },
                       child: const Text(
                         "ONAYLA",

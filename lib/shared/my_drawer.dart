@@ -11,6 +11,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+
   final AuthService _auth = AuthService();
   String _userName = "";
   String _image;
