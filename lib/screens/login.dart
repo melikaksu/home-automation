@@ -4,6 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/email/sign_in_wit_email.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:provider/provider.dart';
+
+import 'ShoppingList/list_display.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -11,10 +14,12 @@ class Login extends StatefulWidget {
 }
 
  class _LoginState extends State<Login> {
-  final AuthService _auth = AuthService();
+  // final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
+ final _auth = Provider.of<AuthService>(context, listen: false);
+
     // return
     //  StreamBuilder(
     //   stream: FirebaseAuth.instance.onAuthStateChanged,
@@ -165,7 +170,15 @@ class Login extends StatefulWidget {
                                   ),
                                 ],
                               ),
-                              onPressed: () {},
+                              onPressed: () async{
+                                try{
+                                 await _auth.signInAnonymously();
+                                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>ListPage()));
+                                }catch(e){
+                                  print(e.toString());
+                                  return null;
+                                }
+                              },
                             ),
                           ),
                         ],

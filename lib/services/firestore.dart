@@ -98,7 +98,7 @@ import 'package:homesweethome/services/firestore_path.dart';
   }
 
   // Reads the current avatar download url
-   Stream<AvatarReference> avatarReferenceStream() {
+  Stream<AvatarReference> avatarReferenceStream() {
     final path = FirestorePath.avatar(uid);
     final reference = Firestore.instance.document(path);
     final snapshots = reference.snapshots();

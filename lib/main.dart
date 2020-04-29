@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:homesweethome/auth_witget_builder.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/wrapper.dart';
@@ -15,30 +16,32 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthService>(
           create: (BuildContext context) => AuthService(),
-        ), 
+        ),
         Provider<FirebaseStorage>(
           create: (BuildContext context) => FirebaseStorage(),
-        ), 
-        
+        ),
         Provider<ImagePicker>(
           create: (BuildContext context) => ImagePicker(),
-        ), 
-        
+        ),
         Provider<FirestoreService>(
           create: (BuildContext context) => FirestoreService(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Giderler',
-        theme: ThemeData(
-          cursorColor: Colors.black,
-          //brightness: Brightness.dark,
-          primarySwatch: Colors.cyan,
-          primaryColor: Colors.cyan,
-          accentColor: Color(0xff2d386b),
-        ),
-        home: Wrapper(),
+      child: AuthWidgetBuilder(
+        builder: (cntx, snp) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Giderler',
+            theme: ThemeData(
+              cursorColor: Colors.black,
+              //brightness: Brightness.dark,
+              primarySwatch: Colors.cyan,
+              primaryColor: Colors.cyan,
+              accentColor: Color(0xff2d386b),
+            ),
+            home: Wrapper(),
+          );
+        },
       ),
     );
   }
