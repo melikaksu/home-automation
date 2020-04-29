@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/screens/home.dart';
@@ -13,8 +9,8 @@ import 'package:homesweethome/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class SignInWithEmail extends StatefulWidget {
-  final String registerMail;
 
+  final String registerMail;
   SignInWithEmail([this.registerMail]);
 
   @override
@@ -25,8 +21,7 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
 
 
   bool _textcontrol2 = true;
-
-  var _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _email = '';
   String _password = '';
@@ -37,15 +32,17 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
   @override
   Widget build(BuildContext context) {
       
-      final _auth = Provider.of<AuthService>(context);
+      
+      final _auth = Provider.of<AuthService>(context,listen: false);
 
-      Future<Void> _signIn () async{
+      Future <void> _signIn () async{
         try{
-       User  user= await _auth.signInWithEmail(_email, _password);
-       print(user.userUid);
+         User  user= await _auth.signInWithEmail(_email, _password);
+         
+         return user.userUid;
+    
         
-        
-        }catch(e)
+        } catch(e)
         {
           print(e.toString());
    
@@ -60,17 +57,11 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
 
     // });
 
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.onAuthStateChanged,
-      // ignore: missing_return
+    return StreamBuilder<User>(
+      stream: _auth.onAuthStateChanged,
+
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SpinKitWave(
-              color: Colors.deepOrange,
-              size: 40,
-            );
-          }
+        final user=snapshot.data;
           return Scaffold(
               appBar: AppBar(
                 actions: <Widget>[
@@ -237,18 +228,28 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                                         ),
                                       ],
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (_formKey.currentState.validate()) {
                                       
-                                         _signIn()
-                                         .whenComplete(() { 
-                                            Navigator.push(
+                                       _signIn().then((a)=>Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (BuildContext
                                                             context) =>
-                                                        MyHomePage()));
-                                          }).catchError((e)=>print(e.toString()));
+                                                        MyHomePage()))).catchError((e)=>e);
+                                       
+                                      
+
+                                      
+                                        //  _signIn()
+                                        //  .whenComplete(() { 
+                                        //     Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //             builder: (BuildContext
+                                        //                     context) =>
+                                        //                 MyHomePage()));
+                                        //   });
                                        
                                         
 
@@ -316,7 +317,6 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                   ),
                 ),
               ));
-        }
       },
     );
   }

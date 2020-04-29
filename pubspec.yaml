@@ -30,6 +30,8 @@ dependencies:
   cloud_firestore: ^0.13.5
   curved_navigation_bar: ^0.3.2
   flare_flutter:
+  image_picker: ^0.6.5+3
+
 
   #  firebase_core: any
 
