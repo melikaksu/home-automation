@@ -114,6 +114,9 @@ Future signOutGoogle() async{
 }
 
 ///////////////////////////////////////////
-
+Future<User> signInAnonymously() async {
+    final authResult = await _auth.signInAnonymously();
+    return _userFromFirebaseUser(authResult.user);
+  }
 
 }
