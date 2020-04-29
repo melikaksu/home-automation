@@ -19,13 +19,16 @@ class Wrapper extends StatelessWidget {
     return StreamBuilder<User>(
       stream: authService.onAuthStateChanged,
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+        final user=snapshot.data;
 
         if (snapshot.connectionState == ConnectionState.active) {
             if (!snapshot.hasData || snapshot.data == null) {
            return Login();
         }
 
-          return MyHomePage();
+          return Provider<User>.value(
+            value: user,
+            child: MyHomePage());
           
         }
         return Center(

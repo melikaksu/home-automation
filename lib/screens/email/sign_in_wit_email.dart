@@ -61,7 +61,6 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
       stream: _auth.onAuthStateChanged,
 
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        final user=snapshot.data;
           return Scaffold(
               appBar: AppBar(
                 actions: <Widget>[

@@ -11,6 +11,8 @@ class DaylyOutgoing extends StatefulWidget {
 }
 
 class _DaylyOutgoingState extends State<DaylyOutgoing> {
+    
+
 
   List<Outgoing> items;
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
-import 'package:provider/provider.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -13,7 +11,6 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-        final _auth = Provider.of<AuthService>(context, listen: false);
         return
    
 

@@ -2,7 +2,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/wrapper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +22,6 @@ class MyApp extends StatelessWidget {
         ),
         Provider<ImagePicker>(
           create: (BuildContext context) => ImagePicker(),
-        ),
-        Provider<FirestoreService>(
-          create: (BuildContext context) => FirestoreService(),
         ),
       ],
       child: AuthWidgetBuilder(

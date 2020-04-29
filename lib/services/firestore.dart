@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'dart:async';
 
@@ -24,9 +23,9 @@ import 'dart:async';
  class FirestoreService {
 
    final String uid;
-   FirestoreService([this.uid]);
+  //  FirestoreService([this.uid]);
    
-//  FirestoreService({ @required this.uid}) : assert(uid != null);
+ FirestoreService({this.uid}) : assert(uid != null);
 
 
   final CollectionReference myCollection =
@@ -37,7 +36,6 @@ import 'dart:async';
 //////////////////////////////////////////////////////////////////////////////
 
   Future<Outgoing> createOutgoingList({
-    String uid,
     String name,
     String type,
     int quantity

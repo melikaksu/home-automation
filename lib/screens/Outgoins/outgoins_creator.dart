@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
-import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
@@ -57,9 +56,8 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
 
   @override
   Widget build(BuildContext context) {
-      final user=Provider.of<User>(context,listen: false);
-      final fireServ=Provider.of<FirestoreService>(context,listen: false);
 
+    final fireServ=Provider.of<FirestoreService>(context,listen: false);
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -268,7 +266,7 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
                       onPressed: () {
                         fireServ
                             .createOutgoingList(
-                                uid: user.userUid,
+                
                                 name: _nameController.text,
                                 quantity: int.parse(_quantityController.text),
                                 type: outgoingVal)
