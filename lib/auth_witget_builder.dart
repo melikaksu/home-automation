@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/firebase_storage_service.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +11,6 @@ import 'models/user.dart';
 class AuthWidgetBuilder extends StatelessWidget {
   const AuthWidgetBuilder({Key key, @required this.builder}) : super(key: key);
   final Widget Function(BuildContext, AsyncSnapshot<User>) builder;
-
   @override
   Widget build(BuildContext context) {
     print('AuthWidgetBuilder rebuild');
@@ -29,9 +27,6 @@ class AuthWidgetBuilder extends StatelessWidget {
               Provider<User>.value(value: user),
               Provider<FirestoreService>(
                 create: (_) => FirestoreService(user.userUid),
-              ),
-              Provider<FirebaseStorageService>(
-                create: (_) => FirebaseStorageService(uid: user.userUid),
               ),
             ],
             child: builder(context, snapshot),
