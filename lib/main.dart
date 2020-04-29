@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.cyan,
               accentColor: Color(0xff2d386b),
             ),
-            home: Wrapper(),
+            home: Wrapper(userSnapshot: snp,),
           );
         },
       ),

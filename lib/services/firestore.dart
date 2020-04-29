@@ -25,7 +25,7 @@ import 'dart:async';
    final String uid;
   //  FirestoreService([this.uid]);
    
- FirestoreService({this.uid}) : assert(uid != null);
+ FirestoreService({this.uid});
 
 
   final CollectionReference myCollection =
