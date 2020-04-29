@@ -1,12 +1,16 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/email/password_reset.dart';
 import 'package:homesweethome/screens/email/register.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class SignInWithEmail extends StatefulWidget {
   final String registerMail;
@@ -18,7 +22,7 @@ class SignInWithEmail extends StatefulWidget {
 }
 
 class _SignInWithEmailState extends State<SignInWithEmail> {
-  final AuthService _auth = AuthService();
+
 
   bool _textcontrol2 = true;
 
@@ -32,6 +36,23 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
 
   @override
   Widget build(BuildContext context) {
+      
+      final _auth = Provider.of<AuthService>(context);
+
+      Future<Void> _signIn () async{
+        try{
+       User  user= await _auth.signInWithEmail(_email, _password);
+       print(user.userUid);
+        
+        
+        }catch(e)
+        {
+          print(e.toString());
+   
+          return null;}
+        
+      }
+
     // setState(() {
     //   if (widget.registerMail!=null && widget.registerMail!=''){
     //     _emailCont.text=widget.registerMail;
@@ -216,13 +237,11 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                                         ),
                                       ],
                                     ),
-                                    onPressed: () async {
+                                    onPressed: () {
                                       if (_formKey.currentState.validate()) {
-                                       
-                                          await _auth
-                                              .signInWithEmail(
-                                                  _email, _password)
-                                              .whenComplete(() { 
+                                      
+                                         _signIn()
+                                         .whenComplete(() { 
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

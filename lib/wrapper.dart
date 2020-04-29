@@ -1,31 +1,37 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/screens/home.dart';
+import 'package:homesweethome/services/auth.dart';
+import 'package:provider/provider.dart';
+import 'models/user.dart';
 
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.onAuthStateChanged,
-      builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
-        //  var at= snapshot.data;
+  final authService =
+        Provider.of<AuthService>(context, listen: false);
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+    return StreamBuilder<User>(
+      stream: authService.onAuthStateChanged,
+      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+
+        if (snapshot.connectionState == ConnectionState.active) {
+            if (!snapshot.hasData || snapshot.data == null) {
+           return Login();
+        }
+
+          return MyHomePage();
+          
+        }
+        return Center(
             child: FlareActor(
               "assets/circular.flr",
               animation: "circular",
               fit: BoxFit.contain,
             ),
           );
-        }
-        if (!snapshot.hasData || snapshot.data == null) {
-          return Login();
-        }
-        return MyHomePage();
       },
     );
 
