@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:provider/provider.dart';
-
 import 'models/user.dart';
 
 /// Used to create user-dependant objects that need to be accessible by all widgets.

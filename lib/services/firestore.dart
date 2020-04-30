@@ -18,12 +18,8 @@ import 'dart:async';
 
 //////////////////////////////////////////////////////////////////////////////
 
-  Future<Outgoing> createOutgoingList({
-    String name,
-    String type,
-    int quantity
-  }) 
-  async {
+  Future<Outgoing> createOutgoingList({String name,String type,int quantity}) async {
+
       final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(myCollection.document(uid));
       final Outgoing outgoings = Outgoing(name,type,quantity);
@@ -31,8 +27,6 @@ import 'dart:async';
       await tx.set(ds.reference, data);
       return data;
     };
-
-
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
       return Outgoing.fromMap(mapData);
     }).catchError((onError) {
@@ -42,7 +36,7 @@ import 'dart:async';
   }
 //////////////////////////////////////////////////////////////////////////////
 
-  Stream<QuerySnapshot> getOutgoingList({int offset, int limit,}) {
+    Stream<QuerySnapshot> getOutgoingList({int offset, int limit,}) {
     Stream<QuerySnapshot> snapshots = myCollection.snapshots();
 
     if (offset != null) {
