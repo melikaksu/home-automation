@@ -1,52 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:provider/provider.dart';
 
-class MyDrawer extends StatefulWidget {
-  @override
-  _MyDrawerState createState() => _MyDrawerState();
-}
-
-class _MyDrawerState extends State<MyDrawer> {
-
-  final AuthService _auth = AuthService();
-  String _userName = "";
-  String _image;
-  String _userMail = "";
-
-  getImage() async {
-    try {
-      await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => _image = user.photoUrl);
-      });
-    } catch (e) {
-      return null;
-    }
-  }
-
-  _getUserName() async =>
-      await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => this._userName = user.displayName);
-      });
-
-  _getUserMail() async =>
-      await FirebaseAuth.instance.currentUser().then((user) {
-        setState(() => this._userMail = user.email);
-      });
-
-  @override
-  void initState() {
-    _getUserMail();
-     getImage();
-    _getUserName();
-    super.initState();
-  }
-
+class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context, listen: false);
+    final _auth = Provider.of<AuthService>(context, listen: false);
+
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -54,12 +19,17 @@ class _MyDrawerState extends State<MyDrawer> {
             decoration: BoxDecoration(
               color: Colors.grey[300],
             ),
-            accountName: Text(_userName),
-            accountEmail: Text(_userMail),
+            accountName: Text(user.userName != null ? user.userName : "Anonymous"),
+            accountEmail: Text(user.userEmail != null ? user.userEmail : "Anonymous"),
             currentAccountPicture: ClipOval(
-                child: _image != null
-                    ? Image.network(_image, fit: BoxFit.cover)
-                    : Container()),
+              child: user.photoUrl != null
+                  ? Image.network(user.photoUrl, fit: BoxFit.cover)
+                  : Center(
+                      child: user.userName != null
+                          ? CircularProgressIndicator()
+                          : Container(),
+                    ),
+            ),
           ),
           ListTile(
             leading: Icon(
@@ -72,11 +42,12 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             onTap: () {
               _auth.signOutGoogle();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (BuildContext context)=>
-          Login(),
-          fullscreenDialog: true,
-             ));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Login(),
+                    fullscreenDialog: true,
+                  ));
             },
           ),
           ListTile(

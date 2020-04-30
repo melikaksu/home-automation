@@ -3,23 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'dart:async';
 
-
-//   String name;
-
-//   static userinfo() async {
-
-
-//   var currentUser = await _auth.currentUser();
-
-//   String fuser= await Future.delayed(Duration.zero, () => currentUser.toString());
-//   return fuser;
-// }
-  
-
-
-
-// final CollectionReference myCollection=Firestore.instance.collection('list');
-
  class FirestoreService {
 
    final String uid;
@@ -29,7 +12,7 @@ import 'dart:async';
 
 
   final CollectionReference myCollection =
-      Firestore.instance.collection("Yeni Bir Başlangıç");
+    Firestore.instance.collection("Yeni Bir Başlangıç");
 
 
 

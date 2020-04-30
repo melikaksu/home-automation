@@ -14,10 +14,11 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 
 ///////////////////////////////////////////
 
-User _userFromFirebaseUser(FirebaseUser user)=>
-    user!=null
-    ? User(user.uid)
+User _userFromFirebaseUser(FirebaseUser user)=> user!=null
+    ? User(user.uid,user.email,user.photoUrl,user.displayName)
     : null;
+    
+   
 
 ///////////////////////////////////////////
 
@@ -110,6 +111,7 @@ Future signOutGoogle() async{
   catch(e){
     print(e.toString());
     return null;}
+  
   
 }
 

@@ -1,14 +1,14 @@
 class User{
   final String userUid;
 //  final String providerDetails;
-//  final String userName;
-//  final String photoUrl;
+ final String userName;
+ final String photoUrl;
 //  final String userPassword;
-  //final String userEmail;
+  final String userEmail;
 
 //  final List<ProviderDetails> providerData;
 
-  User(this.userUid,);
+  User(this.userUid, this.userEmail, this.photoUrl, this.userName,);
 
 }
 
