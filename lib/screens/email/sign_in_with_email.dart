@@ -17,12 +17,15 @@ class SignInWithEmail extends StatefulWidget {
 }
 
 class _SignInWithEmailState extends State<SignInWithEmail> {
+
+  var _formKey = GlobalKey<FormState>();
+
   bool _textcontrol2 = true;
 
   String _email = '';
   String _password = '';
 
-  TextEditingController _emailCont = TextEditingController();
+  TextEditingController _emailCont = TextEditingController();,
   TextEditingController _passwordCont = TextEditingController();
 
   @override

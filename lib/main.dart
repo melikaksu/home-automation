@@ -25,13 +25,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: AuthWidgetBuilder(
-        builder: (cntx, snp) {
+          builder: (cntx, snp) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Giderler',
             theme: ThemeData(
               cursorColor: Colors.black,
-              //brightness: Brightness.dark,
+              // brightness: Brightness.dark,
               primarySwatch: Colors.cyan,
               primaryColor: Colors.cyan,
               accentColor: Color(0xff2d386b),

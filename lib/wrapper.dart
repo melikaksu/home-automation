@@ -8,6 +8,7 @@ import 'models/user.dart';
 class Wrapper extends StatelessWidget {
   
   const Wrapper({Key key, @required this.userSnapshot}) : super(key: key);
+  
   final AsyncSnapshot<User> userSnapshot;
 
   @override
