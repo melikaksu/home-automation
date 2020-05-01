@@ -11,21 +11,24 @@ import 'package:provider/provider.dart';
 class SignInWithEmail extends StatefulWidget {
   final String registerMail;
   SignInWithEmail([this.registerMail]);
+  
 
   @override
   _SignInWithEmailState createState() => _SignInWithEmailState();
+
 }
 
 class _SignInWithEmailState extends State<SignInWithEmail> {
+    var _formKey = GlobalKey<FormState>();
 
-  var _formKey = GlobalKey<FormState>();
+
 
   bool _textcontrol2 = true;
 
   String _email = '';
   String _password = '';
 
-  TextEditingController _emailCont = TextEditingController();,
+  TextEditingController _emailCont = TextEditingController();
   TextEditingController _passwordCont = TextEditingController();
 
   @override

@@ -1,23 +1,13 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/email/sign_in_with_email.dart';
-import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:homesweethome/services/dialog_service.dart';
 import 'package:provider/provider.dart';
 
+import '../login.dart';
 
-
-class Register extends StatefulWidget with ChangeNotifier {
-  @override
-  _RegisterState createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
-  final AuthService _auth = AuthService();
-
+class SignUp extends StatelessWidget with ChangeNotifier {
   bool _textcontrol = true;
   bool _textcontrol2 = true;
 
@@ -34,7 +24,27 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    DialogService _dialogService = DialogService();
+    final auth = Provider.of<AuthService>(context);
 
+    Future signup(String email, String password) async {
+      var result = await auth.registerWithEmail(email, password);
+
+      if (result is bool) {
+        if (result) {
+        } else {
+          await _dialogService.showDialog(
+            title: 'Sign Up Failure',
+            description: 'General sign up failure. Please try again later',
+          );
+        }
+      } else {
+        await _dialogService.showDialog(
+          title: 'Sign Up Failure',
+          description: result,
+        );
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -91,7 +101,8 @@ class _RegisterState extends State<Register> {
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       onChanged: (a) {
-                        setState(() => _name = a);
+                        _name = a;
+                        notifyListeners();
                       },
                     ),
                   ),
@@ -121,7 +132,8 @@ class _RegisterState extends State<Register> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     onChanged: (a) {
-                      setState(() => _email = a);
+                      _email = a;
+                      notifyListeners();
                     },
                   )),
 
@@ -149,7 +161,8 @@ class _RegisterState extends State<Register> {
                               ? Icons.visibility_off
                               : Icons.visibility),
                           onPressed: () {
-                            setState(() => _textcontrol2 = !_textcontrol2);
+                            _textcontrol2 = !_textcontrol2;
+                            notifyListeners();
                           }),
                       //prefixIcon: Icon(FontAwesomeIcons.key),
                       hintText: 'Lütfen şifrenizi giriniz',
@@ -166,7 +179,8 @@ class _RegisterState extends State<Register> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     onSaved: (a) {
-                      setState(() => _passwordCont.text = a);
+                      _passwordCont.text = a;
+                      notifyListeners();
                     },
                   )),
 ///////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +207,8 @@ class _RegisterState extends State<Register> {
                               ? Icons.visibility_off
                               : Icons.visibility),
                           onPressed: () {
-                            setState(() => _textcontrol = !_textcontrol);
+                            _textcontrol = !_textcontrol;
+                            notifyListeners();
                           }),
                       // prefixIcon: Icon(FontAwesomeIcons.key),
                       hintText: 'Lütfen şifrenizi giriniz',
@@ -211,7 +226,8 @@ class _RegisterState extends State<Register> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     onChanged: (a) {
-                      setState(() => _password = a);
+                      _password = a;
+                      notifyListeners();
                     },
                   )),
                   SizedBox(height: 10.0),
@@ -224,44 +240,41 @@ class _RegisterState extends State<Register> {
                         margin: EdgeInsets.only(left: 23),
                         child: Align(
                           alignment: Alignment.center,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.cyan, width: 2),
-                                borderRadius: new BorderRadius.circular(30.0)),
-                            color: Color(0xffffffff),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Icon(
-                                  FontAwesomeIcons.signInAlt,
-                                  color: Color(0xff4754de),
+                          child: Consumer(
+                            builder:
+                                (BuildContext context, value, Widget child) {
+                              return RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: Colors.cyan, width: 2),
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                color: Color(0xffffffff),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.signInAlt,
+                                      color: Color(0xff4754de),
+                                    ),
+                                    SizedBox(width: 10.0),
+                                    Text(
+                                      ' Kaydol',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18.0),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(width: 10.0),
-                                Text(
-                                  ' Kaydol',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18.0),
-                                ),
-                              ],
-                            ),
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                await _auth
-                                    .registerWithEmail(_email, _password)
-                                    .whenComplete(() {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            SignInWithEmail()),
+                                onPressed: () async {
+                                  if (_formKey.currentState.validate()) {
+                                    signup(
+                                      _email,
+                                      _password,
                                   );
-                                }).catchError((e) {
-                                  print(e.toString());
-
-                                  return null;
-                                });
-                              }
+                                  }
+                                },
+                              );
                             },
                           ),
                         ),
