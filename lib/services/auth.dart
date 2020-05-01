@@ -1,12 +1,13 @@
 
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homesweethome/models/user.dart';
 
 
 
-class AuthService{
+class AuthService {
 
 final FirebaseAuth _auth=FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -22,8 +23,8 @@ User _userFromFirebaseUser(FirebaseUser user)=> user!=null
 
 ///////////////////////////////////////////
 
-Stream<User> get onAuthStateChanged =>_auth.onAuthStateChanged.map(_userFromFirebaseUser);
-
+Stream<User> get onAuthStateChanged => _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+ 
 
 ///////////////////////////////////////////
 
@@ -32,10 +33,33 @@ Future registerWithEmail(String email,String password) async{
 
   try{
     AuthResult result=await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    FirebaseUser user=result.user;
+
+
+    // FirebaseUser firebaseUser=result.user;
     
-    // await DatabaseService(uid: user.uid).updateUserData('0','new crew member', 100); 
-    return _userFromFirebaseUser(user);
+    // if (result != null) {
+
+    // UserUpdateInfo updateInfo = UserUpdateInfo();
+
+    // updateInfo.displayName = firebaseUser.displayName;
+
+    // if (firebaseUser != null) {
+
+    //   await firebaseUser.updateProfile(updateInfo);
+
+    //   await firebaseUser.reload();
+
+    //   print("Sign up: $firebaseUser");
+
+    //   return _userFromFirebaseUser(firebaseUser);
+
+  //   //  }
+
+  // }
+
+      return result.user !=null;
+
+
   }
 
   catch(e){
@@ -63,11 +87,17 @@ await _auth.sendPasswordResetEmail(email: email);
 Future signInWithEmail (String email,String password) async{
   try {
     AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password);
-    FirebaseUser user=result.user;
-    return _userFromFirebaseUser(user) !=null;
+
+    // if(result!=null){
+    //   FirebaseUser user=result.user;
+    //   if(user!=null){
+    //     return _userFromFirebaseUser(user) !=null;
+    //   }
+    // }
+    return result !=null;
   }
   catch (e){
-    print(e.toString());
+    print(e.code);
     return null;
 
   }
@@ -116,6 +146,7 @@ Future signOutGoogle() async{
 }
 
 ///////////////////////////////////////////
+
 Future<User> signInAnonymously() async {
     final authResult = await _auth.signInAnonymously();
     return _userFromFirebaseUser(authResult.user);
