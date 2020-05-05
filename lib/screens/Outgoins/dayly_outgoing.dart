@@ -30,6 +30,8 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
           .map((documentSnapshot) => Outgoing.fromMap(documentSnapshot.data))
           .toList();
 
+          // this.items = outgoings;
+
       setState(() {
         this.items = outgoings;
       });
@@ -39,8 +41,8 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
   @override
   Widget build(BuildContext context) {
     return items.isEmpty
-        ? Container(
-            child: Center(
+           ? Container(
+              child: Center(
               child: Text(
                 "Gider eklemek için,sağ altta bulunan ekle butonuna tıklayınız",
                 style: TextStyle(

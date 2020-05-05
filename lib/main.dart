@@ -6,6 +6,8 @@ import 'package:homesweethome/wrapper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import 'notifiers/list_notifier.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -16,7 +18,11 @@ class MyApp extends StatelessWidget {
         
         Provider<AuthService>(
           create: (BuildContext context) => AuthService(),
+        ), 
+        ChangeNotifierProvider<ListNotifier>(
+          create: (BuildContext context) => ListNotifier(),
         ),
+
         Provider<FirebaseStorage>(
           create: (BuildContext context) => FirebaseStorage(),
         ),

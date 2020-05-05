@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/screens/email/sign_in_with_email.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/dialog_service.dart';
 import 'package:provider/provider.dart';
@@ -28,22 +27,40 @@ class SignUp extends StatelessWidget with ChangeNotifier {
     final auth = Provider.of<AuthService>(context);
 
     Future signup(String email, String password) async {
-      var result = await auth.registerWithEmail(email, password);
-
-      if (result is bool) {
-        if (result) {
-        } else {
-          await _dialogService.showDialog(
+      try{
+        var result = await auth.registerWithEmail(email, password);
+         if(result is bool){
+            await _dialogService.showDialog(
             title: 'Sign Up Failure',
             description: 'General sign up failure. Please try again later',
           );
+      
         }
-      } else {
+
+        else {
         await _dialogService.showDialog(
           title: 'Sign Up Failure',
           description: result,
         );
-      }
+        }
+
+      }catch(e){print(e.toString());}
+      
+
+      // if (result is bool) {
+      //   if (result) {
+      //   } else {
+      //     await _dialogService.showDialog(
+      //       title: 'Sign Up Failure',
+      //       description: 'General sign up failure. Please try again later',
+      //     );
+      //   }
+      // } else {
+      //   await _dialogService.showDialog(
+      //     title: 'Sign Up Failure',
+      //     description: result,
+      //   );
+      // }
     }
 
     return Scaffold(
@@ -101,7 +118,7 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       onChanged: (a) {
-                        _name = a;
+                         _name = a;
                         notifyListeners();
                       },
                     ),

@@ -1,18 +1,22 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'dart:async';
+
+import 'package:homesweethome/notifiers/list_notifier.dart';
 
  class FirestoreService {
 
    final String uid;
-  //  FirestoreService([this.uid]);
-   
- FirestoreService({this.uid});
+  //  FirestoreService([this.uid]); 
+   FirestoreService({this.uid});
 
+   final CollectionReference outgoingCollections =
+   Firestore.instance.collection("Outgoings");
 
-  final CollectionReference myCollection =
-    Firestore.instance.collection("Yeni Bir Başlangıç");
+   final CollectionReference lisCollection =
+   Firestore.instance.collection("lists");
 
 
 
@@ -21,7 +25,7 @@ import 'dart:async';
   Future<Outgoing> createOutgoingList({String name,String type,int quantity}) async {
 
       final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(myCollection.document(uid));
+      final DocumentSnapshot ds = await tx.get(outgoingCollections.document(uid));
       final Outgoing outgoings = Outgoing(name,type,quantity);
       final Map<String, dynamic> data = outgoings.toMap();
       await tx.set(ds.reference, data);
@@ -37,8 +41,7 @@ import 'dart:async';
 //////////////////////////////////////////////////////////////////////////////
 
     Stream<QuerySnapshot> getOutgoingList({int offset, int limit,}) {
-    Stream<QuerySnapshot> snapshots = myCollection.snapshots();
-
+    Stream<QuerySnapshot> snapshots = outgoingCollections.snapshots();
     if (offset != null) {
       snapshots = snapshots.skip(offset);
     }
@@ -46,6 +49,22 @@ import 'dart:async';
       snapshots = snapshots.take(limit);
     }
     return snapshots;
-  }
+   }
+
+  
 
 }
+ getListofArmut(ListNotifier listNotifier)
+   async{
+     final CollectionReference lisCollection =
+         Firestore.instance.collection("list");
+
+     QuerySnapshot snapshot= await lisCollection.getDocuments();
+     List<Armut> _listOfArmut=[];
+     snapshot.documents.forEach((doc){
+       Armut armut=Armut.fromMap(doc.data,doc.documentID);
+       _listOfArmut.add(armut);
+     }); 
+     listNotifier.listofArmut=_listOfArmut;
+   }
+   
