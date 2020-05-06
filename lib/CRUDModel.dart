@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homesweethome/locator.dart';
-import 'package:homesweethome/models/productModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:async';
+import 'package:homesweethome/models/list.dart';
+
 
 class Api {
   final Firestore _db = Firestore.instance;
@@ -40,23 +39,23 @@ class Api {
 class CRUDModel extends ChangeNotifier {
     Api _api = locator<Api>();
 
-  List<Product> products;
+  List<MyList> myList;
 
-  Future<List<Product>> fetchProducts() async {
+  Future<List<MyList>> fetchProducts() async {
     var result = await _api.getDataCollection();
-    products = result.documents
-        .map((doc) => Product.fromMap(doc.data, doc.documentID))
+    myList = result.documents
+        .map((doc) => MyList.fromMap(doc.data, doc.documentID))
         .toList();
-    return products;
+    return myList;
   }
 
   Stream<QuerySnapshot> fetchProductsAsStream() {
     return _api.streamDataCollection();
   }
 
-  Future<Product> getProductById(String id) async {
+  Future<MyList> getProductById(String id) async {
     var doc = await _api.getDocumentById(id);
-    return  Product.fromMap(doc.data, doc.documentID) ;
+    return  MyList.fromMap(doc.data, doc.documentID) ;
   }
 
 
@@ -64,16 +63,14 @@ class CRUDModel extends ChangeNotifier {
      await _api.removeDocument(id) ;
      return ;
   }
-  Future updateProduct(Product data,String id) async{
+  Future updateProduct(MyList data,String id) async{
     await _api.updateDocument(data.toJson(), id) ;
     return ;
   }
 
-  Future addProduct(Product data) async{
-    
+  Future addProduct(MyList data) async{
     var result  = await _api.addDocument(data.toJson()) ;
     return ;
-
   }
 
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/CRUDModel.dart';
@@ -11,11 +12,12 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-    List<Product> products;
+    List<MyList> myList;
 
   @override
   void initState() {
-        
+
+   
         super.initState();
   }
 
@@ -23,6 +25,8 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
   
       final productProvider = Provider.of<CRUDModel>(context);
+
+
 
     return Scaffold(
       drawer: MyDrawer(),
@@ -32,7 +36,9 @@ class _ListPageState extends State<ListPage> {
           Icons.playlist_add,
           size: 30,
         ),
-        onPressed: () {},
+        onPressed: () {
+
+        },
         elevation: 5,
         highlightElevation: 3,
       ),
@@ -65,30 +71,48 @@ class _ListPageState extends State<ListPage> {
           ],
           elevation: 0.0,
           backgroundColor: Colors.white),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot>(
          stream: productProvider.fetchProductsAsStream(),
-         builder: (context, snapshot) {
-           if(snapshot.connectionState==ConnectionState.active){
+         builder: (BuildContext context, AsyncSnapshot snapshot) {     
            if(snapshot.hasData){
-                products = snapshot.data.documents
-                    .map((doc) => Product.fromMap(doc.data, doc.documentID))
+                   myList = snapshot.data.documents
+                    .map((doc) => MyList.fromMap(doc.data, doc.documentID))
                     .toList();
               return ListView.separated(
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(products[index].name),
+                    return Column(
+                      children: <Widget>[
+                        ListTile(
+  
+                          title: Text(myList[index].name),
+                          subtitle: Text(
+                           myList[index].createdAt.toDate().day.toString()+"/"+
+
+                           myList[index].createdAt.toDate().month.toString()+"/"+
+
+                            myList[index].createdAt.toDate().year.toString()+"/"
+
+
+
+                          ),
+                        ),
+                      ],
                     );
                   },
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: products.length);
+                  itemCount: myList.length);
            }
-           else{
-                 
+           
+           else if(snapshot.hasError){
+             return Container();
 
            }
-           return CircularProgressIndicator();
+           else{
+                    return CircularProgressIndicator();                 
            }
-         
+          
+  
+        
         }
       ),
     );

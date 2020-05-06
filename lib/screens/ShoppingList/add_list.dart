@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/models/outgoing.dart';
+import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/services/firestore.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
-class OutgoingScreen extends StatefulWidget {
-  final Outgoing outgoings;
-
-  OutgoingScreen(this.outgoings);
+class AddList extends StatefulWidget {
+  final MyList mylist;
+  AddList(this.mylist);
 
   @override
-  _OutgoingScreenState createState() => _OutgoingScreenState();
+  _AddListState createState() => _AddListState();
 }
 
-class _OutgoingScreenState extends State<OutgoingScreen> {
+class _AddListState extends State<AddList> {
 
 
   TextEditingController _nameController;
@@ -49,9 +48,9 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.outgoings.name);
+    _nameController = TextEditingController(text: widget.mylist.name);
     _quantityController =
-        TextEditingController(text: widget.outgoings.quantity.toString());
+        TextEditingController(text: widget.mylist.id.toString());
   }
 
   @override

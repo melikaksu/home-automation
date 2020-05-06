@@ -26,25 +26,33 @@ class Armut{
 
 }
 
-class Product {
+class MyList {
   String id;
   String price;
   String name;
-  String img;
+  Timestamp createdAt;
+  List subList = [];
 
-  Product({this.id, this.price, this.name,this.img});
 
-  Product.fromMap(Map snapshot,String id) :
-        id = id ?? '',
-        price = snapshot['price'] ?? '',
-        name = snapshot['name'] ?? '',
-        img = snapshot['img'] ?? '';
+  MyList({this.id, this.price, this.name});
+
+  MyList.fromMap(Map snapshot,String id) {
+        createdAt = snapshot['createdAt'];
+        id = id ?? '';
+        price = snapshot['price'] ?? '';
+        name = snapshot['name'] ?? '';
+        subList=snapshot["subList"];
+  }
+     
+
 
   toJson() {
     return {
       "price": price,
       "name": name,
-      "img": img,
+      "createdAt":createdAt,
+      "subList":subList
+
     };
   }
 }
