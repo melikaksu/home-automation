@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/notifiers/list_notifier.dart';
-import 'package:homesweethome/services/firestore.dart';
+import 'package:homesweethome/CRUDModel.dart';
+import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -11,18 +11,18 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+    List<Product> products;
+
   @override
   void initState() {
-        ListNotifier armutNotifier =Provider.of<ListNotifier>(context);
         
-        getListofArmut(armutNotifier);
         super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ListNotifier armutNotifier =
-    Provider.of<ListNotifier>(context,listen: false);
+  
+      final productProvider = Provider.of<CRUDModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
@@ -65,14 +65,32 @@ class _ListPageState extends State<ListPage> {
           ],
           elevation: 0.0,
           backgroundColor: Colors.white),
-      body: ListView.separated(
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(armutNotifier.listofArmut[index].name),
-                );
-              },
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: armutNotifier.listofArmut.length),
+      body: StreamBuilder(
+         stream: productProvider.fetchProductsAsStream(),
+         builder: (context, snapshot) {
+           if(snapshot.connectionState==ConnectionState.active){
+           if(snapshot.hasData){
+                products = snapshot.data.documents
+                    .map((doc) => Product.fromMap(doc.data, doc.documentID))
+                    .toList();
+              return ListView.separated(
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(products[index].name),
+                    );
+                  },
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: products.length);
+           }
+           else{
+                 
+
+           }
+           return CircularProgressIndicator();
+           }
+         
+        }
+      ),
     );
   }
 }
