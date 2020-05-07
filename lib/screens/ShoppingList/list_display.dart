@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/CRUDModel.dart';
 import 'package:homesweethome/models/list.dart';
+import 'package:homesweethome/screens/ShoppingList/list_details.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -71,30 +72,47 @@ class _ListPageState extends State<ListPage> {
           ],
           elevation: 0.0,
           backgroundColor: Colors.white),
-      body: StreamBuilder<QuerySnapshot>(
+          body: StreamBuilder<QuerySnapshot>(
          stream: productProvider.fetchProductsAsStream(),
-         builder: (BuildContext context, AsyncSnapshot snapshot) {     
-           if(snapshot.hasData){
-                   myList = snapshot.data.documents
-                    .map((doc) => MyList.fromMap(doc.data, doc.documentID))
+         builder: (BuildContext context, AsyncSnapshot snapshot) { 
+          //  var  at=listNotifier.currentMyList.subList.length; 
+           if(snapshot.connectionState==ConnectionState.active){
+           if(snapshot.hasData!=null){
+                   myList =  snapshot.data.documents
+                    .map <MyList> ((doc) => MyList.fromMap ( doc.data, doc.documentID))
                     .toList();
               return ListView.separated(
                   itemBuilder: (context, index) {
                     return Column(
                       children: <Widget>[
                         ListTile(
+                          onTap: (){
+                            productProvider.currentMyList=myList[index];
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+                              return ListDetails();
+                            }));
+
+                          },
   
-                          title: Text(myList[index].name),
-                          subtitle: Text(
-                           myList[index].createdAt.toDate().day.toString()+"/"+
+                           title: Text(myList[index].name,style: TextStyle(
 
+                             fontSize: 20
+                           ),),
+                           subtitle: Row(
+                             children: <Widget>[
+                               Text(myList[index].id),
+                               Expanded(
+                                                                child: Text(
+                           myList[index].createdAt.toDate().toString()+"/"+
                            myList[index].createdAt.toDate().month.toString()+"/"+
+                           myList[index].createdAt.toDate().year.toString(),style: TextStyle(
 
-                            myList[index].createdAt.toDate().year.toString()+"/"
-
-
-
+                             fontSize: 20
+                           ),
                           ),
+                               ),
+                             ],
+                           )
                         ),
                       ],
                     );
@@ -102,14 +120,23 @@ class _ListPageState extends State<ListPage> {
                   separatorBuilder: (context, index) => Divider(),
                   itemCount: myList.length);
            }
-           
-           else if(snapshot.hasError){
-             return Container();
+           else{
+             return 
+             Container(child: Center(child: Text("There is no data"),));
 
            }
-           else{
-                    return CircularProgressIndicator();                 
-           }
+
+           }   
+           return Container();
+      
+           
+          //  else if(snapshot.hasError){
+          //    return Container();
+
+          //  }
+          //  else{
+          //           return CircularProgressIndicator();                 
+          //  }
           
   
         

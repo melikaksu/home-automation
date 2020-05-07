@@ -33,16 +33,15 @@ class MyList {
   Timestamp createdAt;
   List subList = [];
 
+  MyList();
 
-  MyList({this.id, this.price, this.name});
-
-  MyList.fromMap(Map snapshot,String id) {
-        createdAt = snapshot['createdAt'];
-        id = id ?? '';
-        price = snapshot['price'] ?? '';
-        name = snapshot['name'] ?? '';
+  MyList.fromMap(Map snapshot,String id) :
+        createdAt = snapshot['createdAt'],
+        id = id ?? '',
+        price = snapshot['price'] ?? '',
+        name = snapshot['name'] ?? '',
         subList=snapshot["subList"];
-  }
+  
      
 
 
@@ -52,6 +51,8 @@ class MyList {
       "name": name,
       "createdAt":createdAt,
       "subList":subList
+      
+
 
     };
   }

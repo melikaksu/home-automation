@@ -6,7 +6,6 @@ import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/wrapper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import 'CRUDModel.dart';
 import 'notifiers/list_notifier.dart';
 
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
         Provider<AuthService>(
           create: (BuildContext context) => AuthService(),
         ), 
+
         // ChangeNotifierProvider<ListNotifier>(
         //   create: (BuildContext context) => ListNotifier(),
         // ),

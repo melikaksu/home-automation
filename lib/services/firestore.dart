@@ -54,17 +54,18 @@ import 'package:homesweethome/notifiers/list_notifier.dart';
   
 
 }
- getListofArmut(ListNotifier listNotifier)
+  getListofMyList(ListNotifier listNotifier)
    async{
      final CollectionReference lisCollection =
          Firestore.instance.collection("list");
 
      QuerySnapshot snapshot= await lisCollection.getDocuments();
-     List<Armut> _listOfArmut=[];
+     List<MyList> _listOfArmut=[];
      snapshot.documents.forEach((doc){
-       Armut armut=Armut.fromMap(doc.data,doc.documentID);
+       MyList armut=MyList.fromMap(doc.data,doc.documentID);
        _listOfArmut.add(armut);
      }); 
-     listNotifier.listofArmut=_listOfArmut;
+     
+     listNotifier.listofMyList=_listOfArmut;
    }
    

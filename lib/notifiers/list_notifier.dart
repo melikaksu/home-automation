@@ -4,23 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:homesweethome/models/list.dart';
 
 class ListNotifier with ChangeNotifier{
-  List<Armut> _listofArmut=[];
-  Armut _currentArmut;
+  List<MyList> _listofMyList=[];
+  MyList _currentMyList;
    
-   UnmodifiableListView<Armut> get listofArmut=>UnmodifiableListView(_listofArmut);
-   Armut get currentArmut=>_currentArmut;     
+   UnmodifiableListView<MyList> get listofMyList=>UnmodifiableListView(_listofMyList);
+   MyList get currentMyList=>_currentMyList;     
     
-   set listofArmut(List<Armut> listofArmut){
-     _listofArmut=listofArmut;
+   set listofMyList(List<MyList> listofMyList){
+     _listofMyList=listofMyList;
      notifyListeners();
    } 
 
-   set currentArmut(Armut artmut){
-     _currentArmut=artmut;
+   set currentMyList(MyList artmut){
+     _currentMyList=artmut;
      notifyListeners();
 
    }
-
 
 
 }

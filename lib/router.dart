@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/screens/ShoppingList/add_list.dart';
+import 'package:homesweethome/screens/ShoppingList/list_details.dart';
 import 'package:homesweethome/screens/home.dart';
 
 class Router {
@@ -17,10 +18,10 @@ class Router {
         return MaterialPageRoute(
           builder: (_)=> AddList(myList)
         ) ;
-      // case '/productDetails' :
-      //   return MaterialPageRoute(
-      //       builder: (_)=> ProductDetails(product: _at,)
-      //   ) ;
+      case '/listDetails' :
+        return MaterialPageRoute(
+            builder: (_)=> ListDetails()
+        ) ;
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
