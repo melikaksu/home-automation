@@ -7,7 +7,6 @@ import 'package:homesweethome/wrapper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'CRUDModel.dart';
-import 'notifiers/list_notifier.dart';
 
 void main() {
     setupLocator();
