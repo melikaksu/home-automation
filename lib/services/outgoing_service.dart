@@ -2,18 +2,21 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/models/outgoing.dart';
+import 'package:homesweethome/models/user.dart';
 import 'dart:async';
 
 import 'package:homesweethome/notifiers/list_notifier.dart';
 
- class FirestoreService {
-
-   final String uid;
-  //  FirestoreService([this.uid]); 
-   FirestoreService({this.uid});
+ class OutgoingService {
+   User user;
+   static String uid;
+   OutgoingService([uid]);
+   set(){
+     uid=user.userUid;
+   } 
 
    final CollectionReference outgoingCollections =
-   Firestore.instance.collection("Outgoings");
+   Firestore.instance.collection(uid==null?" ":uid);
 
    final CollectionReference lisCollection =
    Firestore.instance.collection("lists");
@@ -23,9 +26,8 @@ import 'package:homesweethome/notifiers/list_notifier.dart';
 //////////////////////////////////////////////////////////////////////////////
 
   Future<Outgoing> createOutgoingList({String name,String type,int quantity}) async {
-
       final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(outgoingCollections.document(uid));
+      final DocumentSnapshot ds = await tx.get(outgoingCollections.document());
       final Outgoing outgoings = Outgoing(name,type,quantity);
       final Map<String, dynamic> data = outgoings.toMap();
       await tx.set(ds.reference, data);

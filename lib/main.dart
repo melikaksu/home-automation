@@ -1,15 +1,15 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
-import 'package:homesweethome/locator.dart';
+import 'package:homesweethome/router.dart';
+import 'package:homesweethome/screens/ShoppingList/add_list.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/wrapper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'CRUDModel.dart';
 
 void main() {
-    setupLocator();
   runApp(MyApp());}
 
 class MyApp extends StatelessWidget {
@@ -18,15 +18,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         
-        Provider<AuthService>(
-          create: (BuildContext context) => AuthService(),
-        ), 
+        // Provider<AuthService>(
+        //   create: (BuildContext context) => AuthService(),
+        // ), 
 
-        // ChangeNotifierProvider<ListNotifier>(
-        //   create: (BuildContext context) => ListNotifier(),
-        // ),
-        ChangeNotifierProvider<CRUDModel>(
-          create: (_) => locator<CRUDModel>(),
+        ChangeNotifierProvider<AuthService>(
+          create: (BuildContext context) => AuthService(),
+        ),
+      
+        ChangeNotifierProvider<ListService>(
+          create: (_) => ListService(),
         )
         ,
          
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.cyan,
               accentColor: Color(0xff2d386b),
             ),
-            home: Wrapper(userSnapshot: snp,),
+            home: AddList(),
+            //  Wrapper(userSnapshot: snp,),
           );
         },
       ),

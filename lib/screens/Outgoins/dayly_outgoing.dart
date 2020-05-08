@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
-import 'package:homesweethome/services/firestore.dart';
+import 'package:homesweethome/services/outgoing_service.dart';
 
 class DaylyOutgoing extends StatefulWidget {
   @override
@@ -11,18 +11,25 @@ class DaylyOutgoing extends StatefulWidget {
 }
 
 class _DaylyOutgoingState extends State<DaylyOutgoing> {
-    
+
+
+   
+
 
 
   List<Outgoing> items;
+  
 
-  FirestoreService fireServ = new FirestoreService();
+
 
   StreamSubscription<QuerySnapshot> todoOutgoings;
 
   @override
-  void initState() {
-    super.initState();
+  void initState()  {
+
+
+    OutgoingService fireServ = new OutgoingService();
+    
     items = new List();
     todoOutgoings?.cancel();
     todoOutgoings = fireServ.getOutgoingList().listen((QuerySnapshot snapshot) {
@@ -36,6 +43,9 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
         this.items = outgoings;
       });
     });
+        super.initState();
+
+    
   }
 
   @override

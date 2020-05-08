@@ -1,12 +1,13 @@
 
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:homesweethome/models/user.dart';
 
 
 
-class AuthService {
+class AuthService with ChangeNotifier{
 
 final FirebaseAuth _auth=FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -23,6 +24,20 @@ User _userFromFirebaseUser(FirebaseUser user)=> user!=null
 ///////////////////////////////////////////
 
 Stream<User> get onAuthStateChanged => _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+
+///////////////////////////////////////////
+ 
+  Future<String> getUserUid() async{
+   final  FirebaseUser user = await  _auth.currentUser();
+   User _user= _userFromFirebaseUser(user);
+   return _user.userUid;
+}
+
+ getUser()async{
+  User _user= _userFromFirebaseUser(await _auth.currentUser());
+  return _user;   
+}
+
  
 
 ///////////////////////////////////////////

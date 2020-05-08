@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/CRUDModel.dart';
 import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/screens/ShoppingList/list_details.dart';
+import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
+
+import 'add_list.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -13,19 +15,19 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+    
     List<MyList> myList;
 
   @override
   void initState() {
 
-   
         super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
   
-      final productProvider = Provider.of<CRUDModel>(context);
+      final listProvider = Provider.of<ListService>(context);
 
 
 
@@ -38,7 +40,7 @@ class _ListPageState extends State<ListPage> {
           size: 30,
         ),
         onPressed: () {
-
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>AddList()));
         },
         elevation: 5,
         highlightElevation: 3,
@@ -73,12 +75,12 @@ class _ListPageState extends State<ListPage> {
           elevation: 0.0,
           backgroundColor: Colors.white),
           body: StreamBuilder<QuerySnapshot>(
-         stream: productProvider.fetchProductsAsStream(),
+         stream: listProvider.fetchProductsAsStream(),
          builder: (BuildContext context, AsyncSnapshot snapshot) { 
           //  var  at=listNotifier.currentMyList.subList.length; 
            if(snapshot.connectionState==ConnectionState.active){
            if(snapshot.hasData!=null){
-                   myList =  snapshot.data.documents
+                     myList =  snapshot.data.documents
                     .map <MyList> ((doc) => MyList.fromMap ( doc.data, doc.documentID))
                     .toList();
               return ListView.separated(
@@ -87,12 +89,13 @@ class _ListPageState extends State<ListPage> {
                       children: <Widget>[
                         ListTile(
                           onTap: (){
-                            productProvider.currentMyList=myList[index];
+                            listProvider.currentMyList=myList[index];
                             Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
                               return ListDetails();
                             }));
 
                           },
+                      
   
                            title: Text(myList[index].name,style: TextStyle(
 

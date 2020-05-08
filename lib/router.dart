@@ -7,7 +7,6 @@ import 'package:homesweethome/screens/home.dart';
 class Router {
   static Route<dynamic> generateRoute(RouteSettings at) {
 
-    MyList myList;
 
     switch (at.name) {
       case '/' :
@@ -16,7 +15,7 @@ class Router {
         );
       case '/addList' :
         return MaterialPageRoute(
-          builder: (_)=> AddList(myList)
+          builder: (_)=> AddList()
         ) ;
       case '/listDetails' :
         return MaterialPageRoute(

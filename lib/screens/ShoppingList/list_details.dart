@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/CRUDModel.dart';
 import 'package:homesweethome/models/list.dart';
+import 'package:homesweethome/models/user.dart';
+import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class ListDetails extends StatefulWidget {
 }
 
 class _ListDetailsState extends State<ListDetails> {
+ 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController subListController = TextEditingController();
   bool isDone = false;
@@ -42,22 +44,23 @@ class _ListDetailsState extends State<ListDetails> {
 
   @override
   void initState() {
-    final productProvider = Provider.of<CRUDModel>(context, listen: false);
-    if (productProvider.currentMyList != null) {
-      currentMyList = productProvider.currentMyList;
+    final listProvider = Provider.of<ListService>(context, listen: false);
+    if (listProvider.currentMyList != null) {
+      currentMyList = listProvider.currentMyList;
     } else {
       currentMyList = MyList();
     }
 
-    subList.addAll(productProvider.currentMyList.subList);
+    subList.addAll(listProvider.currentMyList.subList);
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final productProvider = Provider.of<CRUDModel>(context);
-    // _currentMyList=productProvider.currentMyList;
+   
+    // final listProvider = Provider.of<CRUDModel>(context);
+    // _currentMyList=listProvider.currentMyList;
 
     // subList=_currentMyList.subList;
 

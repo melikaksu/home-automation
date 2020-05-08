@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/firestore.dart';
+import 'package:homesweethome/services/outgoing_service.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 
@@ -24,8 +24,8 @@ class AuthWidgetBuilder extends StatelessWidget {
           return MultiProvider(
             providers: [
               Provider<User>.value(value: user),
-              Provider<FirestoreService>(
-                create: (_) => FirestoreService(uid: user.userUid),
+              Provider<OutgoingService>(
+                create: (_) => OutgoingService(user.userUid),
               ),
             ],
             child: builder(context, snapshot),
