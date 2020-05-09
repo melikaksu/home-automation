@@ -44,14 +44,14 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Giderler',
             theme: ThemeData(
+              
               cursorColor: Colors.black,
               // brightness: Brightness.dark,
               primarySwatch: Colors.cyan,
               primaryColor: Colors.cyan,
               accentColor: Color(0xff2d386b),
             ),
-            home: AddList(),
-            //  Wrapper(userSnapshot: snp,),
+            home: Wrapper(userSnapshot: snp,),
           );
         },
       ),
