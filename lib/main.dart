@@ -1,8 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
-import 'package:homesweethome/router.dart';
-import 'package:homesweethome/screens/ShoppingList/add_list.dart';
+
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/wrapper.dart';

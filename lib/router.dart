@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/screens/ShoppingList/add_list.dart';
 import 'package:homesweethome/screens/ShoppingList/list_details.dart';
 import 'package:homesweethome/screens/home.dart';

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
@@ -5,7 +6,6 @@ import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/scheduler.dart';
 
 class AddList extends StatefulWidget {
   @override
@@ -13,24 +13,11 @@ class AddList extends StatefulWidget {
 }
 
 class _AddListState extends State<AddList> {
-  var myChildSize = Size.zero;
-  final GlobalKey _cardKey = GlobalKey();
-  Size cardSize;
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition());
-  }
+  String name;
 
-  getSizeAndPosition() {
-    RenderBox _cardBox = _cardKey.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
+  Timestamp createdAt = Timestamp.now();
+  
 
-    print(cardSize);
-    setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     List<MyList> myList;
@@ -38,7 +25,7 @@ class _AddListState extends State<AddList> {
 
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    TextEditingController _nameController;
+    TextEditingController _nameController = TextEditingController();
 
     return Scaffold(
       drawer: MyDrawer(),
@@ -74,7 +61,7 @@ class _AddListState extends State<AddList> {
       ),
       resizeToAvoidBottomInset: true,
       body: StreamBuilder(
-        stream: listProvider.fetchProductsAsStream(),
+        stream: listProvider.fetchListAsStream(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             myList = snapshot.data.documents
@@ -85,18 +72,79 @@ class _AddListState extends State<AddList> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      // separatorBuilder: (context, int index) => Divider(),
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          leading: CircleAvatar(child: Text("${index + 1}")),
-                          subtitle: Text(user.userUid),
-                        );
-                      },
-                    ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    // separatorBuilder: (context, int index) => Divider(),
+                    itemCount: myList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        onLongPress: () async {
+                          await listProvider.updateList(
+                              MyList(name: "_nameController.text"),
+                              myList[index].id);
+                         
+                        },
+                        trailing: IconButton(
+                          onPressed: () {
+                            listProvider.removeList(myList[index].id);
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
+                        // leading: CircleAvatar(child: Text("${index + 1}")),
+                        leading: Icon(FontAwesomeIcons.circle),
+                        title: Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(myList[index].name),
+                              // Column(
+                              //   children: <Widget>[
+                              //     Text(myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .day
+                              //             .toString() +
+                              //         '/' +
+                              //         myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .month
+                              //             .toString() +
+                              //         '/' +
+                              //         myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .year
+                              //             .toString(),style: TextStyle(fontSize: 10,
+
+                              //             ),),
+                              //     Text(myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .hour
+                              //             .toString() +
+                              //         ':' +
+                              //         myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .minute
+                              //             .toString() +
+                              //         ':' +
+                              //         myList[index]
+                              //             .createdAt
+                              //             .toDate()
+                              //             .second
+                              //             .toString(),style: TextStyle(fontSize: 10,
+
+                              //             )),
+                              //   ],
+                              // ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Padding(
@@ -108,38 +156,45 @@ class _AddListState extends State<AddList> {
                       child: Row(
                         children: <Widget>[
                           Expanded(
-                            child: MeasureSize(
-                              onChange: (Size size) {
-                                setState(() {
-                                  myChildSize = size;
-                                });
-                              },
-                              child: ListTile(
-                                key: _cardKey,
-                                title: TextFormField(
-                                  validator: (value) => value.isEmpty
-                                      ? 'Eleman eklemediniz!'
-                                      : null,
-                                  controller: _nameController,
-                                  showCursor: true,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.grey[300],
-                                    filled: true,
-                                    prefixIcon: Icon(FontAwesomeIcons.listAlt),
-                                    hintText: 'Aklınızda ne var? ',
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      borderSide: BorderSide(
-                                          color: Colors.cyan, width: 2),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      borderSide:
-                                          BorderSide(color: Colors.cyan),
-                                    ),
+                            child: ListTile(
+                              title: TextFormField(
+                                validator: (value) => value.isEmpty
+                                    ? 'Eleman eklemediniz!'
+                                    : null,
+                                controller: _nameController,
+                                showCursor: true,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    onPressed: () async {
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        await listProvider.addList(MyList(
+                                            name: name, createdAt: createdAt));
+                                        _nameController.clear();
+                                      }
+                                    },
+                                    icon: Icon(Icons.clear),
                                   ),
-                                  onChanged: (a) {},
+                                  fillColor: Colors.grey[300],
+                                  filled: true,
+                                  prefixIcon: Icon(FontAwesomeIcons.listAlt),
+                                  hintText: 'Aklınızda ne var? ',
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderSide: BorderSide(
+                                        color: Colors.cyan, width: 2),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderSide: BorderSide(color: Colors.cyan),
+                                  ),
                                 ),
+                                onSaved: (a) {
+                                  setState(() {
+                                    name = a;
+                                    _nameController.clear();
+                                  });
+                                },
                               ),
                             ),
                           ),
@@ -154,7 +209,14 @@ class _AddListState extends State<AddList> {
                               style: TextStyle(
                                   color: Colors.black, fontSize: 20.0),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
+                                await listProvider.addList(
+                                    MyList(name: name, createdAt: createdAt));
+                                _nameController.clear();
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -168,46 +230,5 @@ class _AddListState extends State<AddList> {
         },
       ),
     );
-  }
-}
-
-typedef void OnWidgetSizeChange(Size size);
-
-class MeasureSize extends StatefulWidget {
-  final Widget child;
-  final OnWidgetSizeChange onChange;
-
-  const MeasureSize({
-    Key key,
-    @required this.onChange,
-    @required this.child,
-  }) : super(key: key);
-
-  @override
-  _MeasureSizeState createState() => _MeasureSizeState();
-}
-
-class _MeasureSizeState extends State<MeasureSize> {
-  @override
-  Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
-    return Container(
-      key: widgetKey,
-      child: widget.child,
-    );
-  }
-
-  var widgetKey = GlobalKey();
-  var oldSize;
-
-  void postFrameCallback(_) {
-    var context = widgetKey.currentContext;
-    if (context == null) return;
-
-    var newSize = context.size;
-    if (oldSize == newSize) return;
-
-    oldSize = newSize;
-    widget.onChange(newSize);
   }
 }

@@ -14,6 +14,7 @@ class Register extends StatefulWidget with ChangeNotifier {
 }
 
 class _RegisterState extends State<Register> {
+
   final AuthService _auth = AuthService();
 
   bool _textcontrol = true;
@@ -24,6 +25,7 @@ class _RegisterState extends State<Register> {
   String _email = '';
   String _password = '';
   String _name = "";
+  
 
   TextEditingController _emailCont = TextEditingController();
   TextEditingController _nameCont = TextEditingController();

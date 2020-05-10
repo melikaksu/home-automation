@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
-import 'package:homesweethome/screens/ShoppingList/list_details.dart';
 import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
 import 'add_list.dart';
+import 'list_details.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -15,21 +15,16 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-    
-    List<MyList> myList;
+  List<MyList> myList;
 
   @override
   void initState() {
-
-        super.initState();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-  
-      final listProvider = Provider.of<ListService>(context);
-
-
+    final listProvider = Provider.of<ListService>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
@@ -40,7 +35,8 @@ class _ListPageState extends State<ListPage> {
           size: 30,
         ),
         onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>AddList()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) => AddList()));
         },
         elevation: 5,
         highlightElevation: 3,
@@ -74,77 +70,74 @@ class _ListPageState extends State<ListPage> {
           ],
           elevation: 0.0,
           backgroundColor: Colors.white),
-          body: StreamBuilder<QuerySnapshot>(
-         stream: listProvider.fetchProductsAsStream(),
-         builder: (BuildContext context, AsyncSnapshot snapshot) { 
-          //  var  at=listNotifier.currentMyList.subList.length; 
-           if(snapshot.connectionState==ConnectionState.active){
-           if(snapshot.hasData!=null){
-                     myList =  snapshot.data.documents
-                    .map <MyList> ((doc) => MyList.fromMap ( doc.data, doc.documentID))
+      body: StreamBuilder<QuerySnapshot>(
+          stream: listProvider.fetchListAsStream(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //  var  at=listNotifier.currentMyList.subList.length;
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData != null) {
+                myList = snapshot.data.documents
+                    .map<MyList>(
+                        (doc) => MyList.fromMap(doc.data, doc.documentID))
                     .toList();
-              return ListView.separated(
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: <Widget>[
-                        ListTile(
-                          onTap: (){
-                            listProvider.currentMyList=myList[index];
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                              return ListDetails();
-                            }));
-
-                          },
-                      
-  
-                           title: Text(myList[index].name,style: TextStyle(
-
-                             fontSize: 20
-                           ),),
-                           subtitle: Row(
-                             children: <Widget>[
-                               Text(myList[index].id),
-                               Expanded(
-                                                                child: Text(
-                           myList[index].createdAt.toDate().toString()+"/"+
-                           myList[index].createdAt.toDate().month.toString()+"/"+
-                           myList[index].createdAt.toDate().year.toString(),style: TextStyle(
-
-                             fontSize: 20
-                           ),
-                          ),
-                               ),
-                             ],
-                           )
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) => Divider(),
-                  itemCount: myList.length);
-           }
-           else{
-             return 
-             Container(child: Center(child: Text("There is no data"),));
-
-           }
-
-           }   
-           return Container();
-      
-           
-          //  else if(snapshot.hasError){
-          //    return Container();
-
-          //  }
-          //  else{
-          //           return CircularProgressIndicator();                 
-          //  }
-          
-  
-        
-        }
-      ),
+                // return witgetofList(context: context,list: myList);
+                return ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: <Widget>[
+                          ListTile(
+                              onTap: () {
+                                listProvider.currentMyList = myList[index];
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                  return ListDetails();
+                                }));
+                              },
+                              title: Text(
+                                myList[index].name,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              subtitle: Row(
+                                children: <Widget>[
+                                  Text(myList[index].id),
+                                  Expanded(
+                                    child: Text(
+                                      myList[index]
+                                              .createdAt
+                                              .toDate()
+                                              .day
+                                              .toString() +
+                                          "/" +
+                                          myList[index]
+                                              .createdAt
+                                              .toDate()
+                                              .month
+                                              .toString() +
+                                          "/" +
+                                          myList[index]
+                                              .createdAt
+                                              .toDate()
+                                              .year
+                                              .toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: myList.length);
+              } else {
+                return Container(
+                    child: Center(
+                  child: Text("There is no data"),
+                ));
+              }
+            }
+            return Container();
+          }),
     );
   }
 }
