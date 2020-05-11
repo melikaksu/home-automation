@@ -8,7 +8,6 @@ import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
 class CreateAndAddOutgoing extends StatefulWidget {
-
   final Outgoing outgoings;
   CreateAndAddOutgoing([this.outgoings]);
 
@@ -17,7 +16,6 @@ class CreateAndAddOutgoing extends StatefulWidget {
 }
 
 class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
-  
   Timestamp createdAt = Timestamp.now();
   String outgoingName;
   int outgoingQunatity;
@@ -43,9 +41,12 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
         case 4:
           outgoingVal = 'Eğitim';
           break;
-        case 5:
+        case 6:
           outgoingVal = 'Diğer';
-          break;
+          break; 
+        case 5:
+          outgoingVal = 'Sağlık';
+         break;
       }
     });
   }
@@ -132,158 +133,249 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ),
-/////////////////////////////////////////////////////////////////////////
 
-              Padding(
-                padding: const EdgeInsets.only(left: 40.0, right: 60),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Radio(
-                          value: 1,
-                          groupValue: _myOutgoingType,
-                          onChanged: _handleOutgoingType,
-                          activeColor: Color(0xff4158ba),
-                        ),
-                        Text(
-                          'Seyahat',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            trailing: Switch(
-                                activeColor: Color(0xffff0863),
-                                value: false,
-                                onChanged: (a) {}),
-                          ),
-                        ),
-                      ],
-                    ),
-/////////////////////////////////////////////////////////////////////////
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Radio(
-                          value: 2,
-                          groupValue: _myOutgoingType,
-                          onChanged: _handleOutgoingType,
-                          activeColor: Color(0xfffb537f),
-                        ),
-                        Text(
-                          'Spor',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ],
-                    ),
-/////////////////////////////////////////////////////////////////////////
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Radio(
-                          value: 3,
-                          groupValue: _myOutgoingType,
-                          onChanged: _handleOutgoingType,
-                          activeColor: Color(0xff4caf50),
-                        ),
-                        Text(
-                          'Alışveriş',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-/////////////////////////////////////////////////////////////////////////
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Radio(
-                          value: 4,
-                          groupValue: _myOutgoingType,
-                          onChanged: _handleOutgoingType,
-                          activeColor: Color(0xff9962d0),
-                        ),
-                        Text(
-                          'Eğitim',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-/////////////////////////////////////////////////////////////////////////
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Radio(
-                          value: 5,
-                          groupValue: _myOutgoingType,
-                          onChanged: _handleOutgoingType,
-                          activeColor: Color(0xff0dc8f5),
-                        ),
-                        Text(
-                          'Diğer',
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              SizedBox(
+                height: 10.0,
               ),
 /////////////////////////////////////////////////////////////////////////
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18.0),
-                        side: BorderSide(color: Color(0xffff0863))),
-                    color: Color(0xffff0863),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      "İPTAL",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 1,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xff4158ba),
+                            ),
+                            Text(
+                              'Seyahat',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 2,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xfffb537f),
+                            ),
+                            Text(
+                              'Spor',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
 
 /////////////////////////////////////////////////////////////////////////
 
-                  RaisedButton(
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 3,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xff4caf50),
+                            ),
+                            Text(
+                              'Alışveriş',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 4,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xff9962d0),
+                            ),
+                            Text(
+                              'Eğitim',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+/////////////////////////////////////////////////////////////////////////
+
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 5,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xff0dc8f5),
+                            ),
+                            Text(
+                              'Sağlık',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 40),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Radio(
+                              value: 6,
+                              groupValue: _myOutgoingType,
+                              onChanged: _handleOutgoingType,
+                              activeColor: Color(0xff0dc8f5),
+                            ),
+                            Text(
+                              'Diğer',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+/////////////////////////////////////////////////////////////////////////
+
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10.0, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Color(0xffff0863))),
                       color: Color(0xffff0863),
-                      onPressed: () async {
-                        
-                        await fireServ.addOutgoing(Outgoing(
-                            createdAt: createdAt,
-                            outgoingName: outgoingName,
-                            outgoingQuan: outgoingQunatity,
-                            outgoingdType: outgoingVal)).then((_) => Navigator.of(context).pop());
-
-                        // fireServ
-                        //     .createOutgoingList(
-                        //         name: _nameController.text,
-                        //         quantity: int.parse(_quantityController.text),
-                        //         type: outgoingVal)
-                        //     .then((_) => Navigator.of(context).pop());
+                      onPressed: () {
+                        Navigator.of(context).pop();
                       },
                       child: const Text(
-                        "ONAYLA",
+                        "İPTAL",
                         style: TextStyle(color: Colors.white),
-                      ))
-                ],
+                      ),
+                    ),
+
+/////////////////////////////////////////////////////////////////////////
+
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            side: BorderSide(color: Color(0xffff0863))),
+                        color: Color(0xffff0863),
+                        onPressed: () async {
+                          await fireServ
+                              .addOutgoing(Outgoing(
+                                  createdAt: createdAt,
+                                  outgoingName: _nameController.text,
+                                  outgoingQuan:
+                                      int.parse(_quantityController.text),
+                                  outgoingdType: outgoingVal))
+                              .then((_) => Navigator.of(context).pop());
+
+                          // fireServ
+                          //     .createOutgoingList(
+                          //         name: _nameController.text,
+                          //         quantity: int.parse(_quantityController.text),
+                          //         type: outgoingVal)
+                          //     .then((_) => Navigator.of(context).pop());
+                        },
+                        child: const Text(
+                          "ONAYLA",
+                          style: TextStyle(color: Colors.white),
+                        ))
+                  ],
+                ),
               )
             ],
           ),
         ));
+  }
+}
+
+getRatio(int value, groupValue, void _handleOutgoingType(int), list) {
+  for (int i = 0; i < value; i++) {
+    if (i == value) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Radio(
+            value: i,
+            groupValue: groupValue,
+            onChanged: _handleOutgoingType,
+            activeColor: Color(0xff4158ba),
+          ),
+          Text(
+            list[i],
+            style: TextStyle(fontSize: 16.0),
+          ),
+          // Expanded(
+          //   child: ListTile(
+          //     trailing: Switch(
+          //         activeColor: Color(0xffff0863),
+          //         value: false,
+          //         onChanged: (a) {}),
+          //   ),
+          // ),
+        ],
+      );
+    } else {
+      return getRatio(value - 1, groupValue, _handleOutgoingType, list);
+    }
   }
 }

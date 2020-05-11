@@ -1,8 +1,10 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homesweethome/models/outgoing.dart';
 
-Widget containerWitgetofOutgoing({BuildContext context, List list}) {
+Widget containerWitgetofOutgoing({BuildContext context, List<Outgoing> list}) {
   // int _itemCount;
 
   return Column(
@@ -33,39 +35,78 @@ Widget containerWitgetofOutgoing({BuildContext context, List list}) {
                               child: Padding(
                                 padding: EdgeInsets.all(6.0),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
-                                    todoType('${list[index].outgoingType}'),
-                                    Text(
-                                      '${list[index].outgoingName}',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 20.0),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                          width: (MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  48) *
+                                              0.15,
+                                          child: todoType(
+                                              '${list[index].outgoingdType}')),
                                     ),
-                                    Text(
-                                      '${list[index].outgoingQuan}',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold),
+                                    Container(
+                                      width: (MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  48) *
+                                              0.85,
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              '${list[index].outgoingName}',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0),
+                                            ),
+                                            Text(
+                                              '${list[index].outgoingQuan}',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: <Widget>[
+                                                Text(
+                                                  formatDate(
+                                                      list[index]
+                                                          .createdAt
+                                                          .toDate(),
+                                                      [dd, '.', mm, '.', yyyy]),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      // fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  formatDate(
+                                                      list[index]
+                                                          .createdAt
+                                                          .toDate(),
+                                                      [HH, ':', nn, ':', ss]),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      // fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: <Widget>[
-                                        Text(
-                                          '10/05/2020',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              // fontSize: 20.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          '21:31:26',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              // fontSize: 20.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    )
                                   ],
                                 ),
                               ),
@@ -98,6 +139,10 @@ Widget todoType(String icontype) {
     case 'Eğitim':
       iconval = FontAwesomeIcons.graduationCap;
       colorval = Color(0xff4caf50);
+      break;
+    case 'Sağlık':
+      iconval = FontAwesomeIcons.hospitalAlt;
+      colorval = Color(0xff9962d0);
       break;
     case 'Diğer':
       iconval = FontAwesomeIcons.glassCheers;
