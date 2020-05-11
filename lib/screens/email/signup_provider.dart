@@ -14,7 +14,7 @@ class SignUp extends StatelessWidget with ChangeNotifier {
   String error;
   String _email = '';
   String _password = '';
-  String _name = "";
+  // String _name = "";
 
   TextEditingController _emailCont = TextEditingController();
   TextEditingController _nameCont = TextEditingController();
@@ -118,7 +118,7 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       onChanged: (a) {
-                         _name = a;
+                        //  _name = a;
                         notifyListeners();
                       },
                     ),

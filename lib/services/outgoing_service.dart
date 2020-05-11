@@ -1,10 +1,7 @@
 import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/models/outgoing.dart';
-import 'package:homesweethome/models/user.dart';
 import 'dart:async';
-import 'package:homesweethome/notifiers/list_notifier.dart';
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 

@@ -8,7 +8,7 @@ import 'package:homesweethome/services/auth.dart';
 
 
 
-class Register extends StatefulWidget with ChangeNotifier {
+class Register extends StatefulWidget  {
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -21,10 +21,10 @@ class _RegisterState extends State<Register> {
   bool _textcontrol2 = true;
 
   var _formKey = GlobalKey<FormState>();
-  String error;
+   String error;
   String _email = '';
   String _password = '';
-  String _name = "";
+  // String _name = "";
   
 
   TextEditingController _emailCont = TextEditingController();
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       onChanged: (a) {
-                        setState(() => _name = a);
+                        // setState(() => _name = a);
                       },
                     ),
                   ),
