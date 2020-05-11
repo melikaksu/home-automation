@@ -24,8 +24,8 @@ class AuthWidgetBuilder extends StatelessWidget {
           return MultiProvider(
             providers: [
               Provider<User>.value(value: user),
-              Provider<OutgoingService>(
-                create: (_) => OutgoingService(user.userUid),
+              ChangeNotifierProvider<OutgoingService>(
+                create: (_) => OutgoingService(),
               ),
             ],
             child: builder(context, snapshot),

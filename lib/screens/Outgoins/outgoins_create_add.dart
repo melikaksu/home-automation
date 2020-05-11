@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,20 +7,23 @@ import 'package:homesweethome/services/outgoing_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
-class OutgoingScreen extends StatefulWidget {
-  final Outgoing outgoings;
+class CreateAndAddOutgoing extends StatefulWidget {
 
-  OutgoingScreen(this.outgoings);
+  final Outgoing outgoings;
+  CreateAndAddOutgoing([this.outgoings]);
 
   @override
-  _OutgoingScreenState createState() => _OutgoingScreenState();
+  _CreateAndAddOutgoingState createState() => _CreateAndAddOutgoingState();
 }
 
-class _OutgoingScreenState extends State<OutgoingScreen> {
+class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
+  
+  Timestamp createdAt = Timestamp.now();
+  String outgoingName;
+  int outgoingQunatity;
 
-
-  TextEditingController _nameController;
-  TextEditingController _quantityController;
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _quantityController = TextEditingController();
 
   int _myOutgoingType = 0;
   String outgoingVal;
@@ -47,17 +51,9 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController(text: widget.outgoings.name);
-    _quantityController =
-        TextEditingController(text: widget.outgoings.quantity.toString());
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final fireServ = Provider.of<OutgoingService>(context, listen: false);
 
-    final fireServ=Provider.of<OutgoingService>(context,listen: false);
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
@@ -107,7 +103,8 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (a) => outgoingName = a,
                   controller: _nameController,
                   decoration: InputDecoration(labelText: "Açıklama: "),
                 ),
@@ -116,7 +113,8 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
 
               Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: TextField(
+                child: TextFormField(
+                  onSaved: (a) => outgoingQunatity = int.parse(a),
                   keyboardType: TextInputType.number,
                   controller: _quantityController,
                   decoration: InputDecoration(labelText: "Tutar: "),
@@ -255,7 +253,7 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  
+
 /////////////////////////////////////////////////////////////////////////
 
                   RaisedButton(
@@ -263,14 +261,20 @@ class _OutgoingScreenState extends State<OutgoingScreen> {
                           borderRadius: new BorderRadius.circular(18.0),
                           side: BorderSide(color: Color(0xffff0863))),
                       color: Color(0xffff0863),
-                      onPressed: () {
-                        fireServ
-                            .createOutgoingList(
-                                name: _nameController.text,
-                                quantity: int.parse(_quantityController.text),
-                                type: outgoingVal)
-                            .then((_) => Navigator.of(context).pop());
-                
+                      onPressed: () async {
+                        
+                        await fireServ.addOutgoing(Outgoing(
+                            createdAt: createdAt,
+                            outgoingName: outgoingName,
+                            outgoingQuan: outgoingQunatity,
+                            outgoingdType: outgoingVal)).then((_) => Navigator.of(context).pop());
+
+                        // fireServ
+                        //     .createOutgoingList(
+                        //         name: _nameController.text,
+                        //         quantity: int.parse(_quantityController.text),
+                        //         type: outgoingVal)
+                        //     .then((_) => Navigator.of(context).pop());
                       },
                       child: const Text(
                         "ONAYLA",

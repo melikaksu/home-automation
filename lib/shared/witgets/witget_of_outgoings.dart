@@ -34,14 +34,14 @@ Widget containerWitgetofOutgoing({BuildContext context, List list}) {
                                 padding: EdgeInsets.all(6.0),
                                 child: Row(
                                   children: <Widget>[
-                                    todoType('${list[index].type}'),
+                                    todoType('${list[index].outgoingType}'),
                                     Text(
-                                      '${list[index].name}',
+                                      '${list[index].outgoingName}',
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 20.0),
                                     ),
                                     Text(
-                                      '${list[index].quantity}',
+                                      '${list[index].outgoingQuan}',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 20.0,
