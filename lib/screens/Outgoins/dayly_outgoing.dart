@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/outgoing_service.dart';
 import 'package:homesweethome/shared/witgets/witget_of_outgoings.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class DaylyOutgoing extends StatefulWidget {
   @override
@@ -12,6 +12,27 @@ class DaylyOutgoing extends StatefulWidget {
 
 class _DaylyOutgoingState extends State<DaylyOutgoing> {
   List<Outgoing> _listOfOutgoings; //_outgoings;
+  bool isdaily;
+
+  isDaily(
+    List<Outgoing> list,
+  ) {
+    var currentDate = DateTime.now();
+    for (var i = 0; i < list.length; i++) {
+      if (DateFormat("EEEE").format(list[i].timecreatedAt.toDate()) ==
+          DateFormat("EEEE").format(currentDate)) {
+        setState(() {
+          isdaily = true;
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    isDaily(_listOfOutgoings);
+    super.initState();
+  }
 
   // StreamSubscription<QuerySnapshot> todoOutgoings;
   // @override
@@ -48,12 +69,34 @@ class _DaylyOutgoingState extends State<DaylyOutgoing> {
                     (doc) => Outgoing.fromMap(doc.data, doc.documentID))
                 .toList();
 
+            isDaily(_listOfOutgoings);
+
             return SingleChildScrollView(
-              child: containerWitgetofOutgoing(
-                list: _listOfOutgoings,
-                context: context,
-              ),
-            );
+                child: Column(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 480,
+                  child: ListView.builder(
+                    itemCount: _listOfOutgoings.length,
+                    itemBuilder: (BuildContext contex, int index) {
+                      return isdaily
+                          ? containerWitgetofOutgoing(
+                              context: context,
+                              index: index,
+                              list: _listOfOutgoings)
+                          : Center(child: Container());
+                    },
+                  ),
+                ),
+              ],
+            )
+
+                //   containerWitgetofOutgoing(
+                //   list: _listOfOutgoings,
+                //   context: context,
+                // ),
+                );
           }
           return Container(
             child: Center(

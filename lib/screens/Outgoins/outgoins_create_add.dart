@@ -6,7 +6,6 @@ import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/outgoing_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
-
 class CreateAndAddOutgoing extends StatefulWidget {
   final Outgoing outgoings;
   CreateAndAddOutgoing([this.outgoings]);
