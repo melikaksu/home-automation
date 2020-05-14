@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/Outgoins/outgoins_create_add.dart';
 import 'package:homesweethome/shared/my_appbar.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
-import 'dayly_outgoing.dart';
+import 'daily_outgoing.dart';
+import 'monthly_outgoings.dart';
+import 'weekly_outgoings.dart';
 
 class OutgoingPage extends StatelessWidget {
   @override
@@ -34,9 +36,9 @@ class OutgoingPage extends StatelessWidget {
         
         body: TabBarView(
           children: <Widget>[
-            DaylyOutgoing(),
-            Center(child: Text("Weekly Outgoings")),
-            Center(child: Text("Mountly Outgoins")),
+            DailyOutgoing(),
+            WeeklyOutgoing(),
+            MounthlyOutgoing(),
             Center(child: Text("Total Outgoings")),
           ],
         ),
