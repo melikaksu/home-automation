@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/outgoing_service.dart';
+import 'package:homesweethome/shared/funtions/list_length.dart';
 import 'package:homesweethome/shared/witgets/witget_of_outgoings.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class _DailyOutgoingState extends State<DailyOutgoing> {
                   width: MediaQuery.of(context).size.width,
                   height: 480,
                   child: ListView.builder(
-                    itemCount: _listOfOutgoings.length,
+                    itemCount: getListLength(_listOfOutgoings),
                     itemBuilder: (BuildContext contex, int index) {
                       return containerWitgetofOutgoing(
                           context: context,

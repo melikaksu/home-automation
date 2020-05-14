@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/outgoing_service.dart';
+import 'package:homesweethome/shared/funtions/get_total_outgoing.dart';
 import 'package:homesweethome/shared/witgets/witget_of_outgoings.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,7 @@ class _WeeklyOutgoingState extends State<WeeklyOutgoing> {
           if (snapshot.hasData != null) {
             debugPrint(snapshot.data.toString());
             _listOfOutgoings = snapshot.data;
-
+            print( getTotalOutgoing(_listOfOutgoings));     
             return SingleChildScrollView(
                 child: Column(
               children: <Widget>[

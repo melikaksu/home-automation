@@ -7,66 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:homesweethome/shared/funtions/get_days.dart';
 import 'package:intl/intl.dart';
 
-//  class OutgoingService {
-//    User user;
-//    static String uid;
-//    OutgoingService([uid]);
-//    set(){
-//      uid=user.userUid;
-//    }
-
-//    final CollectionReference outgoingCollections =
-//    Firestore.instance.collection(uid==null?" ":uid);
-
-//    final CollectionReference lisCollection =
-//    Firestore.instance.collection("lists");
-
-// //////////////////////////////////////////////////////////////////////////////
-
-//   Future<Outgoing> createOutgoingList({String name,String type,int quantity}) async {
-//       final TransactionHandler createTransaction = (Transaction tx) async {
-//       final DocumentSnapshot ds = await tx.get(outgoingCollections.document());
-//       final Outgoing outgoings = Outgoing(name,type,quantity);
-//       final Map<String, dynamic> data = outgoings.toMap();
-//       await tx.set(ds.reference, data);
-//       return data;
-//     };
-//     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
-//       return Outgoing.fromMap(mapData);
-//     }).catchError((onError) {
-//       print("Error:$onError");
-//       return null;
-//     });
-//   }
-// //////////////////////////////////////////////////////////////////////////////
-
-//     Stream<QuerySnapshot> getOutgoingList({int offset, int limit,}) {
-//     Stream<QuerySnapshot> snapshots = outgoingCollections.snapshots();
-//     if (offset != null) {
-//       snapshots = snapshots.skip(offset);
-//     }
-//     if (limit != null) {
-//       snapshots = snapshots.take(limit);
-//     }
-//     return snapshots;
-//    }
-
-// }
-//   getListofMyList(ListNotifier listNotifier)
-//    async{
-//      final CollectionReference lisCollection =
-//          Firestore.instance.collection("list");
-
-//      QuerySnapshot snapshot= await lisCollection.getDocuments();
-//      List<MyList> _listOfArmut=[];
-//      snapshot.documents.forEach((doc){
-//        MyList armut=MyList.fromMap(doc.data,doc.documentID);
-//        _listOfArmut.add(armut);
-//      });
-
-//      listNotifier.listofMyList=_listOfArmut;
-//    }
-
 class OutgoingService with ChangeNotifier {
   static String userUid;
 
@@ -90,15 +30,12 @@ class OutgoingService with ChangeNotifier {
     return listref.orderBy('createdAt', descending: true).snapshots();
   }
 
-  // Stream<QuerySnapshot> fetchDailyOutgoingAsStream() {
-  //   return listref.orderBy('createdAt',descending:true)
-  //   .snapshots();
-  // }
+ 
   Stream<List<Outgoing>> dailyOutgoingAsStream() {
     return listref
         .where("createdAt",
             isGreaterThanOrEqualTo:
-                DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now())))
+                DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()))).where("outgoingdType",isEqualTo: "Seyahat")
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
@@ -108,22 +45,13 @@ class OutgoingService with ChangeNotifier {
     });
   }
 
-  Stream<List<Outgoing>> weeklyOutgoingAsStream() {
-   var sunday=DateTime.now();
-   var monday=DateTime.now();
-   while(sunday.weekday!=7){
-     sunday=sunday.add(Duration(days: 1));
-   }   while(monday.weekday!=1){
-     monday=monday.subtract(Duration(days: 1));
-   }
-   
-
+  Stream<List<Outgoing>> weeklyOutgoingAsStream( ) {
     return listref
         .where(
           "createdAt",
           isGreaterThan: DateTime.parse(
             DateFormat('yyyyMMdd').format(
-             monday,
+             getMonday(),
             ),
           ),
         )
@@ -131,7 +59,7 @@ class OutgoingService with ChangeNotifier {
           "createdAt",
           isLessThan: DateTime.parse(
             DateFormat('yyyyMMdd').format(
-              sunday,
+              getSunday(),
             ),
           ),
         )
