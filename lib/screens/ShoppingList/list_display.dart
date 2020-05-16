@@ -7,16 +7,16 @@ import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:homesweethome/shared/show_diolog.dart';
 import 'package:provider/provider.dart';
-import 'add_list.dart';
 import 'list_details.dart';
 
 class ListPage extends StatefulWidget {
+ 
   @override
   _ListPageState createState() => _ListPageState();
 }
 
 class _ListPageState extends State<ListPage> {
-  Dialogs dialog=Dialogs();
+  Dialogs dialog = Dialogs();
   List<MyList> myList;
 
   @override
@@ -27,7 +27,6 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     final listProvider = Provider.of<ListService>(context);
-
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
@@ -59,9 +58,9 @@ class _ListPageState extends State<ListPage> {
           ],
           elevation: 0.0,
           backgroundColor: Colors.white),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: listProvider.fetchListAsStream(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+      body:StreamBuilder<QuerySnapshot>(
+           stream: listProvider.fetchListAsStream(),
+           builder: (BuildContext context, AsyncSnapshot snapshot) {
             //  var  at=listNotifier.currentMyList.subList.length;
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData != null) {
@@ -76,7 +75,9 @@ class _ListPageState extends State<ListPage> {
                         children: <Widget>[
                           ListTile(
                               onTap: () {
-                                listProvider.currentMyList = myList[index];
+
+                                listProvider.currentMyList=myList[index];
+                 
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (BuildContext context) {
                                   return ListDetails();
@@ -88,7 +89,7 @@ class _ListPageState extends State<ListPage> {
                               ),
                               subtitle: Row(
                                 children: <Widget>[
-                                  Text(myList[index].id),
+                                  Text(myList[index].id ),
                                   Expanded(
                                     child: Text(
                                       formatDate(
@@ -103,7 +104,7 @@ class _ListPageState extends State<ListPage> {
                       );
                     },
                     separatorBuilder: (context, index) => Divider(),
-                    itemCount: myList.length);
+                    itemCount:  myList.length);
               } else {
                 return Container(
                     child: Center(
@@ -114,16 +115,14 @@ class _ListPageState extends State<ListPage> {
             return Container();
           }),
 
-
-        floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueGrey,
         child: Icon(
           Icons.playlist_add,
           size: 30,
         ),
         onPressed: () {
-
- dialog.informations(context, "Tittle", "Description");
+          dialog.informations(context, "Tittle", "Description");
           // Navigator.push(context,
           //     MaterialPageRoute(builder: (BuildContext context) => AddList()));
         },

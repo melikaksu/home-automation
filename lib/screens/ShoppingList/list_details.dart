@@ -11,7 +11,6 @@ class ListDetails extends StatefulWidget {
 }
 
 class _ListDetailsState extends State<ListDetails> {
- 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController subListController = TextEditingController();
   bool isDone = false;
@@ -46,22 +45,23 @@ class _ListDetailsState extends State<ListDetails> {
     final listProvider = Provider.of<ListService>(context, listen: false);
     if (listProvider.currentMyList != null) {
       currentMyList = listProvider.currentMyList;
+          // subList=currentMyList.subList;
+
+     
+
     } else {
       currentMyList = MyList();
     }
-
-    subList.addAll(listProvider.currentMyList.subList);
-
+  
+      subList.addAll(listProvider.currentMyList.subList);
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-   
-    // final listProvider = Provider.of<CRUDModel>(context);
-    // _currentMyList=listProvider.currentMyList;
-
-    // subList=_currentMyList.subList;
+    // final listProvider = Provider.of<ListService>(context);
+    // currentMyList=listProvider.currentMyList;
 
     return Scaffold(
         drawer: MyDrawer(),
@@ -107,7 +107,6 @@ class _ListDetailsState extends State<ListDetails> {
                       return Column(
                         children: <Widget>[
                           ListTile(
-                           
                             leading: IconButton(
                               icon: Icon(isDone
                                   ? FontAwesomeIcons.checkCircle
@@ -117,7 +116,6 @@ class _ListDetailsState extends State<ListDetails> {
                                   curentIndex = index;
                                 });
                                 print(curentIndex.toString());
-                           
                               },
                               color: clr,
                             ),
@@ -126,8 +124,6 @@ class _ListDetailsState extends State<ListDetails> {
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
-
-                    
                         ],
                       );
                     },
@@ -146,15 +142,18 @@ class _ListDetailsState extends State<ListDetails> {
                             Text('Add', style: TextStyle(color: Colors.white)),
                         onPressed: () {
                           print('saveFood Called');
-                          if (!_formKey.currentState.validate()) {
-                            return;
-                          }
-                          _formKey.currentState.save();
+
+                          // if (!_formKey.currentState.validate()) {
+                          //   return;
+                          // }
+                         
+                        _formKey.currentState.save();
                           _addToSubList(subListController.text);
                           print("Element Added");
+                          print(subList);
                           currentMyList.subList = subList;
 
-                          setState(() {});
+                      
                         },
                       ),
                     )

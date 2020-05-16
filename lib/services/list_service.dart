@@ -10,7 +10,7 @@ import 'package:homesweethome/models/list.dart';
   // CollectionReference newList=  Firestore.instance.collection("list").document("userUid").collection('elements');
   //  Firestore.instance.collection('path').document("documentPath").collection('subCollectionPath').setData({});
 
-  MyList _currentElement=MyList();
+  MyList _currentElement= MyList();
   List<MyList> myList=[];
 
 
@@ -58,6 +58,7 @@ import 'package:homesweethome/models/list.dart';
   }
 
    UnmodifiableListView<MyList> get listofMyList=>UnmodifiableListView(myList);
+   
    MyList get currentMyList=>_currentElement;      
 
    set listofMyList(List<MyList> listofMyList){
