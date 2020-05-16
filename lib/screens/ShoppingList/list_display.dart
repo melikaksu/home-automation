@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
 import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
+import 'package:homesweethome/shared/show_diolog.dart';
 import 'package:provider/provider.dart';
-
 import 'add_list.dart';
 import 'list_details.dart';
 
@@ -15,6 +16,7 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  Dialogs dialog=Dialogs();
   List<MyList> myList;
 
   @override
@@ -28,19 +30,6 @@ class _ListPageState extends State<ListPage> {
 
     return Scaffold(
       drawer: MyDrawer(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueGrey,
-        child: Icon(
-          Icons.playlist_add,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => AddList()));
-        },
-        elevation: 5,
-        highlightElevation: 3,
-      ),
       appBar: AppBar(
           leading: Builder(builder: (BuildContext context) {
             return IconButton(
@@ -102,23 +91,9 @@ class _ListPageState extends State<ListPage> {
                                   Text(myList[index].id),
                                   Expanded(
                                     child: Text(
-                                      myList[index]
-                                              .createdAt
-                                              .toDate()
-                                              .day
-                                              .toString() +
-                                          "/" +
-                                          myList[index]
-                                              .createdAt
-                                              .toDate()
-                                              .month
-                                              .toString() +
-                                          "/" +
-                                          myList[index]
-                                              .createdAt
-                                              .toDate()
-                                              .year
-                                              .toString(),
+                                      formatDate(
+                                          myList[index].createdAt.toDate(),
+                                          [dd, '.', mm, '.', yyyy]),
                                       style: TextStyle(fontSize: 20),
                                     ),
                                   ),
@@ -138,6 +113,23 @@ class _ListPageState extends State<ListPage> {
             }
             return Container();
           }),
+
+
+        floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueGrey,
+        child: Icon(
+          Icons.playlist_add,
+          size: 30,
+        ),
+        onPressed: () {
+
+ dialog.informations(context, "Tittle", "Description");
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (BuildContext context) => AddList()));
+        },
+        elevation: 5,
+        highlightElevation: 3,
+      ),
     );
   }
 }

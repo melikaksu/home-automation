@@ -6,6 +6,8 @@ class MyList {
   Timestamp createdAt;
   Timestamp updatedAt;
   List subList = [];
+  bool completed=false;
+   
 
   MyList({this.name, this.createdAt, this.id, this.subList, this.updatedAt});
   
@@ -24,4 +26,8 @@ class MyList {
       'updatedAt': updatedAt
     };
   }
+  void toggleCompleted() {
+    completed = !completed;
+  }
+
 }

@@ -6,19 +6,30 @@ import 'package:provider/provider.dart';
 
 import '../login.dart';
 
-class SignUp extends StatelessWidget with ChangeNotifier {
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   bool _textcontrol = true;
+
   bool _textcontrol2 = true;
 
   var _formKey = GlobalKey<FormState>();
+
   String error;
+
   String _email = '';
+
   String _password = '';
-  // String _name = "";
 
   TextEditingController _emailCont = TextEditingController();
+
   TextEditingController _nameCont = TextEditingController();
+
   TextEditingController _passwordCont = TextEditingController();
+
   TextEditingController _passwordCheckCont = TextEditingController();
 
   @override
@@ -119,7 +130,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                       ),
                       onChanged: (a) {
                         //  _name = a;
-                        notifyListeners();
                       },
                     ),
                   ),
@@ -150,7 +160,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                     ),
                     onChanged: (a) {
                       _email = a;
-                      notifyListeners();
                     },
                   )),
 
@@ -179,7 +188,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                               : Icons.visibility),
                           onPressed: () {
                             _textcontrol2 = !_textcontrol2;
-                            notifyListeners();
                           }),
                       //prefixIcon: Icon(FontAwesomeIcons.key),
                       hintText: 'Lütfen şifrenizi giriniz',
@@ -197,7 +205,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                     ),
                     onSaved: (a) {
                       _passwordCont.text = a;
-                      notifyListeners();
                     },
                   )),
 ///////////////////////////////////////////////////////////////////////////////////
@@ -225,7 +232,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                               : Icons.visibility),
                           onPressed: () {
                             _textcontrol = !_textcontrol;
-                            notifyListeners();
                           }),
                       // prefixIcon: Icon(FontAwesomeIcons.key),
                       hintText: 'Lütfen şifrenizi giriniz',
@@ -244,7 +250,6 @@ class SignUp extends StatelessWidget with ChangeNotifier {
                     ),
                     onChanged: (a) {
                       _password = a;
-                      notifyListeners();
                     },
                   )),
                   SizedBox(height: 10.0),

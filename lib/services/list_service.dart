@@ -10,8 +10,8 @@ import 'package:homesweethome/models/list.dart';
   // CollectionReference newList=  Firestore.instance.collection("list").document("userUid").collection('elements');
   //  Firestore.instance.collection('path').document("documentPath").collection('subCollectionPath').setData({});
 
-  MyList _currentElement;
-  List<MyList> myList;
+  MyList _currentElement=MyList();
+  List<MyList> myList=[];
 
 
 
@@ -39,13 +39,13 @@ import 'package:homesweethome/models/list.dart';
      return ;
   }
   Future updateList(MyList data,String id) async{
-    
      try{ await  listref.document(id).updateData(data.toJson());
     data.updatedAt=Timestamp.now();
     data.createdAt= data.updatedAt;
     return ;
 
-     }catch(e){
+     }
+     catch(e){
        print(e.toString());
        return null;
      }
