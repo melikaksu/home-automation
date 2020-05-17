@@ -8,8 +8,8 @@ DateTime getMonday() {
 
 DateTime getSunday() {
   DateTime sunday = DateTime.now();
-  while (sunday.weekday != 7) {
-    sunday = sunday.add(Duration(days: 1));
+  while (sunday.weekday != 7 ) {
+    sunday = sunday.add(Duration(days: 1,));
   }
   return sunday;
 }

@@ -42,32 +42,27 @@ class _MounthlyOutgoingState extends State<MounthlyOutgoing> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData != null) {
-            debugPrint(snapshot.data.toString());
+            // debugPrint(snapshot.data.toString());
             _listOfOutgoings = snapshot.data;
             return SingleChildScrollView(
-                child: Column(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 480,
-                  child: ListView.builder(
-                    itemCount: _listOfOutgoings.length,
-                    itemBuilder: (BuildContext contex, int index) {
-                      return containerWitgetofOutgoing(
-                          context: context,
-                          index: index,
-                          list: _listOfOutgoings);
-                    },
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 480,
+                    child: ListView.builder(
+                      itemCount: _listOfOutgoings.length,
+                      itemBuilder: (BuildContext contex, int index) {
+                        return containerWitgetofOutgoing(
+                            context: context,
+                            index: index,
+                            list: _listOfOutgoings);
+                      },
+                    ),
                   ),
-                ),
-              ],
-            )
-
-                //   containerWitgetofOutgoing(
-                //   list: _listOfOutgoings,
-                //   context: context,
-                // ),
-                );
+                ],
+              ),
+            );
           }
           return Container(
             child: Center(
@@ -80,17 +75,5 @@ class _MounthlyOutgoingState extends State<MounthlyOutgoing> {
         );
       },
     );
-    //  Container(
-    //       child: Center(
-    //       child: Text(
-    //         "Gider eklemek için,sağ altta bulunan ekle butonuna tıklayınız",
-    //         style: TextStyle(
-    //           color: Color(0xffff0863),
-    //           fontSize: 30,
-    //         ),
-    //         textAlign: TextAlign.center,
-    //       ),
-    //     ),
-    //   )
   }
 }

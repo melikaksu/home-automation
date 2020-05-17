@@ -31,11 +31,10 @@ class OutgoingService with ChangeNotifier {
   }
 
  
-  Stream<List<Outgoing>> dailyOutgoingAsStream() {
+  Stream<List<Outgoing>> dailyOutgoingAsStream({String outgoingdType}) {
     return listref
-        .where("createdAt",
-            isGreaterThanOrEqualTo:
-                DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()))).where("outgoingdType",isEqualTo: "Seyahat")
+        .where("outgoingdType",isEqualTo: outgoingdType)
+        .where("createdAt",isGreaterThanOrEqualTo:DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now())))
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
@@ -47,26 +46,12 @@ class OutgoingService with ChangeNotifier {
 
   Stream<List<Outgoing>> weeklyOutgoingAsStream( ) {
     return listref
-        .where(
-          "createdAt",
-          isGreaterThan: DateTime.parse(
-            DateFormat('yyyyMMdd').format(
-             getMonday(),
-            ),
-          ),
-        )
-        .where(
-          "createdAt",
-          isLessThan: DateTime.parse(
-            DateFormat('yyyyMMdd').format(
-              getSunday(),
-            ),
-          ),
-        )
+        .where("createdAt",isGreaterThanOrEqualTo: DateTime.parse(DateFormat('yyyyMMdd').format(getMonday())))
+        .where("createdAt",isLessThan:    DateTime.parse(getSunday().toString()))
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
-      return snapshot.documents
+        return snapshot.documents
           .map<Outgoing>((doc) => Outgoing.fromMap(doc.data, doc.documentID))
           .toList();
     });
@@ -74,33 +59,15 @@ class OutgoingService with ChangeNotifier {
 
   Stream<List<Outgoing>> mounthlyOutgoingAsStream() {
     return listref
-        .where("createdAt",
-            isGreaterThanOrEqualTo:
-                DateTime.parse(DateFormat('yyyyMM01').format(DateTime.now())))
+        .where("createdAt",isGreaterThanOrEqualTo:DateTime.parse(DateFormat('yyyyMM01').format(DateTime.now())))
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
-      return snapshot.documents
+        return snapshot.documents
           .map<Outgoing>((doc) => Outgoing.fromMap(doc.data, doc.documentID))
           .toList();
     });
   }
-
-  // @override
-  // Stream<List<SmokeEntity>> monthlySmokes() {
-  //   return getCurrentUserSmokesCollection()
-  //       .where("date", isGreaterThanOrEqualTo: DateTime.parse(new DateFormat('yyyyMM01').format(new DateTime.now())))
-  //       .orderBy("date", descending: true)
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     return snapshot.documents.map((doc) {
-  //       return SmokeEntity(
-  //         doc.documentID,
-  //         (doc['date'] as Timestamp).toDate(),
-  //       );
-  //     }).toList();
-  //   });
-  // }
 
   Future<Outgoing> getDocumentById(String id) async {
     var doc = await listref.document(id).get();
