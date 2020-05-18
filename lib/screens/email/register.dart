@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/email/sign_in_with_email.dart';
+import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/services/auth.dart';
 
@@ -28,7 +29,7 @@ class _RegisterState extends State<Register> {
   
 
   TextEditingController _emailCont = TextEditingController();
-  TextEditingController _nameCont = TextEditingController();
+  // TextEditingController _nameCont = TextEditingController();
   TextEditingController _passwordCont = TextEditingController();
   TextEditingController _passwordCheckCont = TextEditingController();
 
@@ -68,33 +69,33 @@ class _RegisterState extends State<Register> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 ///////////////////////////////////////////////////////////////////////////////////
-                  ListTile(
-                    title: TextFormField(
-                      validator: (value) =>
-                          value.isEmpty ? 'Lütfen isminizi giriniz' : null,
-                      controller: _nameCont,
-                      showCursor: true,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        prefixIcon: Icon(Icons.email),
-                        hintText: 'Kayıt olmak için bir isim giriniz',
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.cyan, width: 2),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.cyan),
-                        ),
-                        labelText: "Name",
-                        labelStyle: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                      onChanged: (a) {
-                        // setState(() => _name = a);
-                      },
-                    ),
-                  ),
+                  // ListTile(
+                  //   title: TextFormField(
+                  //     validator: (value) =>
+                  //         value.isEmpty ? 'Lütfen isminizi giriniz' : null,
+                  //     controller: _nameCont,
+                  //     showCursor: true,
+                  //     decoration: InputDecoration(
+                  //       fillColor: Colors.white,
+                  //       prefixIcon: Icon(Icons.email),
+                  //       hintText: 'Kayıt olmak için bir isim giriniz',
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(20.0),
+                  //         borderSide: BorderSide(color: Colors.cyan, width: 2),
+                  //       ),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(20.0),
+                  //         borderSide: BorderSide(color: Colors.cyan),
+                  //       ),
+                  //       labelText: "Name",
+                  //       labelStyle: TextStyle(
+                  //           color: Colors.black, fontWeight: FontWeight.bold),
+                  //     ),
+                  //     onChanged: (a) {
+                  //       // setState(() => _name = a);
+                  //     },
+                  //   ),
+                  // ),
 
                   Divider(),
 
@@ -250,11 +251,11 @@ class _RegisterState extends State<Register> {
                                 await _auth
                                     .registerWithEmail(_email, _password)
                                     .whenComplete(() {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
+                                     Navigator.pushReplacement(
+                                     context,
+                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            SignInWithEmail()),
+                                            MyHomePage()),
                                   );
                                 }).catchError((e) {
                                   print(e.toString());

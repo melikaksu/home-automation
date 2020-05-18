@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context, listen: false);
+    final user = Provider.of<User>(context,);
     final _auth = Provider.of<AuthService>(context, listen: false);
 
     return Drawer(

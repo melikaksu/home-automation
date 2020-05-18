@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/models/user.dart';
 import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/email/password_reset.dart';
 import 'package:homesweethome/screens/email/register.dart';
@@ -9,8 +8,7 @@ import 'package:homesweethome/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class SignInWithEmail extends StatefulWidget {
-  final String registerMail;
-  SignInWithEmail([this.registerMail]);
+ 
   
 
   @override
@@ -34,13 +32,13 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
   @override
   Widget build(BuildContext context) {
     
-    final _auth = Provider.of<AuthService>(context, listen: false);
+    final _auth = Provider.of<AuthService>(context,);
 
-    Future<void> _signIn() async {
-      User user = await _auth.signInWithEmail(_email, _password);
-      if(user!=null)
-        return user.userUid;
-    }
+    // Future<void> _signIn() async {
+    //   User user = await _auth.signInWithEmail(_email, _password);
+    //   if(user!=null)
+    //     return user.userUid;
+    // }
 
     // setState(() {
     //   if (widget.registerMail!=null && widget.registerMail!=''){
@@ -123,9 +121,9 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                           labelStyle: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
-                        onSaved: (a) {
+                        onChanged: (a) {
                           setState(() {
-                            _email = _emailCont.text;
+                            _email = a;
                           });
                         },
                       )),
@@ -172,7 +170,7 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                           labelStyle: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
-                        onSaved: (a) {
+                        onChanged: (a) {
                           setState(() => _password = a);
                         },
                       )),
@@ -212,41 +210,20 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                                     ],
                                   ),
                                   onPressed: () async {
-                                    if (_formKey.currentState.validate()) {
-
-                                    await  _signIn().whenComplete(() {
-                                        Navigator.push(
+                                   try{
+                                     await _auth.signInWithEmail(_email, _password);
+                                     Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder:
                                                     (BuildContext context) =>
                                                         MyHomePage()));
-                                      });
+                                   }catch(e){
 
-                                      //  _signIn()
-                                      //  .whenComplete(() {
-                                      //     Navigator.push(
-                                      //         context,
-                                      //         MaterialPageRoute(
-                                      //             builder: (BuildContext
-                                      //                     context) =>
-                                      //                 MyHomePage()));
-                                      //   });
+                                     print("Errorr=> " + e.toString());
+                                   }
 
-                                      // dynamic res = await _auth
-                                      //     .signInWithEmail(_email, _password);
-                                      // if (res == null) {
-                                      //   print('Errorrrrrrr');
-                                      // }
-                                      // else {
-                                      //   Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(
-                                      //           builder:
-                                      //               (BuildContext context) =>
-                                      //                   MyHomePage()));
-                                      // }
-                                    }
+                                   
                                   },
                                 ),
                               )),
