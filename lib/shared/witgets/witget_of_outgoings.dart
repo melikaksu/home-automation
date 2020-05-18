@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/shared/funtions/get_total_outgoing.dart';
+import 'package:homesweethome/shared/funtions/list_length.dart';
 
 Widget containerWitgetofOutgoing(
     {BuildContext context, List<Outgoing> list, int index}) {
   // int _itemCount;
-
+  getListLength(list);
   return Stack(children: <Widget>[
     // The containers in the background
     Column(children: <Widget>[
@@ -131,6 +132,9 @@ Widget todoType(String icontype) {
       break;
     case 'Diğer':
       iconval = FontAwesomeIcons.glassCheers;
+      colorval = Color(0xff9962d0);
+      break;case 'Spor':
+      iconval = FontAwesomeIcons.dumbbell;
       colorval = Color(0xff9962d0);
       break;
     default:

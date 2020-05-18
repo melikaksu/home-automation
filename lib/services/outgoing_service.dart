@@ -31,10 +31,10 @@ class OutgoingService with ChangeNotifier {
   }
 
  
-  Stream<List<Outgoing>> dailyOutgoingAsStream({String outgoingdType}) {
+  Stream<List<Outgoing>> dailyOutgoingAsStream() {
     return listref
-        .where("outgoingdType",isEqualTo: outgoingdType)
         .where("createdAt",isGreaterThanOrEqualTo:DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now())))
+        // .where("outgoingdType",isEqualTo: "Seyahat")
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
