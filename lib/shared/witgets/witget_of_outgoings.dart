@@ -6,7 +6,7 @@ import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/shared/funtions/get_total_outgoing.dart';
 
 Widget containerWitgetofOutgoing(
-    {BuildContext context, List<Outgoing> list, int index}) {
+  {BuildContext context, List<Outgoing> list, int index}) {
   // int _itemCount;
   return Stack(children: <Widget>[
     // The containers in the background

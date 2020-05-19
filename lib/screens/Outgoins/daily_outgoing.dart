@@ -7,39 +7,55 @@ import 'package:provider/provider.dart';
 class DailyOutgoing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // List<Outgoing> _listOfOutgoings; //_outgoings;
-    // OutgoingService outgoingProvider = Provider.of<OutgoingService>(context);
-     List<Outgoing> _outgoing=Provider.of<List<Outgoing>>(context);
+    List listOfCatagory = ["Seyahat", "Spor", "Alışveriş"];
 
-    List<Outgoing> getDailyOutgoings(){
-       DateTime today=DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()));
-       List<Outgoing> list=[];
+    List<Outgoing> _outgoing = Provider.of<List<Outgoing>>(context);
 
-       for(var i=0;i<_outgoing.length;i++){
-        if(_outgoing[i].createdAt.toDate().isAfter(today)){
-        if(_outgoing[i].outgoingdType=="Seyahat"){
+    List<Outgoing> getDailyOutgoings() {
+      DateTime today =
+          DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()));
+      List<Outgoing> list = [];
+      for (var i = 0; i < _outgoing.length; i++) {
+        if (_outgoing[i].createdAt.toDate().isAfter(today)) {
           list.add(_outgoing[i]);
-          }  
         }
-       }
-       return list;
-     }
+        print(list[i].outgoingdType);
+      }
+      return list;
+    }
 
+    List<Outgoing> ctgOutgoing(List<Outgoing> armut) {
+      int j;
+      String element;
+
+      for (int i = 1; i < armut.length; i++) {
+        element = armut[i].outgoingdType;
+        j = i - 1;
+        while (j >= 0 && armut[j].outgoingdType == "Spor") {
+          armut[j + 1].outgoingdType = armut[j].outgoingdType;
+          j--;
+        }
+        armut[j + 1].outgoingdType = element;
+      }
+
+      return armut;
+    }
 
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 480,
-            child: ListView.builder(
-                  itemCount: getDailyOutgoings().length,
-                  itemBuilder: (BuildContext contex, int index) {
-                    return containerWitgetofOutgoing(
-                    context: context, index: index, list: getDailyOutgoings());
-                  },
-                )
-           ),
+              width: MediaQuery.of(context).size.width,
+              height: 480,
+              child: ListView.builder(
+                itemCount: ctgOutgoing(getDailyOutgoings()).length,
+                itemBuilder: (BuildContext contex, int index) {
+                  return containerWitgetofOutgoing(
+                      context: context,
+                      index: index,
+                      list: ctgOutgoing(getDailyOutgoings()));
+                },
+              )),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/home.dart';
@@ -13,7 +14,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   // final AuthService _auth = AuthService();
 
   @override
@@ -110,17 +110,14 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                       onPressed: () async {
-                        await _auth.signInWithGoogle().whenComplete(
-                          () {
-                            Navigator.pop(context);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MyHomePage(),
-                                    fullscreenDialog: true));
-                          },
-                        );
+                        try {
+                          await _auth.signInWithGoogle();
+
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return MyHomePage();
+                          }));
+                        } catch (e) {}
                       },
                     ),
                   ),
