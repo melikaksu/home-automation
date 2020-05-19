@@ -2,10 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:homesweethome/screens/email/sign_in_with_email.dart';
 import 'package:homesweethome/screens/home.dart';
 import 'package:homesweethome/screens/login.dart';
 import 'package:homesweethome/services/auth.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -15,8 +15,6 @@ class Register extends StatefulWidget  {
 }
 
 class _RegisterState extends State<Register> {
-
-  final AuthService _auth = AuthService();
 
   bool _textcontrol = true;
   bool _textcontrol2 = true;
@@ -35,8 +33,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-
-
+   final _auth = Provider.of<AuthService>(context,listen: false);
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[

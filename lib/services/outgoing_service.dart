@@ -23,11 +23,19 @@ class OutgoingService with ChangeNotifier {
     listOfOutgoing = result.documents
         .map((doc) => Outgoing.fromMap(doc.data, doc.documentID))
         .toList();
+    notifyListeners();
     return listOfOutgoing;
   }
 
-  Stream<QuerySnapshot> fetchOutgoingAsStream() {
-    return listref.orderBy('createdAt', descending: true).snapshots();
+  // Stream<QuerySnapshot> fetchOutgoingAsStream() {
+  //   return listref.orderBy('createdAt', descending: true).snapshots();
+  // } 
+   Stream<List<Outgoing>> fetchOutgoingAsStream() {
+    return listref.orderBy('createdAt', descending: true).snapshots().map((snapshot) {
+      return snapshot.documents
+          .map<Outgoing>((doc) => Outgoing.fromMap(doc.data, doc.documentID))
+          .toList();
+    });
   }
 
  
@@ -38,7 +46,7 @@ class OutgoingService with ChangeNotifier {
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
-      return snapshot.documents
+         return snapshot.documents
           .map<Outgoing>((doc) => Outgoing.fromMap(doc.data, doc.documentID))
           .toList();
     });
@@ -57,9 +65,9 @@ class OutgoingService with ChangeNotifier {
     });
   }
 
-  Stream<List<Outgoing>> mounthlyOutgoingAsStream() {
+  Stream<List<Outgoing>> monthlyOutgoingAsStream() {
     return listref
-        .where("createdAt",isGreaterThanOrEqualTo:DateTime.parse(DateFormat('yyyyMM01').format(DateTime.now())))
+        .where("createdAt",isGreaterThanOrEqualTo: DateTime.parse(DateFormat('yyyyMM01').format(DateTime.now())))
         .orderBy("createdAt", descending: true)
         .snapshots()
         .map((snapshot) {
@@ -76,6 +84,8 @@ class OutgoingService with ChangeNotifier {
 
   Future removeOutgoing(String id) async {
     await listref.document(id).delete();
+        notifyListeners();
+
     return;
   }
 
@@ -93,6 +103,8 @@ class OutgoingService with ChangeNotifier {
 
   Future addOutgoing(Outgoing data) async {
     var result = await listref.add(data.toJson());
+        notifyListeners();
+
     return result;
   }
 

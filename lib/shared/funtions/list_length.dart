@@ -8,10 +8,7 @@ import 'package:homesweethome/shared/funtions/get_total_outgoing.dart';
 
     if(list[i].outgoingdType=="Seyahat"){
       
-      print(getTotalOutgoing(list));
-    
-     
-     }
+      print(getTotalOutgoing(list)); }
   }
   return length;
 

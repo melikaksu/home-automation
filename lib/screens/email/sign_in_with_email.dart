@@ -8,9 +8,7 @@ import 'package:homesweethome/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class SignInWithEmail extends StatefulWidget {
- 
   
-
   @override
   _SignInWithEmailState createState() => _SignInWithEmailState();
 
@@ -32,7 +30,7 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
   @override
   Widget build(BuildContext context) {
     
-    final _auth = Provider.of<AuthService>(context,);
+    final _auth = Provider.of<AuthService>(context,listen: false);
 
     // Future<void> _signIn() async {
     //   User user = await _auth.signInWithEmail(_email, _password);
@@ -218,7 +216,7 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
                                                 builder:
                                                     (BuildContext context) =>
                                                         MyHomePage()));
-                                   }catch(e){
+                                   } catch(e){
 
                                      print("Errorr=> " + e.toString());
                                    }

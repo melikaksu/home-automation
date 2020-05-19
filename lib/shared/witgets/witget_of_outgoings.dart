@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/shared/funtions/get_total_outgoing.dart';
-import 'package:homesweethome/shared/funtions/list_length.dart';
 
 Widget containerWitgetofOutgoing(
     {BuildContext context, List<Outgoing> list, int index}) {
   // int _itemCount;
-  getListLength(list);
   return Stack(children: <Widget>[
     // The containers in the background
     Column(children: <Widget>[

@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
@@ -16,25 +15,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
+      SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    
     return MultiProvider(
       providers: [
-        // Provider<AuthService>(
-        //   create: (BuildContext context) => AuthService(),
-        // ),
 
         ChangeNotifierProvider<AuthService>(
           create: (BuildContext context) => AuthService(),
         ),
 
-        ChangeNotifierProvider<ListService>(
+         ChangeNotifierProvider<ListService>(
           create: (_) => ListService(),
-        ),
+         ),
 
-        Provider<FirebaseStorage>(
-          create: (BuildContext context) => FirebaseStorage(),
-        ),
         Provider<ImagePicker>(
           create: (BuildContext context) => ImagePicker(),
         ),
@@ -45,11 +39,12 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Giderler',
             theme: ThemeData(
+            
               cursorColor: Colors.black,
               // brightness: Brightness.dark,
               primarySwatch: Colors.cyan,
-              primaryColor: Colors.cyan,
-              accentColor: Color(0xff2d386b),
+              primaryColor: Colors.white,
+              accentColor: Colors.cyan,
             ),
             home: Wrapper(
               userSnapshot: snp,
