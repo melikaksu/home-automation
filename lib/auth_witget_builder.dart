@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/outgoing_service.dart';
 import 'package:provider/provider.dart';
