@@ -5,11 +5,52 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DailyOutgoing extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     List listOfCatagory = ["Seyahat", "Spor", "Alışveriş"];
 
     List<Outgoing> _outgoing = Provider.of<List<Outgoing>>(context);
+    
+   List<Outgoing> sortList(){
+     List<Outgoing> tempList=[];
+     String temp;
+        DateTime today = DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()));
+        List<Outgoing> list = [];
+      for (var i = 0; i < _outgoing.length; i++) {
+        if (_outgoing[i].createdAt.toDate().isAfter(today)) {
+          list.add(_outgoing[i]);
+        }
+      }
+      list.sort((a,b){
+        return a.outgoingdType.toLowerCase().compareTo(b.outgoingdType.toLowerCase());
+      });
+      for(var i=1;i<=list.length;i++){
+      var j=i-1;
+      temp=list[i-1].outgoingdType;
+       //alışveriş
+       print(i.toString());
+        print("temp: "+temp);
+
+      while(j>=0 && temp!=list[j+1].outgoingdType){
+       print("temp: "+temp);
+        tempList.add(list[j]);
+        print("TempList: "+tempList[j].outgoingdType);
+        temp=list[j+1].outgoingdType;
+        print("After temp: "+temp);
+        // list.skip(j+1);
+        j--;
+        }  
+        
+
+
+         }
+
+          
+      return  tempList;
+   } 
+
 
     List<Outgoing> getDailyOutgoings() {
       DateTime today =
@@ -37,9 +78,10 @@ class DailyOutgoing extends StatelessWidget {
         }
         armut[j + 1].outgoingdType = element;
       }
-
+      
       return armut;
     }
+
 
     return SingleChildScrollView(
       child: Column(
@@ -47,15 +89,19 @@ class DailyOutgoing extends StatelessWidget {
           Container(
               width: MediaQuery.of(context).size.width,
               height: 480,
+    
               child: ListView.builder(
-                itemCount: ctgOutgoing(getDailyOutgoings()).length,
+                itemCount: sortList().length,
                 itemBuilder: (BuildContext contex, int index) {
                   return containerWitgetofOutgoing(
                       context: context,
                       index: index,
-                      list: ctgOutgoing(getDailyOutgoings()));
+                      list: sortList());
                 },
-              )),
+              )
+              
+              ),
+        
         ],
       ),
     );
