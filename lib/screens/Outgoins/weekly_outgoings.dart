@@ -11,7 +11,6 @@ class WeeklyOutgoing extends StatelessWidget {
     List<Outgoing> _listoutgoing = Provider.of<List<Outgoing>>(context);
 
     List<Outgoing> getWeeklyOutgoings() {
-      print("object");
       var monday = DateTime.parse(DateFormat('yyyyMMdd').format(getMonday()));
       var sunday = DateTime.parse(getSunday().toString());
       List<Outgoing> list = [];

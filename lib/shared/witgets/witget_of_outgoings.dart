@@ -131,7 +131,8 @@ Widget todoType(String icontype) {
     case 'Diğer':
       iconval = FontAwesomeIcons.glassCheers;
       colorval = Color(0xff9962d0);
-      break;case 'Spor':
+      break;
+    case 'Spor':
       iconval = FontAwesomeIcons.dumbbell;
       colorval = Color(0xff9962d0);
       break;
