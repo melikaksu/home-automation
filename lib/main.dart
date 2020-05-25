@@ -5,7 +5,6 @@ import 'package:homesweethome/auth_witget_builder.dart';
 import 'package:homesweethome/services/auth.dart';
 import 'package:homesweethome/services/list_service.dart';
 import 'package:homesweethome/wrapper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -30,9 +29,9 @@ class MyApp extends StatelessWidget {
           create: (_) => ListService(),
          ),
 
-        Provider<ImagePicker>(
-          create: (BuildContext context) => ImagePicker(),
-        ),
+        // Provider<ImagePicker>(
+        //   create: (BuildContext context) => ImagePicker(),
+        // ),
       ],
       child: AuthWidgetBuilder(
         builder: (cntx, snp) {

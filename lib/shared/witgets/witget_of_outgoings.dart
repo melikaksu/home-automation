@@ -36,7 +36,8 @@ Widget containerWitgetofOutgoing(
                           child: Container(
                               width: (MediaQuery.of(context).size.width - 48) *
                                   0.15,
-                              child: todoType('${list[index].outgoingdType}')),
+                                  // list?.elementAt(<index>) ?? ""
+                              child: todoType(list[index].outgoingdType)),
                         ),
                         Container(
                           width:
@@ -51,13 +52,13 @@ Widget containerWitgetofOutgoing(
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Text(
-                                      '${list[index].outgoingdType}',
+                                      list[index].outgoingdType,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      '${list[index].outgoingName}',
+                                      list[0].outgoingName,
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 10),
                                     ),

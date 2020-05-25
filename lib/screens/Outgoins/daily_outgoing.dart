@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/models/catagory.dart';
 import 'package:homesweethome/models/outgoing.dart';
+import 'package:homesweethome/shared/witgets/witget_of_outgoings.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DailyOutgoing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Catagory catagory= Catagory();
+    Catagory catagory = Catagory();
     List<Outgoing> _outgoing = Provider.of<List<Outgoing>>(context);
+
     List<List<Outgoing>> getByType() {
       DateTime today =
           DateTime.parse(DateFormat('yyyyMMdd').format(DateTime.now()));
@@ -23,22 +25,23 @@ class DailyOutgoing extends StatelessWidget {
         if (_outgoing[i].createdAt.toDate().isAfter(today)) {
           // _outgoing.sort((a, b) => a.outgoingdType.compareTo(b.outgoingdType));
 
-          if (_outgoing[i].outgoingdType ==  
-          "Alışveriş") {
+          if (_outgoing[i].outgoingdType == catagory.shpping) {
             shopList.add(_outgoing[i]);
-            print("$i shop "+shopList[i].outgoingdType);
-          } 
-           if (_outgoing[i].outgoingdType == catagory.aduqation) {
+          }
+          if (_outgoing[i].outgoingdType == catagory.aduqation) {
             eduList.add(_outgoing[i]);
-            print("Edu "+eduList[i].outgoingdType);
-          } 
-           if (_outgoing[i].outgoingdType == catagory.health) {
+            // print("Edu "+eduList[i].outgoingdType);
+          }
+          if (_outgoing[i].outgoingdType == catagory.health) {
             healthList.add(_outgoing[i]);
-          } if (_outgoing[i].outgoingdType == catagory.travel) {
+          }
+          if (_outgoing[i].outgoingdType == catagory.travel) {
             travelList.add(_outgoing[i]);
-          }  if (_outgoing[i].outgoingdType == catagory.sport) {
+          }
+          if (_outgoing[i].outgoingdType == catagory.sport) {
             sportList.add(_outgoing[i]);
-          }   if (_outgoing[i].outgoingdType == catagory.others) {
+          }
+          if (_outgoing[i].outgoingdType == catagory.others) {
             othersList.add(_outgoing[i]);
           }
         }
@@ -46,18 +49,22 @@ class DailyOutgoing extends StatelessWidget {
 
       if (shopList.isNotEmpty) {
         totalList.add(shopList);
-      }  if (eduList.isNotEmpty) {
+      }
+      if (eduList.isNotEmpty) {
         totalList.add(eduList);
-      } 
-       if (healthList.isNotEmpty) {
+      }
+      if (healthList.isNotEmpty) {
         totalList.add(healthList);
-      } if (othersList.isNotEmpty) {
+      }
+      if (othersList.isNotEmpty) {
         totalList.add(othersList);
-      }  if (travelList.isNotEmpty) {
+      }
+      if (travelList.isNotEmpty) {
         totalList.add(travelList);
-      }  if (sportList.isNotEmpty) {
+      }
+      if (sportList.isNotEmpty) {
         totalList.add(sportList);
-      } 
+      }
 
       // for (var i = 0; i < totalList.length; i++) {
       //   print(totalList[i][i]);
@@ -104,8 +111,17 @@ class DailyOutgoing extends StatelessWidget {
               child: ListView.builder(
                 itemCount: getByType().length,
                 itemBuilder: (BuildContext contex, int index) {
-
-                  return ListTile(title: Text(getByType()[index][0].outgoingdType),);
+                  return Padding(
+                    padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 5.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      child: Card(
+                          color: Colors.blueGrey[200],
+                          child: ListTile(
+                            title: Text(getByType()[index][0].outgoingdType),
+                          )),
+                    ),
+                  );
                   // containerWitgetofOutgoing(
                   //     context: context, index: index, list: getByType()[index]);
                 },
