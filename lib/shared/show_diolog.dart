@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class Dialogs {
   informations(BuildContext context, String title, String description) {
     TextEditingController _nameController = TextEditingController();
-    GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
+    // GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
     var listProvider = Provider.of<FirestoreDatabase>(context, listen: false);
     Timestamp createdAt = Timestamp.now();
 

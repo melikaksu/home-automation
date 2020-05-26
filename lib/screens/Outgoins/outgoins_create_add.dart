@@ -97,57 +97,57 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: <Widget>[
-            //     Expanded(
-            //       child: Container(
-            //         // width: MediaQuery.of(context).size.width,
-            //         color: Colors.cyan,
-            //         height: 80,
-            //         child: ListView.builder(
-            //           scrollDirection: Axis.horizontal,
-            //           itemBuilder: (BuildContext context, int index) {
-            //             return Padding(
-            //               padding: const EdgeInsets.only(top: 20.0),
-            //               child: Container(
-            //                 width: 50,
-            //                 child: Card(
-            //                   color: Colors.blueGrey[200],
-            //                   child: Center(
-            //                     child: Icon(
-            //                       Icons.add_a_photo,
-            //                       color: Colors.deepOrange,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             );
-            //           },
-            //           itemCount: 20,
-            //         ),
-            //       ),
-            //     ),
-            //     Container(
-            //       height: 80,
-            //       color: Colors.blue,
-            //       child: Container(
-            //      padding: const EdgeInsets.only(top: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    // width: MediaQuery.of(context).size.width,
+                    color: Colors.cyan,
+                    height: 80,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Container(
+                            width: 50,
+                            child: Card(
+                              color: Colors.blueGrey[200],
+                              child: Center(
+                                child: Icon(
+                                  Icons.add_a_photo,
+                                  color: Colors.deepOrange,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: 20,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 80,
+                  color: Colors.blue,
+                  child: Container(
+                 padding: const EdgeInsets.only(top: 20.0),
 
-            //         width: 50,
-            //         child: Card(
-            //           color: Colors.blueGrey[200],
-            //           child: Center(
-            //             child: Icon(
-            //               Icons.shopping_basket,
-            //               color: Colors.deepOrange,
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+                    width: 50,
+                    child: Card(
+                      color: Colors.blueGrey[200],
+                      child: Center(
+                        child: Icon(
+                          Icons.shopping_basket,
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -189,177 +189,177 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Expanded(
-                                          child: GridView.count(
-                        crossAxisCount: 4,
-                        children: <Widget>[
+                    // Expanded(
+                    //                       child: GridView.count(
+                    //     crossAxisCount: 4,
+                    //     children: <Widget>[
 
                   
-                          ListView.builder(
-                            itemCount: 20,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Card(
-                                child: Icon(Icons.add_to_home_screen),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
+                    //       ListView.builder(
+                    //         itemCount: 20,
+                    //         itemBuilder: (BuildContext context, int index) {
+                    //           return Card(
+                    //             child: Icon(Icons.add_to_home_screen),
+                    //           );
+                    //         },
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
 
 /////////////////////////////////////////////////////////////////////////
 
-//                     Column(
-//                       mainAxisSize: MainAxisSize.max,
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: <Widget>[
-//                         Row(
-//                           mainAxisSize: MainAxisSize.max,
-//                           children: <Widget>[
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 1,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xff4158ba),
-//                                   ),
-//                                   Text(
-//                                     'Seyahat',
-//                                     style: TextStyle(fontSize: 16.0),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 2,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xfffb537f),
-//                                   ),
-//                                   Text(
-//                                     'Spor',
-//                                     style: TextStyle(
-//                                       fontSize: 16.0,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 1,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xff4158ba),
+                                  ),
+                                  Text(
+                                    'Seyahat',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 2,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xfffb537f),
+                                  ),
+                                  Text(
+                                    'Spor',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
 
-// /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
-//                         Row(
-//                           mainAxisSize: MainAxisSize.max,
-//                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                           children: <Widget>[
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 3,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xff4caf50),
-//                                   ),
-//                                   Text(
-//                                     'Alışveriş',
-//                                     style: TextStyle(fontSize: 16.0),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 4,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xff9962d0),
-//                                   ),
-//                                   Text(
-//                                     'Eğitim',
-//                                     style: TextStyle(fontSize: 16.0),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 3,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xff4caf50),
+                                  ),
+                                  Text(
+                                    'Alışveriş',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 4,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xff9962d0),
+                                  ),
+                                  Text(
+                                    'Eğitim',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
 
-// /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
-//                         Row(
-//                           mainAxisSize: MainAxisSize.max,
-//                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                           children: <Widget>[
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 5,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xff0dc8f5),
-//                                   ),
-//                                   Text(
-//                                     'Sağlık',
-//                                     style: TextStyle(fontSize: 16.0),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.only(left: 40),
-//                               width: MediaQuery.of(context).size.width * 0.5,
-//                               child: Row(
-//                                 mainAxisSize: MainAxisSize.max,
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: <Widget>[
-//                                   Radio(
-//                                     value: 6,
-//                                     groupValue: _myOutgoingType,
-//                                     onChanged: _handleOutgoingType,
-//                                     activeColor: Color(0xff0dc8f5),
-//                                   ),
-//                                   Text(
-//                                     'Diğer',
-//                                     style: TextStyle(fontSize: 16.0),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ],
-//                     ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 5,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xff0dc8f5),
+                                  ),
+                                  Text(
+                                    'Sağlık',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 40),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Radio(
+                                    value: 6,
+                                    groupValue: _myOutgoingType,
+                                    onChanged: _handleOutgoingType,
+                                    activeColor: Color(0xff0dc8f5),
+                                  ),
+                                  Text(
+                                    'Diğer',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
 /////////////////////////////////////////////////////////////////////////
 
                     Padding(

@@ -52,7 +52,7 @@ class FirestoreDatabase with ChangeNotifier {
   //   return expenseRef.orderBy('createdAt', descending: true).snapshots();
   // } 
    Stream<List<Outgoing>> fetchOutgoingAsStream() {
-    return expenseRef.orderBy('createdAt', descending: true).snapshots().map((snapshot) {
+    return entries.orderBy('createdAt', descending: true).snapshots().map((snapshot) {
       return snapshot.documents
           .map<Outgoing>((doc) => Outgoing.fromMap(doc.data, doc.documentID))
           .toList();
@@ -61,12 +61,12 @@ class FirestoreDatabase with ChangeNotifier {
 
  
   Future<Outgoing> getDocumentById(String id) async {
-    var doc = await expenseRef.document(id).get();
+    var doc = await entries.document(id).get();
     return Outgoing.fromMap(doc.data, doc.documentID);
   }
 
   Future removeOutgoing(String id) async {
-    await expenseRef.document(id).delete();
+    await entries.document(id).delete();
         notifyListeners();
 
     return;
@@ -74,7 +74,7 @@ class FirestoreDatabase with ChangeNotifier {
 
   Future updateOutgoing(Outgoing data, String id) async {
     try {
-      await expenseRef.document(id).updateData(data.toJson());
+      await entries.document(id).updateData(data.toJson());
       data.updatedAt = Timestamp.now();
       data.createdAt = data.updatedAt;
       return;
@@ -85,9 +85,8 @@ class FirestoreDatabase with ChangeNotifier {
   }
 
   Future addOutgoing(Outgoing data) async {
-    var result = await expenseRef.add(data.toJson());
+    var result = await entries.add(data.toJson());
         notifyListeners();
-
     return result;
   }
 

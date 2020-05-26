@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
-
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/wrapper.dart';
 import 'package:provider/provider.dart';
 
