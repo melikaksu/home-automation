@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class _AddListState extends State<AddList> {
   Widget build(BuildContext context) {
     // final user = Provider.of<User>(context);
     List<MyList> myList;
-    final listProvider = Provider.of<ListService>(context);
+    final listProvider = Provider.of<FirestoreDatabase>(context);
 
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 

@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/screens/Outgoins/all_outgoings.dart';
 import 'package:homesweethome/screens/Outgoins/outgoins_create_add.dart';
-import 'package:homesweethome/services/outgoing_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_appbar.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class OutgoingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Outgoing> _listOfOutgoings; //_outgoings;
-    OutgoingService outgoingProvider = Provider.of<OutgoingService>(context);
+    FirestoreDatabase outgoingProvider = Provider.of<FirestoreDatabase>(context);
 
     return DefaultTabController(
       length: 4,

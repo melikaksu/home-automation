@@ -3,7 +3,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:homesweethome/shared/show_diolog.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +26,7 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final listProvider = Provider.of<ListService>(context);
+    final listProvider = Provider.of<FirestoreDatabase>(context);
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(

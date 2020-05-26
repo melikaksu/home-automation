@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/outgoing_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 
@@ -25,8 +25,8 @@ import 'models/user.dart';
             providers: [
               Provider<User>.value(value: user),
               // Provider<List<Outgoing>>.value(value: null),
-              ChangeNotifierProvider<OutgoingService>(
-                create: (_) => OutgoingService(),
+              ChangeNotifierProvider<FirestoreDatabase>(
+                create: (_) => FirestoreDatabase(user.userUid),
               ),
             ],
             child: builder(context, snapshot),

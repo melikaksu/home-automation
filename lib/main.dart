@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:homesweethome/auth_witget_builder.dart';
 
 import 'package:homesweethome/services/auth.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => AuthService(),
         ),
 
-         ChangeNotifierProvider<ListService>(
-          create: (_) => ListService(),
-         ),
+        //  ChangeNotifierProvider<FirestoreDatabase>(
+        //   create: (_) => FirestoreDatabase(),
+        //  ),
 
         // Provider<ImagePicker>(
         //   create: (BuildContext context) => ImagePicker(),

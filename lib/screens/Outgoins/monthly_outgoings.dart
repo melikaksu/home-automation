@@ -15,7 +15,7 @@ class _MonthlyOutgoingState extends State<MonthlyOutgoing> {
   // StreamSubscription<QuerySnapshot> todoOutgoings;
   // @override
   // void initState() {
-  //   OutgoingService fireServ = new OutgoingService();
+  //   FirestoreDatabase fireServ = new FirestoreDatabase();
 
   //   _outgoings = new List();
   //   todoOutgoings?.cancel();
@@ -35,7 +35,7 @@ class _MonthlyOutgoingState extends State<MonthlyOutgoing> {
 
   @override
   Widget build(BuildContext context) {
-    //  OutgoingService outgoingProvider = Provider.of<OutgoingService>(context);
+    //  FirestoreDatabase outgoingProvider = Provider.of<FirestoreDatabase>(context);
     List<Outgoing> _listoutgoing = Provider.of<List<Outgoing>>(context);
     List<Outgoing> getMonthlyOutgoings() {
       DateTime firstOfMount =

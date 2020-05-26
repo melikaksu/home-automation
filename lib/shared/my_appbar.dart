@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homesweethome/models/category.dart';
+import 'package:homesweethome/services/firestore_service.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
    AppBar myAppbar () {
     
@@ -22,13 +26,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
                           fontSize: 25,
                           color: Color(0xff2d386b)),
                     ),
-                    actions: <Widget>[
-                      IconButton(
+                    actions: <Widget>[ Builder(builder: (BuildContext context) {
+                      var dat=Provider.of<FirestoreDatabase>(context);  
+                      return IconButton(
                           icon: Icon(
                             FontAwesomeIcons.shareAlt,
                             color: Color(0xff2d386b),
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            dat.createCategory( Category(
+              id: Uuid().v4(),
+              name: "first",
+              icon: "iconName",
+              color:  Colors.black12, 
+              type:   CategoryType.EXPENSE
+            ),);
+                                         });
+                    },)
+                      
                     
                     ],
                     elevation: 0.0,

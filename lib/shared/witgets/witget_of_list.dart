@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/screens/ShoppingList/list_details.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 Widget witgetofList({BuildContext context, List list}) {
-  var listProvider = Provider.of<ListService>(context);
+  var listProvider = Provider.of<FirestoreDatabase>(context);
   // int _itemCount;
 
   return SingleChildScrollView 

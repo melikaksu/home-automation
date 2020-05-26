@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homesweethome/models/catagory.dart';
+import 'package:homesweethome/models/category.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/shared/witgets/witget_of_outgoings.dart';
 import 'package:intl/intl.dart';
@@ -111,19 +111,21 @@ class DailyOutgoing extends StatelessWidget {
               child: ListView.builder(
                 itemCount: getByType().length,
                 itemBuilder: (BuildContext contex, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 5.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      child: Card(
-                          color: Colors.blueGrey[200],
-                          child: ListTile(
-                            title: Text(getByType()[index][0].outgoingdType),
-                          )),
-                    ),
-                  );
-                  // containerWitgetofOutgoing(
-                  //     context: context, index: index, list: getByType()[index]);
+                  return 
+                  
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 5.0),
+                  //   child: ClipRRect(
+                  //     borderRadius: BorderRadius.all(Radius.circular(30)),
+                  //     child: Card(
+                  //         color: Colors.blueGrey[200],
+                  //         child: ListTile(
+                  //           title: Text(getByType()[index][0].outgoingdType),
+                  //         )),
+                  //   ),
+                  // );
+                  containerWitgetofOutgoing(
+                      context: context, index: index, list: getByType()[index]);
                 },
               )),
         ],

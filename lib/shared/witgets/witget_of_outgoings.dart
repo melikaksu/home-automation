@@ -37,7 +37,7 @@ Widget containerWitgetofOutgoing(
                               width: (MediaQuery.of(context).size.width - 48) *
                                   0.15,
                                   // list?.elementAt(<index>) ?? ""
-                              child: todoType(list[index].outgoingdType)),
+                              child: todoType(list[index].toString().isNotEmpty?list[index].outgoingdType:"")),
                         ),
                         Container(
                           width:

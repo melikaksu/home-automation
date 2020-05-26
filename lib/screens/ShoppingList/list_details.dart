@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +42,7 @@ class _ListDetailsState extends State<ListDetails> {
 
   @override
   void initState() {
-    final listProvider = Provider.of<ListService>(context, listen: false);
+    final listProvider = Provider.of<FirestoreDatabase>(context, listen: false);
     if (listProvider.currentMyList != null) {
       currentMyList = listProvider.currentMyList;
           // subList=currentMyList.subList;
@@ -60,7 +60,7 @@ class _ListDetailsState extends State<ListDetails> {
 
   @override
   Widget build(BuildContext context) {
-    // final listProvider = Provider.of<ListService>(context);
+    // final listProvider = Provider.of<FirestoreDatabase>(context);
     // currentMyList=listProvider.currentMyList;
 
     return Scaffold(

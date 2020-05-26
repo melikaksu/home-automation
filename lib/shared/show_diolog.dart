@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/list.dart';
-import 'package:homesweethome/services/list_service.dart';
+import 'package:homesweethome/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 class Dialogs {
   informations(BuildContext context, String title, String description) {
     TextEditingController _nameController = TextEditingController();
     GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
-    var listProvider = Provider.of<ListService>(context, listen: false);
+    var listProvider = Provider.of<FirestoreDatabase>(context, listen: false);
     Timestamp createdAt = Timestamp.now();
 
     return showDialog(
