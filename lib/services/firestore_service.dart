@@ -9,20 +9,25 @@ import 'package:flutter/cupertino.dart';
 
 
 class FirestoreDatabase with ChangeNotifier {
-  static String userUid;
+  // static String userUid;
   final String userId;
   final CollectionReference categories;
   final CollectionReference entries;
-
-  
-   
+  final CollectionReference lists;
 
         FirestoreDatabase(this.userId)
         : this.entries =
-            Firestore.instance.collection("users").document(userId).collection("entry"),  
+            Firestore.instance.collection("users").document(userId).collection("entry"),
+        this.lists =
+            Firestore.instance.collection("users").document(userId).collection("lists"),  
         this.categories =
              Firestore.instance.collection("users").document(userId).collection("category");
   
+//-------------------------------------------------------------------------------------------------------------
+// CREATE CATEGORIES
+//
+//-------------------------------------------------------------------------------------------------------------
+
   Future<QuerySnapshot> getCategories() async {
     return categories.orderBy('name', descending: false).getDocuments();
   }
@@ -35,15 +40,18 @@ class FirestoreDatabase with ChangeNotifier {
       'type': category.type.index,
     });
   }
-  CollectionReference listref=Firestore.instance.collection("list");
-  CollectionReference expenseRef = Firestore.instance.collection("outgoings");
+  // CollectionReference listref=Firestore.instance.collection("list");
+  // CollectionReference expenseRef = Firestore.instance.collection("outgoings");
 
   // CollectionReference newList=  Firestore.instance.collection("list").document("userUid").collection('elements');
   //  Firestore.instance.collection('path').document("documentPath").collection('subCollectionPath').setData({});
 
+//-------------------------------------------------------------------------------------------------------------
+// EXPENSE
+//
+//-------------------------------------------------------------------------------------------------------------
 
 
-///////////////////////////////////////////////////////////////////////////////
   Outgoing _currentOutgoingElement;
   List<Outgoing> listOfOutgoing;
 
@@ -60,10 +68,10 @@ class FirestoreDatabase with ChangeNotifier {
   }
 
  
-  Future<Outgoing> getDocumentById(String id) async {
-    var doc = await entries.document(id).get();
-    return Outgoing.fromMap(doc.data, doc.documentID);
-  }
+  // Future<Outgoing> getDocumentById(String id) async {
+  //   var doc = await entries.document(id).get();
+  //   return Outgoing.fromMap(doc.data, doc.documentID);
+  // }
 
   Future removeOutgoing(String id) async {
     await entries.document(id).delete();
@@ -104,14 +112,19 @@ class FirestoreDatabase with ChangeNotifier {
     notifyListeners();
   }
 
- ///////////////////////////////////////////////////////////////////////////////
+ //-------------------------------------------------------------------------------------------------------------
+ //
+ // LISTS
+ //
+ //-------------------------------------------------------------------------------------------------------------
+
+
  MyList _currentListElement= MyList();
  List<MyList> myList=[];
 
 
-
   Future<List<MyList>> fetchList() async {
-    var result = await listref.getDocuments();
+    var result = await lists.getDocuments();
     myList = result.documents
         .map((doc) => MyList.fromMap(doc.data, doc.documentID))
         .toList();
@@ -119,7 +132,7 @@ class FirestoreDatabase with ChangeNotifier {
   }
 
   Stream<QuerySnapshot> fetchListAsStream() {
-    return listref.orderBy('createdAt',descending:true)
+    return lists.orderBy('createdAt',descending:true)
     .snapshots();
   }
 
@@ -130,11 +143,11 @@ class FirestoreDatabase with ChangeNotifier {
 
 
   Future removeList(String id) async{
-     await listref.document(id).delete() ;
+     await lists.document(id).delete() ;
      return ;
   }
   Future updateList(MyList data,String id) async{
-     try{ await  listref.document(id).updateData(data.toJson());
+     try{ await  lists.document(id).updateData(data.toJson());
     data.updatedAt=Timestamp.now();
     data.createdAt= data.updatedAt;
     return ;
@@ -148,7 +161,7 @@ class FirestoreDatabase with ChangeNotifier {
   }
 
   Future addList(MyList data) async{
-    var result  = await listref.add(data.toJson()) ;
+    var result  = await lists.add(data.toJson()) ;
     return result;
   }
 
@@ -166,6 +179,10 @@ class FirestoreDatabase with ChangeNotifier {
      notifyListeners();
    }
 
+//-------------------------------------------------------------------------------------------------------------
+//
+//
+//-------------------------------------------------------------------------------------------------------------
 
   // Future<List<Outgoing>> fetchOutgoing() async {
   //   var result = await expenseRef.getDocuments();

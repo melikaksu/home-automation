@@ -49,11 +49,12 @@ class _ListDetailsState extends State<ListDetails> {
 
      
 
-    } else {
+    } 
+    else {
       currentMyList = MyList();
     }
   
-      subList.addAll(listProvider.currentMyList.subList);
+    subList.addAll(listProvider.currentMyList.subList);
     
     super.initState();
   }
