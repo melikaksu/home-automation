@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,17 +7,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:homesweethome/models/outgoing.dart';
 import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
+import 'package:homesweethome/theme/create_category.dart';
+import 'package:homesweethome/theme/icons.dart';
 import 'package:provider/provider.dart';
 
 class CreateAndAddOutgoing extends StatefulWidget {
   final Outgoing outgoings;
-  CreateAndAddOutgoing([this.outgoings]);
+  final LinkedHashMap<String, IconData> assignableIcons;
+
+  CreateAndAddOutgoing([this.outgoings])
+      : this.assignableIcons = LinkedHashMap.from(icons)
+          ..removeWhere((key, value) => key == 'add');
 
   @override
   _CreateAndAddOutgoingState createState() => _CreateAndAddOutgoingState();
 }
 
 class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
+  int selected;
+  MapEntry<String,IconData> selectedIcon;
   Timestamp createdAt = Timestamp.now();
   String outgoingName;
   int outgoingQunatity;
@@ -85,10 +95,14 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                 onPressed: () {}),
             IconButton(
                 icon: Icon(
-                  FontAwesomeIcons.cogs,
+                  FontAwesomeIcons.plusSquare,
                   color: Color(0xff2d386b),
                 ),
-                onPressed: () {})
+                onPressed: () {
+
+                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { return CreateCategory(); }));
+
+                })
           ],
           elevation: 0.0,
           backgroundColor: Colors.transparent,
@@ -110,21 +124,35 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(top: 20.0),
-                          child: Container(
-                            width: 50,
-                            child: Card(
-                              color: Colors.blueGrey[200],
-                              child: Center(
-                                child: Icon(
-                                  Icons.add_a_photo,
-                                  color: Colors.deepOrange,
+                          child: GestureDetector(
+                            onTap: () {
+                          
+                              setState(() {
+                                selected = index;
+                                selectedIcon= widget.assignableIcons.entries
+                                        .toList()[selected];
+                                        print(selectedIcon);
+
+                              });
+                            },
+                            child: Container(
+                              width: 50,
+                              child: Card(
+                                color: Colors.blueGrey[200],
+                                child: Center(
+                                  child: Icon(
+                                    widget.assignableIcons.entries
+                                        .toList()[index]
+                                        .value,
+                                    color: Colors.deepOrange,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         );
                       },
-                      itemCount: 20,
+                      itemCount: widget.assignableIcons.entries.toList().length,
                     ),
                   ),
                 ),
@@ -132,8 +160,7 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                   height: 80,
                   color: Colors.blue,
                   child: Container(
-                 padding: const EdgeInsets.only(top: 20.0),
-
+                    padding: const EdgeInsets.only(top: 20.0),
                     width: 50,
                     child: Card(
                       color: Colors.blueGrey[200],
@@ -189,12 +216,12 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                     SizedBox(
                       height: 10.0,
                     ),
+
                     // Expanded(
                     //                       child: GridView.count(
                     //     crossAxisCount: 4,
                     //     children: <Widget>[
 
-                  
                     //       ListView.builder(
                     //         itemCount: 20,
                     //         itemBuilder: (BuildContext context, int index) {
@@ -392,12 +419,13 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                               onPressed: () async {
                                 await fireServ
                                     .addOutgoing(Outgoing(
+                                        outgoingCategoryId: selectedIcon.key,
                                         createdAt: createdAt,
                                         outgoingName: _nameController.text,
                                         outgoingQuan:
                                             int.parse(_quantityController.text),
                                         outgoingdType: outgoingVal))
-                                    .then((_) => Navigator.of(context).pop());
+                                      .then((_) => Navigator.of(context).pop());
 
                                 // fireServ
                                 //     .createOutgoingList(

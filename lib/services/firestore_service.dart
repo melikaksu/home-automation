@@ -37,7 +37,7 @@ class FirestoreDatabase with ChangeNotifier {
       'name': category.name,
       'icon': category.icon,
       'color': category.color.value,
-      'type': category.type.index,
+      // 'type': category.type.index,
     });
   }
   // CollectionReference listref=Firestore.instance.collection("list");

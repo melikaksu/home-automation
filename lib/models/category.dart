@@ -24,7 +24,7 @@ class Category {
     @required this.name,
     @required this.icon,
     @required this.color,
-    @required this.type,
+    this.type,
   });
 
   static fromSnapshot(DocumentSnapshot document) {
