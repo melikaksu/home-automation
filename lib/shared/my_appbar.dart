@@ -39,7 +39,6 @@ import 'package:uuid/uuid.dart';
               name: "first",
               icon: "iconName",
               color:  Colors.black12, 
-              type:   CategoryType.EXPENSE
             ),);
                                          });
                     },)

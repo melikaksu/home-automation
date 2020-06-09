@@ -71,7 +71,7 @@ class _CreateCategoryState extends State<CreateCategory> {
                     id: Uuid().v4(),
                     name: name,
                     icon: _iconName,
-                    color: Colors.blueAccent,
+                    color: _mainColor,
                   ));
                 })
           ],

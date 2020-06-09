@@ -1,12 +1,14 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:homesweethome/models/category.dart';
 import 'package:homesweethome/models/outgoing.dart';
+import 'package:homesweethome/notifiers/category_notifier.dart';
 import 'package:homesweethome/services/firestore_service.dart';
 import 'package:homesweethome/shared/my_drawer.dart';
+import 'package:homesweethome/theme/category.dart';
 import 'package:homesweethome/theme/create_category.dart';
 import 'package:homesweethome/theme/icons.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class CreateAndAddOutgoing extends StatefulWidget {
 
 class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
   int selected;
-  MapEntry<String,IconData> selectedIcon;
+  MapEntry<String, IconData> selectedIcon;
   Timestamp createdAt = Timestamp.now();
   String outgoingName;
   int outgoingQunatity;
@@ -63,7 +65,11 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
 
   @override
   Widget build(BuildContext context) {
-    final fireServ = Provider.of<FirestoreDatabase>(context, listen: false);
+    LinkedHashMap<String, IconData> assignableIcons = LinkedHashMap.from(icons);
+    List<Category> category = [];
+    FirestoreDatabase fireServ =
+        Provider.of<FirestoreDatabase>(context, listen: false);
+    CategoryNotifier categoryNotifier = Provider.of<CategoryNotifier>(context);
 
     return Scaffold(
         drawer: MyDrawer(),
@@ -99,9 +105,10 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                   color: Color(0xff2d386b),
                 ),
                 onPressed: () {
-
-                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { return CreateCategory(); }));
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return CreateCategory();
+                  }));
                 })
           ],
           elevation: 0.0,
@@ -111,111 +118,150 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    // width: MediaQuery.of(context).size.width,
-                    color: Colors.cyan,
-                    height: 80,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: GestureDetector(
-                            onTap: () {
-                          
-                              setState(() {
-                                selected = index;
-                                selectedIcon= widget.assignableIcons.entries
-                                        .toList()[selected];
-                                        print(selectedIcon);
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: <Widget>[
+            //     Expanded(
+            //       child: Container(
+            //         // width: MediaQuery.of(context).size.width,
+            //         color: Colors.cyan,
+            //         height: 80,
+            //         child: ListView.builder(
+            //           scrollDirection: Axis.horizontal,
+            //           itemBuilder: (BuildContext context, int index) {
+            //             return Padding(
+            //               padding: const EdgeInsets.only(top: 20.0),
+            //               child: GestureDetector(
+            //                 onTap: () {
 
-                              });
-                            },
-                            child: Container(
-                              width: 50,
-                              child: Card(
-                                color: Colors.blueGrey[200],
-                                child: Center(
-                                  child: Icon(
-                                    widget.assignableIcons.entries
-                                        .toList()[index]
-                                        .value,
-                                    color: Colors.deepOrange,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: widget.assignableIcons.entries.toList().length,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 80,
-                  color: Colors.blue,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    width: 50,
-                    child: Card(
-                      color: Colors.blueGrey[200],
-                      child: Center(
-                        child: Icon(
-                          Icons.shopping_basket,
-                          color: Colors.deepOrange,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            //                   setState(() {
+            //                     selected = index;
+            //                     selectedIcon= widget.assignableIcons.entries
+            //                             .toList()[selected];
+            //                             print(selectedIcon);
+
+            //                   });
+            //                 },
+            //                 child: Container(
+            //                   width: 50,
+            //                   child: Card(
+            //                     color: Colors.blueGrey[200],
+            //                     child: Center(
+            //                       child: Icon(
+            //                         widget.assignableIcons.entries
+            //                             .toList()[index]
+            //                             .value,
+            //                         color: Colors.deepOrange,
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           },
+            //           itemCount: widget.assignableIcons.entries.toList().length,
+            //         ),
+            //       ),
+            //     ),
+            //     Container(
+            //       height: 80,
+            //       color: Colors.blue,
+            //       child: Container(
+            //         padding: const EdgeInsets.only(top: 20.0),
+            //         width: 50,
+            //         child: Card(
+            //           color: Colors.blueGrey[200],
+            //           child: Center(
+            //             child: Icon(
+            //               Icons.shopping_basket,
+            //               color: Colors.deepOrange,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: TextFormField(
-                        onSaved: (a) => outgoingName = a,
-                        controller: _nameController,
-                        decoration: InputDecoration(labelText: "Açıklama: "),
-                      ),
-                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: TextFormField(
+                              onSaved: (a) => outgoingName = a,
+                              controller: _nameController,
+                              decoration:
+                                  InputDecoration(labelText: "Açıklama: "),
+                            ),
+                          ),
 /////////////////////////////////////////////////////////////////////////
 
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: TextFormField(
-                        onSaved: (a) => outgoingQunatity = int.parse(a),
-                        keyboardType: TextInputType.number,
-                        controller: _quantityController,
-                        decoration: InputDecoration(labelText: "Tutar: "),
-                      ),
-                    ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: TextFormField(
+                              onSaved: (a) => outgoingQunatity = int.parse(a),
+                              keyboardType: TextInputType.number,
+                              controller: _quantityController,
+                              decoration: InputDecoration(labelText: "Tutar: "),
+                            ),
+                          ),
 ////////////////////////////////////////////////////////////////////////
+                          SizedBox(
+                            height: 10.0,
+                          ),
+
+                          Center(
+                            child: Text(
+                              'Kategori seçiniz:',
+                              style: TextStyle(
+                                  fontSize: 20.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 10.0,
                     ),
-/////////////////////////////////////////////////////////////////////////
-
-                    Center(
-                      child: Text(
-                        'Kategori seçiniz:',
-                        style: TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Container(
+                        child: StreamBuilder(
+                            stream: fireServ.fetchgetCategoriesAsStream(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.active) {
+                                if (snapshot.hasData) {
+                                  category = snapshot.data;
+                                  return ListView.builder(
+                                    itemCount: category.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return ListTile(
+                                        leading:Icon(icons[category[index].icon],color: category[index].color,),
+                                        title: Text(category[index].name),
+                                        subtitle: Text(category[index].id),
+                                      );
+                                    },
+                                  );
+                                }
+                              }
+                              return Container();
+                            }),
                       ),
                     ),
 
-                    SizedBox(
-                      height: 10.0,
-                    ),
+/////////////////////////////////////////////////////////////////////////
+
+                    // SizedBox(
+                    //   height: 10.0,
+                    // ),
 
                     // Expanded(
                     //                       child: GridView.count(
@@ -236,157 +282,157 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
 
 /////////////////////////////////////////////////////////////////////////
 
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 1,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xff4158ba),
-                                  ),
-                                  Text(
-                                    'Seyahat',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 2,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xfffb537f),
-                                  ),
-                                  Text(
-                                    'Spor',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+//                       Column(
+//                       mainAxisSize: MainAxisSize.max,
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Row(
+//                           mainAxisSize: MainAxisSize.max,
+//                           children: <Widget>[
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 1,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xff4158ba),
+//                                   ),
+//                                   Text(
+//                                     'Seyahat',
+//                                     style: TextStyle(fontSize: 16.0),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 2,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xfffb537f),
+//                                   ),
+//                                   Text(
+//                                     'Spor',
+//                                     style: TextStyle(
+//                                       fontSize: 16.0,
+//                                     ),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
 
-/////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////
 
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 3,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xff4caf50),
-                                  ),
-                                  Text(
-                                    'Alışveriş',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 4,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xff9962d0),
-                                  ),
-                                  Text(
-                                    'Eğitim',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+//                         Row(
+//                           mainAxisSize: MainAxisSize.max,
+//                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                           children: <Widget>[
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 3,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xff4caf50),
+//                                   ),
+//                                   Text(
+//                                     'Alışveriş',
+//                                     style: TextStyle(fontSize: 16.0),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 4,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xff9962d0),
+//                                   ),
+//                                   Text(
+//                                     'Eğitim',
+//                                     style: TextStyle(fontSize: 16.0),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
 
-/////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////
 
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 5,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xff0dc8f5),
-                                  ),
-                                  Text(
-                                    'Sağlık',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 40),
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Radio(
-                                    value: 6,
-                                    groupValue: _myOutgoingType,
-                                    onChanged: _handleOutgoingType,
-                                    activeColor: Color(0xff0dc8f5),
-                                  ),
-                                  Text(
-                                    'Diğer',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+//                         Row(
+//                           mainAxisSize: MainAxisSize.max,
+//                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                           children: <Widget>[
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 5,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xff0dc8f5),
+//                                   ),
+//                                   Text(
+//                                     'Sağlık',
+//                                     style: TextStyle(fontSize: 16.0),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                             Container(
+//                               padding: EdgeInsets.only(left: 40),
+//                               width: MediaQuery.of(context).size.width * 0.5,
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.max,
+//                                 mainAxisAlignment: MainAxisAlignment.start,
+//                                 children: <Widget>[
+//                                   Radio(
+//                                     value: 6,
+//                                     groupValue: _myOutgoingType,
+//                                     onChanged: _handleOutgoingType,
+//                                     activeColor: Color(0xff0dc8f5),
+//                                   ),
+//                                   Text(
+//                                     'Diğer',
+//                                     style: TextStyle(fontSize: 16.0),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
 /////////////////////////////////////////////////////////////////////////
 
                     Padding(
@@ -425,7 +471,7 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
                                         outgoingQuan:
                                             int.parse(_quantityController.text),
                                         outgoingdType: outgoingVal))
-                                      .then((_) => Navigator.of(context).pop());
+                                    .then((_) => Navigator.of(context).pop());
 
                                 // fireServ
                                 //     .createOutgoingList(
@@ -449,35 +495,3 @@ class _CreateAndAddOutgoingState extends State<CreateAndAddOutgoing> {
         ));
   }
 }
-
-// getRatio(int value, groupValue, void _handleOutgoingType(int), list) {
-//   for (int i = 0; i < value; i++) {
-//     if (i == value) {
-//       return Row(
-//         mainAxisAlignment: MainAxisAlignment.start,
-//         children: <Widget>[
-//           Radio(
-//             value: i,
-//             groupValue: groupValue,
-//             onChanged: _handleOutgoingType,
-//             activeColor: Color(0xff4158ba),
-//           ),
-//           Text(
-//             list[i],
-//             style: TextStyle(fontSize: 16.0),
-//           ),
-//           // Expanded(
-//           //   child: ListTile(
-//           //     trailing: Switch(
-//           //         activeColor: Color(0xffff0863),
-//           //         value: false,
-//           //         onChanged: (a) {}),
-//           //   ),
-//           // ),
-//         ],
-//       );
-//     } else {
-//       return getRatio(value - 1, groupValue, _handleOutgoingType, list);
-//     }
-//   }
-// }

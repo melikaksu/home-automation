@@ -31,6 +31,16 @@ class FirestoreDatabase with ChangeNotifier {
   Future<QuerySnapshot> getCategories() async {
     return categories.orderBy('name', descending: false).getDocuments();
   }
+
+  Stream<List<Category>> fetchgetCategoriesAsStream() {
+    return categories.orderBy('name', descending: true).snapshots().map((snapshot) {
+      return snapshot.documents
+          .map<Category>((doc) => Category.fromMap(doc.data,doc.documentID))
+          .toList();
+    });
+  }
+
+
    void createCategory(Category category) {
     categories.reference().document(category.id).setData({
       'id': category.id,
